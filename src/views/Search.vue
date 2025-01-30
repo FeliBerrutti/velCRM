@@ -7,19 +7,22 @@
             <div id="searchContainerLabel">
                 DNI:
             </div>
-            <input id="searchContainerInput" type="text"/>
-            <button id="searchContainerButton">BUSCAR</button>
+            <input v-model="customerID" id="searchContainerInput" type="text"/>
+            <button id="searchContainerButton"
+                    @click="fetchCustomerData">BUSCAR</button>
         </div>
         <div id="searchViewResultsLabel">
             <b>Resultados</b>
         </div>
-        <div id="resultsContainer">
+        <div id="resultsContainer"
+            v-if="customerDataArray">
             <div class="resultContent"
-                        v-for="(x, index) in resultValueList" :key="index">
+                        v-for="(x, index) in customerDataArray" :key="index">
                 <div class="resultContentLabel">
                     {{ x }}
                 </div>
                 <div class="resultContentValue">
+                    {{ customerDataArray.value[index] }}
                 </div>
             </div>
             <!-- <div id="resultContentValueObservations">
@@ -33,6 +36,9 @@
                     </div>
                 </div>
             </div> -->
+        </div>
+        <div v-if="errorMessage">
+            {{ errorMessage }}
         </div>
     </div>
 </template>
@@ -155,6 +161,50 @@
 </style>
 
 <script setup>
+    import axios from 'axios';
+    import { ref } from 'vue';
+
+    const customerID = ref('');
+    const customerDataArray = ref(null);
+    const errorMessage = ref('');
+
+    const fetchCustomerData = async ()=>{
+        try{
+            const response = await axios.
+            get(`/api/Customer/${customerID.value}`);
+            const customerData = response.data;
+            customerDataArray.value = customerData.map(x => x.name,
+                                                            x.lastname,
+                                                            x.dni,
+                                                            x.birthday,
+                                                            x.registered,
+                                                            x.out,
+                                                            x.plan
+            );
+        }
+        catch (err){
+            errorMessage.value = err;
+            customerData.value = null;
+        }
+    };
+
+    function handleCustomerValue(index){
+        if(!customerData){
+            return 'Empty'
+        }
+        else{
+            switch(index){
+                case 0: return customerData.name;
+                case 1: return customerData.lastname;
+                case 2: return customerData.dni;
+                case 3: return customerData.birthday;
+                case 4: return customerData.registered;
+                case 5:return customerData.out;
+                case 6: return customerData.plan;
+            }
+        }
+    }
+
     const resultValueList = ['Nombre','Apellido',
                              'DNI', 'Nacimiento',
                              'Alta','Baja',
