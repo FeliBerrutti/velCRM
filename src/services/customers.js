@@ -15,6 +15,7 @@ export const addCustomer = async(name, lastName, DNI, plan)=>{
     try{
         const response = await axios.post(`/api/Customer/${name}/${lastName}/${DNI}/${plan}`);
         return response.data;
+        console.log(response.data)
     }
     catch(err){
         console.log('Error al registrar cliente');
