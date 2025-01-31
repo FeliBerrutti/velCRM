@@ -7,22 +7,35 @@
             <div id="searchContainerLabel">
                 DNI:
             </div>
-            <input v-model="customerID" id="searchContainerInput" type="text"/>
+            <input v-model="customerId" id="searchContainerInput" type="text"/>
             <button id="searchContainerButton"
-                    @click="fetchCustomerData">BUSCAR</button>
+                    @click="searchCustomer">BUSCAR</button>
         </div>
         <div id="searchViewResultsLabel">
             <b>Resultados</b>
         </div>
         <div id="resultsContainer"
-            v-if="customerDataArray">
+            v-if="customer">
             <div class="resultContent"
-                        v-for="(x, index) in customerDataArray" :key="index">
+                        v-for="(x, index) in customerList" :key="index"
+                        >
                 <div class="resultContentLabel">
                     {{ x }}
                 </div>
                 <div class="resultContentValue">
-                    {{ customerDataArray.value[index] }}
+                    {{ index === 0 ?
+                        customer[0].name :
+                        index === 1 ?
+                        customer[0].lastName :
+                        index === 2 ?
+                        customer[0].dni :
+                        index === 3 ?
+                        customer[0].birthday :
+                        index === 4 ?
+                        customer[0].registered :
+                        index === 5 ?
+                        customer[0].out :
+                        customer[0].plan }}
                 </div>
             </div>
             <!-- <div id="resultContentValueObservations">
@@ -36,9 +49,6 @@
                     </div>
                 </div>
             </div> -->
-        </div>
-        <div v-if="errorMessage">
-            {{ errorMessage }}
         </div>
     </div>
 </template>
@@ -161,53 +171,25 @@
 </style>
 
 <script setup>
-    import axios from 'axios';
     import { ref } from 'vue';
+    import { fetchCustomerById } from '@/services/customers';
 
-    const customerID = ref('');
-    const customerDataArray = ref(null);
-    const errorMessage = ref('');
+    const customerId = ref('');
+    const customer = ref(null);
+    const errorMsg = ref('');
+    const auxCustomer = ref([]);
 
-    const fetchCustomerData = async ()=>{
+    const searchCustomer = async() =>{
         try{
-            const response = await axios.
-            get(`/api/Customer/${customerID.value}`);
-            const customerData = response.data;
-            customerDataArray.value = customerData.map(x => x.name,
-                                                            x.lastname,
-                                                            x.dni,
-                                                            x.birthday,
-                                                            x.registered,
-                                                            x.out,
-                                                            x.plan
-            );
+            customer.value = await fetchCustomerById(customerId.value);
+            // console.log(customer);
+            errorMsg.value = '';
         }
-        catch (err){
-            errorMessage.value = err;
-            customerData.value = null;
+        catch(err){
+            errorMsg.value = err;
+            customer.value = null;
         }
     };
 
-    function handleCustomerValue(index){
-        if(!customerData){
-            return 'Empty'
-        }
-        else{
-            switch(index){
-                case 0: return customerData.name;
-                case 1: return customerData.lastname;
-                case 2: return customerData.dni;
-                case 3: return customerData.birthday;
-                case 4: return customerData.registered;
-                case 5:return customerData.out;
-                case 6: return customerData.plan;
-            }
-        }
-    }
-
-    const resultValueList = ['Nombre','Apellido',
-                             'DNI', 'Nacimiento',
-                             'Alta','Baja',
-                             'Plan'
-    ]
+    const customerList = ['Nombre','Apellido','DNI','Nacimiento','Alta','Baja','Plan'];
 </script>
