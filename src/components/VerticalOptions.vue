@@ -47,5 +47,5 @@
 </style>
 
 <script setup>
-    const optionsList = ['Buscar','Registrar','Planes']
+    const optionsList = ['Buscar','Registrar','Planes','Usuarios','Cerrar Sesión']
 </script>

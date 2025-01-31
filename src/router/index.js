@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue';
+import CustomerRegister from '@/views/CustomerRegister.vue';
 
 const routes = [
-  {path: '/', name: 'search', component: Search},
+  {path: '/', name: 'userRegister', component: CustomerRegister},
+  {path: '/search', name: 'search', component: Search},
   {path: '/login', name: 'login', component: Login}
 ];
 
