@@ -3,6 +3,19 @@
         <div id="usersViewTitle">
             Usuarios
         </div>
+        <div id="searchUsersContainer">
+            <form id="searchUsersForm" action="">
+                <div class="searchUserFormContent"
+                        v-for="(x, index) in searchUserOptionsList"
+                        :key="index">
+                    <div class="searchUsersFormLabel">
+                        {{ x }}
+                    </div>
+                    <input class="searchFormUsersInput" type="text">
+                </div>
+                <button id="searchUsersFormButton">Buscar</button>
+            </form>
+        </div>
         <div id="usersContainer"
             v-if="refUsers">
             <div class="userContent"
@@ -19,6 +32,11 @@
                 </div>
             </div>
         </div>
+        <div id="userOptionsContainer">
+            <button class="userOptionsButton">Editar</button>
+            <button class="userOptionsButton">Eliminar</button>
+            <button class="userOptionsButton">Registrar</button>
+        </div>
     </div>
 </template>
 
@@ -33,6 +51,39 @@
         border: 2px solid black;
         width: 20%;
         padding: 1%;
+    }
+
+    #searchUsersContainer{
+        border: 2px solid brown;
+        padding: 1%;
+    }
+
+    #searchUsersForm{
+        border: 2px solid green;
+        width: 97.5%;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .searchUserFormContent{
+        border: 2px solid orange;
+        width: 35%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .searchUsersFormLabel{
+        border: 2px solid red;
+        width: 10%;
+        padding: 0.1%;
+    }
+
+    .searchFormUsersInput{
+        width: 17%;
+        padding: 0.1%;
     }
 
     #usersContainer{
@@ -68,6 +119,21 @@
         padding: 0.5%;
     }
 
+    #userOptionsContainer{
+        border: 2px solid black;
+        width: 99%;
+        padding: 0.1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .userOptionsButton{
+        width: 20%;
+        padding: 0.5%;
+    }
+
     @media(max-width: 820px){
         #usersViewContainer{
             min-height: 580px;
@@ -83,11 +149,39 @@
             max-width: 100px;
         }
 
-        #usersContainer{
-            min-height: 450px;
-            max-height: 450px;
+        #searchUsersContainer{
+            min-height: 45px;
+            max-height: 45px;
             min-width: 560px;
             max-width: 560px;
+            margin-top: 1%;
+        }
+
+        #searchUsersForm{
+            min-height: 33px;
+            max-height: 33px;
+        }
+
+        .searchUsersFormLabel{
+            min-height: 20px;
+            max-height: 20px;
+            min-width: 55px;
+            max-width: 55px;
+        }
+
+        .searchFormUsersInput{
+            min-height: 17px;
+            max-height: 17px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+
+        #usersContainer{
+            min-height: 400px;
+            max-height: 400px;
+            min-width: 560px;
+            max-width: 560px;
+            margin-top: 1%;
         }
 
         .userContent{
@@ -119,6 +213,22 @@
             min-width: 100px;
             max-width: 100px;
         }
+
+        #userOptionsContainer{
+            min-height: 50px;
+            max-height: 50px;
+            min-width: 570px;
+            max-width: 570px;
+            margin-top: 1%;
+        }
+
+        .userOptionsButton{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 100px;
+            max-width: 100px;
+            margin: 3%;
+        }
     }
 </style>
 
@@ -139,6 +249,8 @@
             refUsers.value = null;
         }
     }
+
+    const searchUserOptionsList = ['Nombre','ID'];
 
     searchUsers();
 
