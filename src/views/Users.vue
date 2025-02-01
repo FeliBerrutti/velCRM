@@ -11,9 +11,12 @@
                     <div class="searchUsersFormLabel">
                         {{ x }}
                     </div>
-                    <input class="searchFormUsersInput" type="text">
+                    <input 
+                    class="searchFormUsersInput" type="text"
+                    v-model="searchUsersInputHandle[index]">
                 </div>
-                <button id="searchUsersFormButton">Buscar</button>
+                <button id="searchUsersFormButton"
+                        @click="handleButtonSearchClick">Buscar</button>
             </form>
         </div>
         <div id="usersContainer"
@@ -234,7 +237,9 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { getUsers } from '@/services/users';
+    import { getUsers, getUserId,
+            getUserName, getUserIdName
+     } from '@/services/users';
 
     const refUsers = ref(null);
     const errMsg = ref('');
@@ -248,9 +253,57 @@
             errMsg.value = err;
             refUsers.value = null;
         }
-    }
+    };
 
-    const searchUserOptionsList = ['Nombre','ID'];
+    const searchUserById = async(auxId)=>{
+        try{
+            refUsers.value = await getUserId(auxId);
+            errMsg.value = '';
+        }
+        catch(err){
+            errMsg.value = err;
+            refUsers.value = null;
+        }
+    };
+
+    const searchUserByName = async(auxName)=>{
+        try{
+            refUsers.value = await getUserId(auxName);
+            errMsg.value = '';
+        }
+        catch(err){
+            errMsg.value = err;
+            refUsers.value = null;
+        }
+    };
+
+    const searchUserByIdName = async(auxId, auxName)=>{
+        try{
+            refUsers.value = await getUserId(auxId, auxName);
+            errMsg.value = '';
+        }
+        catch(err){
+            errMsg.value = err;
+            refUsers.value = null;
+        }
+    };
+
+    const handleButtonSearchClick = async()=>{
+        if(searchUsersInputHandle.value[0] != '')
+        {
+            searchUserByIdName(searchUsersInputHandle.value[0]);
+        }else if(searchUsersInputHandle.value[1] != ''){
+            searchUserById(searchUsersInputHandle.value[1]);
+        }else{
+            searchUserByIdName(searchUsersInputHandle.value[1],
+                                searchUsersInputHandle.value[0]
+            );
+        };
+    };
+
+
+    const searchUserOptionsList = ref(['Nombre','ID']);
+    const searchUsersInputHandle = ref(Array(searchUserOptionsList.value.length).fill(''));
 
     searchUsers();
 
