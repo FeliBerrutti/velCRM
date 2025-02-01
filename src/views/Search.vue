@@ -38,17 +38,14 @@
                         customer[0].plan }}
                 </div>
             </div>
-            <!-- <div id="resultContentValueObservations">
-                <div class="observationValue"
-                            v-for="(x, index) in observationValueList" :key="index">
-                    <div class="observationValueLabel">
-                        {{ x }}
-                    </div>
-                    <div class="observationValueContent">
-
-                    </div>
+            <div id="resultContentValueObservations">
+                <div class="observationValueLabel">
+                    Observaciones
                 </div>
-            </div> -->
+                <div id="observationValueContentContainer">
+                </div>
+                <button id="newObservationButton">Nueva</button>
+            </div>
         </div>
     </div>
 </template>
@@ -110,6 +107,33 @@
         padding: 0.1%;
     }
 
+    #resultContentValueObservations{
+        border: 2px solid black;
+        width: 98.5%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .observationValueLabel{
+        border: 2px solid blue;
+        width: 20%;
+        padding: 1%;
+    }
+
+    #observationValueContentContainer{
+        border: 2px solid brown;
+        width: 95%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #newObservationButton{
+        width: 15%;
+        padding: 0.5%;
+    }
+
     @media(max-width: 820px){
         #searchViewContainer{
             min-height: 600px;
@@ -167,6 +191,36 @@
             min-width: 190px;
             max-width: 190px;
         }
+
+        #resultContentValueObservations{
+            min-height: 285px;
+            max-height: 285px;
+            min-width: 563px;
+            max-width: 563px;
+            margin-top: 2%;
+        }
+
+        .observationValueLabel{
+            min-height: 22px;
+            max-height: 22px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+
+        #observationValueContentContainer{
+            min-height: 200px;
+            max-height: 200px;
+            min-width: 540px;
+            max-width: 540px;
+        }
+
+        #newObservationButton{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 80px;
+            max-width: 80px;
+            margin-top: 1%;
+        }
     }
 </style>
 
@@ -177,12 +231,10 @@
     const customerId = ref('');
     const customer = ref(null);
     const errorMsg = ref('');
-    const auxCustomer = ref([]);
 
     const searchCustomer = async() =>{
         try{
             customer.value = await fetchCustomerById(customerId.value);
-            // console.log(customer);
             errorMsg.value = '';
         }
         catch(err){
