@@ -1,7 +1,8 @@
 <template>
     <div id="verticalOptionsContainer">
         <div class="verticalOption"
-        v-for="(x, index) in optionsList" :key="index">
+        v-for="(x, index) in optionsList" 
+        :key="index" @click="handleOptionClick(index)">
             <div class="verticalOptionText">
                 {{ x }}
             </div>
@@ -47,5 +48,19 @@
 </style>
 
 <script setup>
+    import router from '@/router';
+
+    const handleOptionClick = (index)=>{
+        index === 0 ?
+        router.push('/search') :
+        index === 1 ?
+        router.push('/customerRegister') :
+        index === 2 ? 
+        router.push('/products') :
+        index === 3 ?
+        router.push('/users') :
+        console.log('Cerrar sesión.')
+    }
+
     const optionsList = ['Buscar','Registrar','Planes','Usuarios','Cerrar Sesión']
 </script>
