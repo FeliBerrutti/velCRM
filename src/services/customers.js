@@ -11,11 +11,11 @@ export const fetchCustomerById = async(id)=>{
     }
 }
 
-export const addCustomer = async(name, lastName, DNI, plan)=>{
+export const addCustomer = async(name, lastName, birthday, DNI, plan, observation)=>{
     try{
-        const response = await axios.post(`/api/Customer/${name}/${lastName}/${DNI}/${plan}`);
+        const response = await axios.post(`/api/Customer/${name}/${lastName}/${birthday}/${DNI}/${plan}/${observation}`);
         return response.data;
-        console.log(response.data)
+        console.log(response.data);
     }
     catch(err){
         console.log('Error al registrar cliente');
