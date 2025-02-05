@@ -11,9 +11,9 @@ export const fetchCustomerById = async(id)=>{
     }
 }
 
-export const addCustomer = async(name, lastName, birthday, DNI, plan, observation)=>{
+export const addCustomer = async(name, lastName, birthday, DNI, plan)=>{
     try{
-        const response = await axios.post(`/api/Customer/${name}/${lastName}/${birthday}/${DNI}/${plan}/${observation}`);
+        const response = await axios.post(`/api/Customer/${name}/${lastName}/${birthday}/${DNI}/${plan}`);
         return response.data;
         console.log(response.data);
     }

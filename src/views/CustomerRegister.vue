@@ -12,10 +12,6 @@
                 </div>
                 <input v-model="customerValues[index]"  class="userRegisterFormInput" type="text">
             </div>
-            <!-- <div id="userRegisterFormObservationsTitle">
-                Observaciones
-            </div>
-             <textarea v-model="observationVMode" id="userRegisterFormObservationInput" rows="10"></textarea> -->
             <button @click="add" id="userRegisterFormButton">Registrar</button>
         </form>
     </div>
@@ -133,7 +129,7 @@
     import { ref } from 'vue';
     import { addCustomer } from '@/services/customers';
 
-    const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Plan','Observación']);
+    const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Plan']);
     const customerValues = ref(Array(customerAttribList.value.length).fill(''));
     // const observationVModel = ref('');
     
@@ -143,9 +139,7 @@
                         customerValues.value[1],
                         customerValues.value[2],
                         customerValues.value[3],
-                        customerValues.value[4],
-                        customerValues.value[5]
-                        // observationVModel.value
+                        customerValues.value[4]
         );
     };
 
