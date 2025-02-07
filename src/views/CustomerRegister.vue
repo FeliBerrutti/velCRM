@@ -12,26 +12,23 @@
                 </div>
                 <input v-model="customerValues[index]"  class="userRegisterFormInput" type="text">
             </div>
-            <button @click="add" id="userRegisterFormButton">Registrar</button>
+            <button @click="add" id="userRegisterFormButton"><b>Registrar</b></button>
         </form>
     </div>
 </template>
 
 <style scoped>
     #userRegisterViewContainer{
-        border: 2px solid black;
         width: 100%;
         padding: 0.1%;
     }
 
     #userRegisterViewTitle{
-        border: 2px solid black;
         width: 20%;
         padding: 0.1%;
     }
 
     #userRegisterForm{
-        border: 2px solid red;
         padding: 1%;
         width: 95%;
         display: flex;
@@ -40,26 +37,37 @@
 
     .userRegisterFormInputContainer{
         border: 2px solid black;
+        border-radius: 10px;
         width: 70%;
         display: flex;
         flex-direction: row;
         align-items: center;
+        background-color: rgba(240,240,240, 0.6);
     }
 
     .userRegisterFormInputLabel{
-        border: 2px solid black;
         width: 30%;
         padding: 0.1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .userRegisterFormInput{
         width: 50%;
         padding: 0.1%;
+        border: 1.5px solid black;
+        border-radius: 5px;
     }
 
     #userRegisterFormButton{
         width: 15%;
         padding: 0.5%;
+        border: 2px solid black;
+        border-radius: 5px;
+        background: rgb(206, 88, 4);
+        color: white;
     }
 
     #userRegisterFormObservationInput{
@@ -89,16 +97,16 @@
         .userRegisterFormInputContainer{
             min-height: 26px;
             max-height: 26px;
-            min-width: 400px;
-            max-width: 400px;
+            min-width: 300px;
+            max-width: 300px;
             margin-top: 1%;
         }
 
         .userRegisterFormInputLabel{
             min-height: 20px;
             max-height: 20px;
-            min-width: 120px;
-            max-width: 120px;
+            min-width: 90px;
+            max-width: 90px;
         }
 
         .userRegisterFormInput{
