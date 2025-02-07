@@ -9,7 +9,7 @@
             </div>
             <input v-model="customerId" id="searchContainerInput" type="text"/>
             <button id="searchContainerButton"
-                    @click="searchCustomer">BUSCAR</button>
+                    @click="searchCustomer"><b>BUSCAR</b></button>
         </div>
         <div id="resultsContainer"
             v-if="customer">
@@ -17,7 +17,7 @@
                         v-for="(x, index) in customerList" :key="index"
                         >
                 <div class="resultContentLabel">
-                    {{ x }}
+                    {{ x }}:
                 </div>
                 <div class="resultContentValue">
                     {{ index === 0 ?
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <button id="newObservationButton"
-                        @click="handleIsObservationVisible">Nueva</button>
+                        @click="handleIsObservationVisible"><b>Nueva</b></button>
             </div>
         </div>
     </div>
@@ -71,7 +71,6 @@
 
 <style scoped>
     #searchViewContainer{
-        border: 2px solid blue;
         width: 100%;
     }
 
@@ -82,6 +81,7 @@
         padding: 1%;
         display: flex;
         flex-direction: row;
+        background-color: rgba(240,240,240,0.5);
     }
 
     #searchContainerLabel{
@@ -95,18 +95,29 @@
 
     #searchContainerInput{
         width: 30%;
+        border: 1.7px solid black;
+        border-radius: 5px;
+    }
+
+    #searchContainerButton{
+        border: 2px solid black;
+        border-radius: 5px;
+        background: rgb(206, 88, 4);
+        color: white;
+        width: 30%;
     }
 
     #resultsContainer{
         border: 2px solid black;
+        border-radius: 10px;
         width: 96.5%;
         padding: 1%;
         display: flex;
         flex-direction: column;
+        background-color: rgba(240,240,240,0.5);
     }
 
     .resultContent{
-        border: 2px solid red;
         width: 50%;
         padding: 0.1%;
         display: flex;
@@ -115,33 +126,33 @@
     }
 
     .resultContentLabel{
-        border: 2px solid blue;
         width: 28%;
         padding: 0.1%;
     }
 
     .resultContentValue{
-        border: 2px solid black;
         width: 65%;
         padding: 0.1%;
     }
 
     #resultContentValueObservations{
         border: 2px solid black;
-        width: 98.5%;
+        border-radius: 10px;
+        width: 96.5%;
         padding: 1%;
         display: flex;
         flex-direction: column;
+        background-color: rgba(240,240,240,0.5);
     }
 
     .observationValueLabel{
-        border: 2px solid blue;
         width: 20%;
         padding: 1%;
     }
 
     #observationValueContentContainer{
-        border: 2px solid brown;
+        border: 2px solid black;
+        border-radius: 10px;
         width: 90%;
         padding: 1%;
         display: flex;
@@ -151,23 +162,28 @@
 
     .observationValue{
         border: 2px solid black;
+        border-radius: 10px;
         width: 99%;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
         align-items: center;
+        background-color: rgba(240,240,240, 0.6);
+        box-shadow: 2px 2px 0.1px 1px grey;
     }
 
     .observationValueDate{
-        border: 2px solid red;
+        border-radius: 5px;
         width: 15%;
         padding: 0.1%;
     }
 
     .observationValueContent{
-        border: 2px solid black;
         width: 85%;
         padding: 0.2%;
+        border: 1.6px solid black;
+        border-radius: 10px;
+        background-color: rgb(240,240,240);
     }
 
     #newObservationButton{
@@ -207,6 +223,14 @@
         padding: 0.5%;
     }
 
+    #newObservationButton{
+        border: 2px solid black;
+        border-radius: 5px;
+        background: rgb(206, 88, 4);
+        color: white;
+        width: 30%;
+    }
+
     @media(max-width: 820px){
         #searchViewContainer{
             min-height: 600px;
@@ -233,24 +257,32 @@
         }
 
         #searchContainerInput{
-            min-height: 15px;
-            max-height: 15px;
+            min-height: 19px;
+            max-height: 19px;
             min-width: 100px;
             max-width: 100px;
             margin-right: 2%;
         }
 
+        #searchContainerButton{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 75px;
+            max-width: 75px;
+        }
+
         #resultsContainer{
-            min-height: 200px;
-            max-height: 200px;
-            min-width: 570px;
-            max-width: 570px;
+            min-height: 210px;
+            max-height: 210px;
+            min-width: 575px;
+            max-width: 575px;
             margin-top: 1%;
         }
 
         .resultContent{
             min-height: 25px;
             max-height: 25px;
+            margin-top: 0.5%;
         }
 
         .resultContentLabel{
@@ -271,9 +303,9 @@
         #resultContentValueObservations{
             min-height: 285px;
             max-height: 285px;
-            min-width: 563px;
-            max-width: 563px;
-            margin-top: 2%;
+            min-width: 560px;
+            max-width: 560px;
+            margin-top: 4%;
         }
 
         .observationValueLabel{
@@ -295,6 +327,7 @@
             max-height: 45px;
             min-width: 530px;
             max-width: 530px;
+            margin-top: 1%;
         }
 
         .observationValueDate{

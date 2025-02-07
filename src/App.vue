@@ -19,10 +19,12 @@
 
     #rVC{
         width: 73%;
-        border: 2px solid brown;
+        border: 2px solid black;
+        border-radius: 10px;
         padding: 1%;
         display: flex;
         flex-direction: row;
+        background: rgba(200,200,200,0.2);
     }
 
     @media(max-width: 820px){
