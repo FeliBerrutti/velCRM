@@ -11,9 +11,6 @@
             <button id="searchContainerButton"
                     @click="searchCustomer">BUSCAR</button>
         </div>
-        <div id="searchViewResultsLabel">
-            <b>Resultados</b>
-        </div>
         <div id="resultsContainer"
             v-if="customer">
             <div class="resultContent"
@@ -42,9 +39,31 @@
                 <div class="observationValueLabel">
                     Observaciones
                 </div>
-                <div id="observationValueContentContainer">
+                <div id="observationValueContentContainer"
+                v-if="customerOb">
+                    <div class="observationValue"
+                    v-for="(x, index) in customerOb"
+                    :key="index">
+                        <div class="observationValueDate">
+                            {{ x.date }}
+                        </div>
+                        <div class="observationValueContent">
+                            {{ x.content }}
+                        </div>
+                    </div>
+                    <div id="AddObservationContainer"
+                        v-if="isAddObservationVisible">
+                        <div id="addObservationTitle">
+                            <b>Agregar observación</b>
+                        </div>
+                        <textarea id="addObservationTextArea" 
+                        rows="28"   v-model="observationContent"></textarea>
+                        <button id="addObservationButton"
+                            @click="addNewObservation">Agregar</button>
+                    </div>
                 </div>
-                <button id="newObservationButton">Nueva</button>
+                <button id="newObservationButton"
+                        @click="handleIsObservationVisible">Nueva</button>
             </div>
         </div>
     </div>
@@ -123,13 +142,67 @@
 
     #observationValueContentContainer{
         border: 2px solid brown;
-        width: 95%;
+        width: 90%;
         padding: 1%;
         display: flex;
         flex-direction: column;
+        overflow: scroll;
+    }
+
+    .observationValue{
+        border: 2px solid black;
+        width: 99%;
+        padding: 0.5%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .observationValueDate{
+        border: 2px solid red;
+        width: 15%;
+        padding: 0.1%;
+    }
+
+    .observationValueContent{
+        border: 2px solid black;
+        width: 85%;
+        padding: 0.2%;
     }
 
     #newObservationButton{
+        width: 15%;
+        padding: 0.5%;
+    }
+
+    #AddObservationContainer{
+        border: 2px solid black;
+        background-color: rgb(208, 204, 204);
+        position: fixed;
+        padding: 1%;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #addObservationTitle{
+        border: 2px solid red;
+        width: 30%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #addObservationTextArea{
+        width: 75%;
+        padding: 1%;
+    }
+
+    #addObservationButton{
         width: 15%;
         padding: 0.5%;
     }
@@ -170,6 +243,7 @@
             max-height: 200px;
             min-width: 570px;
             max-width: 570px;
+            margin-top: 1%;
         }
 
         .resultContent{
@@ -214,6 +288,27 @@
             max-width: 540px;
         }
 
+        .observationValue{
+            min-height: 45px;
+            max-height: 45px;
+            min-width: 530px;
+            max-width: 530px;
+        }
+
+        .observationValueDate{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+
+        .observationValueContent{
+            min-height: 40px;
+            max-height: 40px;
+            min-width: 440px;
+            max-width: 440px;
+        }
+
         #newObservationButton{
             min-height: 25px;
             max-height: 25px;
@@ -221,25 +316,82 @@
             max-width: 80px;
             margin-top: 1%;
         }
+
+        #AddObservationContainer{
+            min-height: 250px;
+            max-height: 250px;
+            min-width: 500px;
+            max-width: 500px;
+            top: 25%;
+            left: 15%;
+        }
+
+        #addObservationTitle{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 190px;
+            max-width: 190px;
+        }
+
+        #addObservationTextArea{
+            min-height: 150px;
+            max-height: 150px;
+            min-width: 430px;
+            max-width: 430px;
+            margin-top: 1%;
+        }
+
+        #addObservationButton{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 70px;
+            max-width: 70px;
+            margin-top: 1.5%;
+        }
     }
 </style>
 
 <script setup>
     import { ref } from 'vue';
     import { fetchCustomerById } from '@/services/customers';
+    import { getByDni, addObservation } from '@/services/observations';
 
     const customerId = ref('');
     const customer = ref(null);
+    const customerOb = ref(null);
     const errorMsg = ref('');
+    const isAddObservationVisible = ref(false);
+    const observationContent = ref('');
+
+    function handleIsObservationVisible(){
+        if(!isAddObservationVisible.value){
+            isAddObservationVisible.value = true;
+        }else{
+            isAddObservationVisible.value = false;
+        }
+    }
 
     const searchCustomer = async() =>{
         try{
             customer.value = await fetchCustomerById(customerId.value);
+            customerOb.value = await getByDni(customerId.value);
             errorMsg.value = '';
         }
         catch(err){
             errorMsg.value = err;
             customer.value = null;
+        }
+    };
+
+    const addNewObservation = async()=>{
+        try{
+            await addObservation(3, 'Usuario',observationContent.value);
+            console.log('Observación añadida con éxito.');
+            handleIsObservationVisible();
+            window.location.reload();
+        }catch(err){
+            errorMsg.value = err;
+            console.log(err);
         }
     };
 
