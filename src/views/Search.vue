@@ -405,10 +405,21 @@
         }
     }
 
+    const getObservationsByDni = async(aux)=>{
+        try{
+            customerOb.value = await getByDni(aux);
+            errorMsg.value = '';
+        }
+        catch(err){
+            errorMsg.value = err;
+            console.log(errorMsg.value);
+        }
+    }
+
     const searchCustomer = async() =>{
         try{
             customer.value = await fetchCustomerById(customerId.value);
-            customerOb.value = await getByDni(customerId.value);
+            getObservationsByDni(customerId.value);
             errorMsg.value = '';
         }
         catch(err){
@@ -419,10 +430,10 @@
 
     const addNewObservation = async()=>{
         try{
-            await addObservation(3, 'Usuario',observationContent.value);
+            await addObservation(customer.value[0].dni, 'Usuario',observationContent.value);
             console.log('Observación añadida con éxito.');
             handleIsObservationVisible();
-            window.location.reload();
+            getObservationsByDni(customerId.value);
         }catch(err){
             errorMsg.value = err;
             console.log(err);

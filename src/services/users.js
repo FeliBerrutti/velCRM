@@ -39,8 +39,18 @@ export const getUserIdName = async(id, name)=>{
         return response.data;
     }
     catch(err){
-        console.error('Error al obtener Usuario.')
+        console.error('Error al obtener Usuario.');
         throw err;
     }
 };
 
+export const addUser = async(name, password, rol)=>{
+    try{
+        const response = await axios.post(`/api/Users/${name}/${password}/${rol}`);
+        return response.data;
+    }
+    catch(err){
+        console.error('Error al registrar usuario.');
+        throw err;
+    }
+};
