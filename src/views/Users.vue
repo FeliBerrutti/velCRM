@@ -16,11 +16,16 @@
                     v-model="searchUsersInputHandle[index]">
                 </div>
                 <button id="searchUsersFormButton"
-                        @click="handleButtonSearchClick">Buscar</button>
+                        @click="handleButtonSearchClick"><b>Buscar</b></button>
             </form>
         </div>
         <div id="usersContainer"
             v-if="refUsers">
+            <div class="userContent">
+                <div class="userContentName"><b>Nombre</b></div>
+                <div class="userContentCreated"><b>Creado</b></div>
+                <div class="userContentRol"><b>Rol</b></div>
+            </div>
             <div class="userContent"
                 v-for="(x, index) in refUsers"
                 :key="index">
@@ -36,33 +41,31 @@
             </div>
         </div>
         <div id="userOptionsContainer">
-            <button class="userOptionsButton">Editar</button>
-            <button class="userOptionsButton">Eliminar</button>
-            <button class="userOptionsButton">Registrar</button>
+            <button class="userOptionsButton"><b>Editar</b></button>
+            <button class="userOptionsButton"><b>Eliminar</b></button>
+            <button class="userOptionsButton"><b>Registrar</b></button>
         </div>
     </div>
 </template>
 
 <style scoped>
     #usersViewContainer{
-        border: 2px solid red;
         width: 100%;
         padding: 1%;
     }
 
     #usersViewTitle{
-        border: 2px solid black;
         width: 20%;
         padding: 1%;
     }
 
     #searchUsersContainer{
-        border: 2px solid brown;
+        border: 2px solid black;
+        border-radius: 10px;
         padding: 1%;
     }
 
     #searchUsersForm{
-        border: 2px solid green;
         width: 97.5%;
         padding: 1%;
         display: flex;
@@ -71,7 +74,8 @@
     }
 
     .searchUserFormContent{
-        border: 2px solid orange;
+        border: 2px solid black;
+        border-radius: 5px;
         width: 35%;
         display: flex;
         flex-direction: row;
@@ -79,51 +83,85 @@
     }
 
     .searchUsersFormLabel{
-        border: 2px solid red;
         width: 10%;
         padding: 0.1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .searchFormUsersInput{
         width: 17%;
         padding: 0.1%;
+        border: 1.5px solid black;
+        border-radius: 5px;
+    }
+
+    #searchUsersFormButton{
+        width: 15%;
+        padding: 0.5%;
+        border: 2px solid black;
+        border-radius: 5px;
     }
 
     #usersContainer{
-        border: 2px solid purple;
+        border: 2px solid black;
+        border-radius: 10px;
         width: 97%;
         padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .userContent{
-        border: 2px solid blue;
-        width: 90%;
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 70%;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
-
+        align-items: center;
+        justify-content: center;
     }
 
     .userContentName{
-        border: 2px solid red;
+        border: 2px solid black;
+        border-radius: 5px;
         width: 20%;
         padding: 0.5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .userContentCreated{
-        border: 2px solid blue;
+        border: 2px solid black;
+        border-radius: 5px;
         width: 17%;
         padding: 0.5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .userContentRol{
-        border: 2px solid brown;
+        border: 2px solid black;
+        border-radius: 5px;
         width: 20%;
         padding: 0.5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     #userOptionsContainer{
         border: 2px solid black;
+        border-radius: 10px;
         width: 99%;
         padding: 0.1%;
         display: flex;
@@ -135,6 +173,8 @@
     .userOptionsButton{
         width: 20%;
         padding: 0.5%;
+        border: 2px solid black;
+        border-radius: 5px;
     }
 
     @media(max-width: 820px){
@@ -165,18 +205,34 @@
             max-height: 33px;
         }
 
+        .searchUserFormContent{
+            min-height: 35px;
+            max-height: 35px;
+            min-width: 200px;
+            max-width: 200px;
+            margin-right: 2%;
+        }
+
         .searchUsersFormLabel{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 55px;
-            max-width: 55px;
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 60px;
+            max-width: 60px;
+            margin-right: 2%;
         }
 
         .searchFormUsersInput{
-            min-height: 17px;
-            max-height: 17px;
+            min-height: 20px;
+            max-height: 20px;
             min-width: 100px;
             max-width: 100px;
+        }
+
+        #searchUsersFormButton{
+            min-height: 25px;
+            max-height: 25px;
+            min-width: 80px;
+            max-width: 80px;
         }
 
         #usersContainer{
@@ -190,8 +246,9 @@
         .userContent{
             min-height: 30px;
             max-height: 30px;
-            min-width: 540px;
-            max-width: 540px;
+            min-width: 440px;
+            max-width: 440px;
+            margin-top: 1%;
         }
 
         .userContentName{
