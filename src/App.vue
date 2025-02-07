@@ -14,6 +14,7 @@
         display: flex;
         flex-direction: row;
         border: 2px solid black;
+        background-color: chocolate;
     }
 
     #rVC{

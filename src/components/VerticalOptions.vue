@@ -4,7 +4,7 @@
         v-for="(x, index) in optionsList" 
         :key="index" @click="handleOptionClick(index)">
             <div class="verticalOptionText">
-                {{ x }}
+                <b>{{ x }}</b>
             </div>
         </div>
     </div>
@@ -13,21 +13,26 @@
 <style scoped>
     #verticalOptionsContainer{
         border: 2px solid black;
+        border-radius: 10px;
         width: 20%;
         padding: 1%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background: rgba(200,200,200,0.2);
     }
 
     .verticalOption{
         border: 2px solid black;
+        border-radius: 10px;
         width: 99%;
         padding: 1%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: sandybrown;
+        box-shadow: 2px 2px 1px 1px pink;
     }
 
     @media(max-width: 820px){

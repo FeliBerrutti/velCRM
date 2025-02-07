@@ -1,9 +1,9 @@
 <template>
     <div id="searchViewContainer">
-        <div id="searchViewTitle">
-            <b>Buscar</b>
-        </div>
         <div id="searchContainer">
+            <!-- <div id="searchViewTitle">
+                <b>Buscar</b>
+            </div> -->
             <div id="searchContainerLabel">
                 DNI:
             </div>
@@ -77,6 +77,7 @@
 
     #searchContainer{
         border: 2px solid black;
+        border-radius: 5px;
         width: 60%;
         padding: 1%;
         display: flex;
@@ -84,7 +85,6 @@
     }
 
     #searchContainerLabel{
-        border: 2px solid red;
         width: 15%;
         padding: 0.1%;
         display: flex;
@@ -220,6 +220,8 @@
             max-height: 20px;
             min-width: 250px;
             max-width: 250px;
+            margin-top: 2%;
+            margin-left: 2%;
         }
 
         #searchContainerLabel{
