@@ -118,6 +118,7 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
+        overflow: scroll;
     }
 
     .userContent{
