@@ -12,8 +12,8 @@
                 </div>
                 <input v-model="customerValues[index]"  class="userRegisterFormInput" type="text">
             </div>
-            <button @click="add" id="userRegisterFormButton"><b>Registrar</b></button>
         </form>
+        <button @click="add" id="userRegisterFormButton"><b>Registrar</b></button>
     </div>
 </template>
 
@@ -33,6 +33,9 @@
         width: 95%;
         display: flex;
         flex-direction: column;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: rgba(150,150,150,0.9);
     }
 
     .userRegisterFormInputContainer{
@@ -42,7 +45,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        background-color: rgba(240,240,240, 0.6);
+        background-color: rgba(240,240,240,0.7);
     }
 
     .userRegisterFormInputLabel{
@@ -66,7 +69,7 @@
         padding: 0.5%;
         border: 2px solid black;
         border-radius: 5px;
-        background: rgb(206, 88, 4);
+        background-color: rgba(0, 0, 255, 0.477);
         color: white;
     }
 
@@ -88,8 +91,8 @@
         }
 
         #userRegisterForm{
-            min-height: 500px;
-            max-height: 500px;
+            min-height: 190px;
+            max-height: 190px;
             min-width: 565px;
             max-width: 565px;
         }
@@ -99,7 +102,7 @@
             max-height: 26px;
             min-width: 300px;
             max-width: 300px;
-            margin-top: 1%;
+            margin-top: 1.5%;
         }
 
         .userRegisterFormInputLabel{

@@ -1,9 +1,6 @@
 <template>
     <div id="searchViewContainer">
         <div id="searchContainer">
-            <!-- <div id="searchViewTitle">
-                <b>Buscar</b>
-            </div> -->
             <div id="searchContainerLabel">
                 DNI:
             </div>
@@ -59,7 +56,7 @@
                         <textarea id="addObservationTextArea" 
                         rows="28"   v-model="observationContent"></textarea>
                         <button id="addObservationButton"
-                            @click="addNewObservation">Agregar</button>
+                            @click="addNewObservation"><b>Agregar</b></button>
                     </div>
                 </div>
                 <button id="newObservationButton"
@@ -81,7 +78,7 @@
         padding: 1%;
         display: flex;
         flex-direction: row;
-        background-color: rgba(240,240,240,0.5);
+        background-color: rgba(150,150,150,0.9);
     }
 
     #searchContainerLabel{
@@ -102,7 +99,7 @@
     #searchContainerButton{
         border: 2px solid black;
         border-radius: 5px;
-        background: rgb(206, 88, 4);
+        background-color: rgba(0, 0, 255, 0.477);
         color: white;
         width: 30%;
     }
@@ -114,7 +111,7 @@
         padding: 1%;
         display: flex;
         flex-direction: column;
-        background-color: rgba(240,240,240,0.5);
+        background-color: rgba(150,150,150,0.9);
     }
 
     .resultContent{
@@ -142,7 +139,7 @@
         padding: 1%;
         display: flex;
         flex-direction: column;
-        background-color: rgba(240,240,240,0.5);
+        background-color: rgba(150,150,150,0.9);
     }
 
     .observationValueLabel{
@@ -158,6 +155,7 @@
         display: flex;
         flex-direction: column;
         overflow: scroll;
+        background-color: rgba(175,175,175,0.9);
     }
 
     .observationValue{
@@ -186,13 +184,9 @@
         background-color: rgb(240,240,240);
     }
 
-    #newObservationButton{
-        width: 15%;
-        padding: 0.5%;
-    }
-
     #AddObservationContainer{
         border: 2px solid black;
+        border-radius: 10px;
         background-color: rgb(208, 204, 204);
         position: fixed;
         padding: 1%;
@@ -204,7 +198,6 @@
     }
 
     #addObservationTitle{
-        border: 2px solid red;
         width: 30%;
         padding: 1%;
         display: flex;
@@ -216,17 +209,23 @@
     #addObservationTextArea{
         width: 75%;
         padding: 1%;
+        border: 2px solid black;
+        border-radius: 10px;
     }
 
     #addObservationButton{
         width: 15%;
         padding: 0.5%;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 255, 0.477);
+        color: white;
     }
 
     #newObservationButton{
         border: 2px solid black;
         border-radius: 5px;
-        background: rgb(206, 88, 4);
+        background-color: rgba(0, 0, 255, 0.477);
         color: white;
         width: 30%;
     }

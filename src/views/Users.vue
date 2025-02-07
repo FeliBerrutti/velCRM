@@ -63,6 +63,7 @@
         border: 2px solid black;
         border-radius: 10px;
         padding: 1%;
+        background-color: rgba(150,150,150,0.9);
     }
 
     #searchUsersForm{
@@ -80,6 +81,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        background-color: rgba(240,240,240,0.7);
     }
 
     .searchUsersFormLabel{
@@ -103,6 +105,8 @@
         padding: 0.5%;
         border: 2px solid black;
         border-radius: 5px;
+        background-color: rgba(0, 0, 255, 0.477);
+        color: white;
     }
 
     #usersContainer{
@@ -113,6 +117,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: rgba(150,150,150,0.9);
     }
 
     .userContent{
@@ -124,6 +129,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        background-color: rgba(240,240,240,0.7);
     }
 
     .userContentName{
@@ -135,6 +141,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(240,240,240,0.9);
     }
 
     .userContentCreated{
@@ -146,6 +153,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(240,240,240,0.9);
     }
 
     .userContentRol{
@@ -157,6 +165,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(240,240,240,0.9);
     }
 
     #userOptionsContainer{
@@ -168,6 +177,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        background-color: rgba(150,150,150,0.9);
     }
 
     .userOptionsButton{
@@ -175,6 +185,8 @@
         padding: 0.5%;
         border: 2px solid black;
         border-radius: 5px;
+        background-color: rgba(0, 0, 255, 0.477);
+        color: white;
     }
 
     @media(max-width: 820px){

@@ -14,7 +14,7 @@
         display: flex;
         flex-direction: row;
         border: 2px solid black;
-        background-color: chocolate;
+        background-color: rgba(240,240,240,0.9);
     }
 
     #rVC{
@@ -24,7 +24,7 @@
         padding: 1%;
         display: flex;
         flex-direction: row;
-        background: rgba(200,200,200,0.2);
+        background-color: rgba(200,200,200,0.9);
     }
 
     @media(max-width: 820px){

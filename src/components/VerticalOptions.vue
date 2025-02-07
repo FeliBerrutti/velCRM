@@ -19,7 +19,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: rgba(200,200,200,0.2);
+        background-color: rgba(200,200,200,0.7);
     }
 
     .verticalOption{
@@ -31,8 +31,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: sandybrown;
-        box-shadow: 2px 2px 1px 1px pink;
+        background-color: rgba(240,240,240,0.7);
+        box-shadow: 2px 2px 1px 1px grey;
     }
 
     @media(max-width: 820px){
