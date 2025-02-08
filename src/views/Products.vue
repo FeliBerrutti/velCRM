@@ -19,7 +19,8 @@
             <div class="productContent"
             v-for="(x, index) in refPlan"
                     :key="index"
-                    @click="handleProductContentClick(x.name)">
+                    @click="handleProductContentClick(x.name)"
+                    tabindex="0">
                 <div class="productContentLabel">
                     {{ x.name }}
                 </div>
@@ -133,6 +134,10 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(240,240,240,0.7);
+    }
+
+    .productContent:focus{
+        background-color: rgba(100,100,100,0.7);
     }
 
     .productContentLabel{
