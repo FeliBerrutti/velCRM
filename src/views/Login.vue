@@ -9,16 +9,19 @@
                         <div class="loginFormInputText">
                             Usuario
                         </div>
-                        <input class="loginFormInput" type="text">
+                        <input class="loginFormInput" type="text"
+                                v-model="auxN">
                     </div>
                     <div class="loginFormInputContainer">
                         <div class="loginFormInputText">
                             Contraseña
                         </div>
-                        <input class="loginFormInput" type="password">
+                        <input class="loginFormInput" type="password"
+                                v-model="auxP">
                     </div>
-                    <button id="loginFormButton">Ingresar</button>
                 </form>
+                <button id="loginFormButton"
+                        @click="login"><b>Ingresar</b></button>
         </div>
     </div>
 </template>
@@ -34,20 +37,20 @@
     #loginContainer{
         width: 50%;
         border: 2px solid black;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: rgba(150,150,150,0.9);
     }
 
     #loginTitle{
-        border: 2px solid red;
         width: 40%;
         padding: 1%;
         text-align: center;
     }
 
     #loginForm{
-        border: 2px solid green;
         width: 90%;
         display: flex;
         flex-direction: column;
@@ -55,32 +58,41 @@
     }
 
     .loginFormInputContainer{
-        border: 2px solid blue;
+        border: 2px solid black;
+        border-radius: 5px;
         width: 90%;
         padding: 1%;
         display: flex;
         flex-direction: row;
         margin-top: 3%;
+        background-color: rgba(240,240,240,0.7);
     }
 
     .loginFormInputText{
-        border: 2px solid red;
+        border: 2px solid black;
+        border-radius: 10px;
         width: 30%;
         padding: 0.1%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(240,240,240,0.9);
     }
 
     .loginFormInput{
+        border: 2px solid black;
+        border-radius: 10px;
         width: 55%;
     }
 
     #loginFormButton{
-        border: 3px solid red;
+        border: 3px solid black;
+        border-radius: 5px;
         width: 30%;
         padding: 1%;
+        background-color: rgba(0, 0, 255, 0.477);
+        color: white;
     }
 
     @media(max-width: 820px){
@@ -98,8 +110,8 @@
         #loginForm{
             min-width: 380px;
             max-width: 380px;
-            min-height: 150px;
-            max-height: 150px;
+            min-height: 120px;
+            max-height: 120px;
         }
 
         .loginFormInputContainer{
@@ -137,5 +149,29 @@
 </style>
 
 <script setup>
+    import { ref } from 'vue';
+    import { loginUser } from '@/services/users';
+
+    const errMsg = ref('');
+    const userRef = ref(null);
+    // const auxU = ref(null);
+    const auxN = ref('');
+    const auxP = ref('');
+    const auxU = ref([auxN.value,auxP.value]);
+
+    const login = async()=>{
+        console.log(auxN.value,auxP.value);
+        try{
+            userRef.value = await loginUser(auxN.value,
+                                            auxP.value);
+            console.log('Usuario logueado.');
+            errMsg.value = '';
+        }catch(err){
+            errMsg.value = err;
+            userRef.value = null;
+            console.log(errMsg.value);
+        }
+    }
+
 
 </script>

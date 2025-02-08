@@ -73,5 +73,16 @@ export const deleteUser = async (id)=>{
         console.log('Error al eliminar Usuario.')
         throw(err);
         
+    };
+};
+
+export const loginUser = async(name, pass)=>{
+    try{
+        const response = await axios.get(`api/Users/${name}/${pass}`);
+        return response.data;
     }
-}
+    catch(err){
+        console.log('Usuario o Password Incorrectos.');
+        throw err;
+    };
+};
