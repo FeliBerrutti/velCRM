@@ -54,3 +54,24 @@ export const addUser = async(name, password, rol)=>{
         throw err;
     }
 };
+
+export const updateUser = async(id, name, password, rol)=>{
+    try{
+        const response = await axios.put(`api/Users/${id}/${name}/${password}/${rol}`);
+        return response;
+    }catch(err){
+        console.log('Error al editar usuario.');
+        throw err;
+    };
+};
+
+export const deleteUser = async (id)=>{
+    try{
+        const response = await axios.delete(`api/Users/${id}`);
+        return response.data;
+    }catch(err){
+        console.log('Error al eliminar Usuario.')
+        throw(err);
+        
+    }
+}

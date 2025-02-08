@@ -430,7 +430,7 @@
 
     const addNewObservation = async()=>{
         try{
-            await addObservation(customer.value[0].dni, 'Usuario',observationContent.value);
+            await addObservation(customer.value[0].id, 'Usuario',observationContent.value);
             console.log('Observación añadida con éxito.');
             handleIsObservationVisible();
             getObservationsByDni(customerId.value);
