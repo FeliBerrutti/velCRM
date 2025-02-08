@@ -667,6 +667,7 @@
                       addUserListValues.value[2]
         );
         console.log('Usuario registrado.');
+        addUserListValues.value = [];
         handleAddUserClick();
         searchUsers();
         }catch(err){
