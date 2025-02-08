@@ -457,6 +457,7 @@
                               addProductsRef.value[2],
                               addProductsRef.value[3]);
             console.log('Plan registrado con exito.');
+            addProductsRef.value = [];
             handleAddPlanButtonClick();
             searchPlans();
         }catch(err){
