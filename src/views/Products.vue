@@ -18,14 +18,17 @@
             </div>
             <div class="productContent"
             v-for="(x, index) in refPlan"
-                    :key="index">
+                    :key="index"
+                    @click="handleProductContentClick(x.name)">
                 <div class="productContentLabel">
                     {{ x.name }}
                 </div>
                 <div class="productContentValue">
                     {{ x.price }}
                 </div>
-                <div class="productContentMembers"></div>
+                <div class="productContentMembers">
+                    {{ x.members }}
+                </div>
             </div>
             <!-- AÑADIR PLAN MODAL -->
             <div class="optionsPlansModal"
@@ -40,15 +43,17 @@
                         <div class="optionsPlanInputLabel">
                             {{ x }}
                         </div>
-                        <input class="optionsPlanInput" type="text">
+                        <input class="optionsPlanInput" type="text"
+                                v-model="addProductsRef[index]">
                     </div>
                 </form>
                 <div class="textAreaTitle">
                     Detalles
                 </div>
                 <textarea class="optionsPlanTextArea" 
-                              rows="60"></textarea>
-                <button class="optionsPlansFormButton"><b>Agregar</b></button>
+                              rows="60" v-model="addProductsRef[3]"></textarea>
+                <button class="optionsPlansFormButton"
+                        @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
             </div>
             <!-- EDITAR PLAN -->
             <div class="optionsPlansModal"
@@ -76,12 +81,16 @@
         </div>
         <!-- DETALLES -->
         <div id="productDetailsContainer">
-            <div id="productDetailsContent"></div>
+            <div id="productDetailsContent"
+                    v-if="refProductDetails">
+                {{ refProductDetails }}
+            </div>
         </div>
         <div id="productsOptionsContainer">
             <button class="productsOptionsButton"
             @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
-            <button class="productsOptionsButton"><b>Eliminar</b></button>
+            <button class="productsOptionsButton"
+                    @click="deleteProduct(refPlanClick[0].name)"><b>Eliminar</b></button>
             <button class="productsOptionsButton"
                     @click="handleAddPlanButtonClick"><b>Registrar</b></button>
         </div>
@@ -395,14 +404,20 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { getProducts } from '@/services/products';
+    import { getProducts, getByName,
+             addProducts, deleteProductByName
+     } from '@/services/products';
 
     const refPlan = ref(null);
     const errorMsg = ref('');
     const isAddPlanVisible = ref(false);
     const isUpdatePlanVisible = ref(false);
 
+    const refPlanClick = ref(null);
+    const refProductDetails = ref(null);
+
     const optionsPlanList = ref(['Plan','Precio','Adherentes'])
+    const addProductsRef = ref(Array(optionsPlanList.value.length).fill(''));
 
     function handleAddPlanButtonClick(){
         isAddPlanVisible.value = !isAddPlanVisible.value;
@@ -420,6 +435,46 @@
             errorMsg.value = err;
             refPlan.value = null;
         }
+    };
+
+    const handleProductContentClick = async(name)=>{
+        try{
+            refPlanClick.value = await getByName(name);
+            refProductDetails.value = refPlanClick.value[0].details;
+            errorMsg.value = '';
+            console.log('handleProductContentClick ejecutada.');
+            console.log(refProductDetails.value);
+        }catch(err){
+            errorMsg.value = err;
+            refPlanClick.value = null;
+        };
+    };
+
+    const handleRegisterProductButtonClick = async()=>{
+        try{
+            await addProducts(addProductsRef.value[0],
+                              addProductsRef.value[1],
+                              addProductsRef.value[2],
+                              addProductsRef.value[3]);
+            console.log('Plan registrado con exito.');
+            handleAddPlanButtonClick();
+            searchPlans();
+        }catch(err){
+            errorMsg.value = err;
+            console.log(errorMsg.value)
+        };
+    };
+
+    const deleteProduct = async(name)=>{
+        try{
+            await deleteProductByName(name);
+            console.log('Plan eliminado correctamente.');
+            refProductDetails.value = '';
+            searchPlans();
+        }catch(err){
+            errorMsg.value = err;
+            console.log(errorMsg.value);
+        };
     };
 
     searchPlans();
