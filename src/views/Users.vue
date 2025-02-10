@@ -85,7 +85,8 @@
                         @click="handleUpdateUserFormButtonClick"><b>Editar</b></button>
             </div>
             <!-- REPORTES -->
-            <div id="userReportContainer">
+            <div id="userReportContainer"
+                v-if="isReportUserVisible">
                 <div id="userReportHeader">
                     <div class="userReportHeaderContent"
                     v-for="(x, index) in userReportHeaderList"
@@ -95,8 +96,10 @@
                     </div>
                 </div>
                 <div id="userReportBody">
-                    <div class="userReportBodyContainer">
-                        <div class="userReportBodyContainerTitle"></div>
+                    <div class="userReportBodyContainer"
+                    v-for="(x, index) in userReportsD"
+                    :key="index">
+                        <div class="userReportBodyContainerTitle">{{ x }}</div>
                         <div class="userReportBodyContent"
                         v-for="(x, index) in userReportBodyList"
                         :key="index">
@@ -116,7 +119,8 @@
                     @click="deleteUserById"><b>Eliminar</b></button>
             <button class="userOptionsButton"
             @click="handleAddUserClick()"><b>Registrar</b></button>
-            <button class="userOptionsButton"><b>Reportes</b></button>
+            <button class="userOptionsButton"
+            @click="handleOpenReportsClick"><b>Reportes</b></button>
         </div>
     </div>
 </template>
@@ -391,6 +395,7 @@
         width: 65%;
         padding: 1%;
         position: fixed;
+        background-color: rgb(200,200,200);
     }
 
     #userReportHeader{
@@ -402,6 +407,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        background-color: rgb(130,130,130);
     }
 
     .userReportHeaderContent{
@@ -412,6 +418,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(90,90,90,0.8);
     }
 
     .userReportHeaderLabel{
@@ -421,6 +428,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(150,150,150);
     }
 
     .userReportHeaderValue{
@@ -431,12 +439,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(190,190,190);
     }
 
     #userReportBody{
         border: 2px solid black;
         border-radius: 5px;
         padding: 1%;
+        background-color: rgb(130,130,130);
     }
 
     .userReportBodyContainer{
@@ -446,12 +456,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: rgba(90,90,90,0.8);
     }
 
     .userReportBodyContainerTitle{
         border: 2px solid black;
         border-radius: 5px;
         padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(150,150,150);
     }
 
     .userReportBodyContent{
@@ -461,6 +477,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        background-color: rgba(190,190,190);
     }
 
     .userReportBodyContentLabel{
@@ -471,12 +488,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: rgba(150,150,150);
     }
 
     .userReportBodyContentValue{
         border: 2px solid black;
         border-radius: 5px;
         padding: 1%;
+        background-color: white;
     }
 
     @media(max-width: 820px){
@@ -755,11 +774,23 @@
     const errMsg = ref('');
     const isAddUserVisible = ref(false);
     const isUpdateUserVisible = ref(false);
+    const isReportUserVisible = ref(false);
     const userContentNameValue = ref(null);
     const auxUserUpdate = ref([]);
 
     const userReportHeaderList = ref(['Usuario','Creado','Total Ventas']);
+
     const userReportBodyList = ref(['Ventas Mensuales','Planes vendidos'])
+
+    const userReportsD = ref(['Este mes','Este año']);
+
+    function handleOpenReportsClick(){
+        if(!isReportUserVisible.value){
+            isReportUserVisible.value = !isReportUserVisible.value;
+        }else{
+            isReportUserVisible.value = true;
+        }
+    }
 
     function handleUpdateUserClick(){
         if(!isUpdateUserVisible.value){
