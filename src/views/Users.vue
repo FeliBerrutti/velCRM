@@ -20,7 +20,7 @@
             </form>
         </div>
         <div id="usersContainer"
-            v-if="refUsers"
+            v-if="genRefUsers"
             @click="handleClickOutUserContents">
             <div class="userContent"
             @click="handleClickOutUserContents">
@@ -84,6 +84,30 @@
                 <button id="updateUserFormButton"
                         @click="handleUpdateUserFormButtonClick"><b>Editar</b></button>
             </div>
+            <!-- REPORTES -->
+            <div id="userReportContainer">
+                <div id="userReportHeader">
+                    <div class="userReportHeaderContent"
+                    v-for="(x, index) in userReportHeaderList"
+                    :key="index">
+                        <div class="userReportHeaderLabel">{{ x }}</div>
+                        <div class="userReportHeaderValue">UserName</div>
+                    </div>
+                </div>
+                <div id="userReportBody">
+                    <div class="userReportBodyContainer">
+                        <div class="userReportBodyContainerTitle"></div>
+                        <div class="userReportBodyContent"
+                        v-for="(x, index) in userReportBodyList"
+                        :key="index">
+                            <div class="userReportBodyContentLabel">
+                                {{ x }}
+                            </div>
+                            <div class="userReportBodyContentValue"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="userOptionsContainer">
             <button class="userOptionsButton"
@@ -92,6 +116,7 @@
                     @click="deleteUserById"><b>Eliminar</b></button>
             <button class="userOptionsButton"
             @click="handleAddUserClick()"><b>Registrar</b></button>
+            <button class="userOptionsButton"><b>Reportes</b></button>
         </div>
     </div>
 </template>
@@ -359,6 +384,101 @@
         color: white;
     }
 
+    #userReportContainer{
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: white;
+        width: 65%;
+        padding: 1%;
+        position: fixed;
+    }
+
+    #userReportHeader{
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 95%;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .userReportHeaderContent{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .userReportHeaderLabel{
+        border: 2px solid black;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .userReportHeaderValue{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #userReportBody{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+    }
+
+    .userReportBodyContainer{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 0.5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .userReportBodyContainerTitle{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+    }
+
+    .userReportBodyContent{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .userReportBodyContentLabel{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .userReportBodyContentValue{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+    }
+
     @media(max-width: 820px){
         #usersViewContainer{
             min-height: 580px;
@@ -538,6 +658,81 @@
             max-width: 150px;
             margin-left: 1%;
         }
+
+        #userReportContainer{
+            min-height: 330px;
+            max-height: 330px;
+        }
+
+        #userReportHeader{
+            min-height: 50px;
+            max-height: 50px;
+        }
+
+        .userReportHeaderContent{
+            min-height: 40px;
+            max-height: 40px;
+            min-width: 140px;
+            max-width: 140px;
+            margin: 1%
+        }
+
+        .userReportHeaderLabel{
+            min-height: 15px;
+            max-height: 15px;
+            min-width: 120px;
+            max-width: 120px;
+        }
+
+        .userReportHeaderValue{
+            min-height: 19px;
+            max-height: 19px;
+            min-width: 115px;
+            max-width: 115px;
+        }
+
+        #userReportBody{
+            min-height: 250px;
+            max-height: 250px;
+            min-width: 515px;
+            max-width: 515px;
+            margin-top: 1%;
+        }
+
+        .userReportBodyContainer{
+            min-height: 110px;
+            max-height: 110px;
+        }
+
+        .userReportBodyContainerTitle{
+            min-height: 13px;
+            max-height: 13px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+
+        .userReportBodyContent{
+            min-height: 20px;
+            max-height: 20px;
+            min-width: 420px;
+            max-width: 420px;
+            margin-top: 0.5%;
+        }
+
+        .userReportBodyContentLabel{
+            min-height: 15px;
+            max-height: 15px;
+            min-width: 120px;
+            max-width: 120px;
+            margin-right: 1.5%;
+        }
+
+        .userReportBodyContentValue{
+            min-height: 15px;
+            max-height: 15px;
+            min-width: 250px;
+            max-width: 250px;
+        }
     }
 </style>
 
@@ -549,11 +744,22 @@
      } from '@/services/users';
 
     const refUsers = ref(null);
+    const genRefUsers = ref([
+        {id: 1,
+         name: 'user01',
+         password: '123',
+         created: '1994-01-01',
+         rol: 'Owner'
+        }
+    ])
     const errMsg = ref('');
     const isAddUserVisible = ref(false);
     const isUpdateUserVisible = ref(false);
     const userContentNameValue = ref(null);
     const auxUserUpdate = ref([]);
+
+    const userReportHeaderList = ref(['Usuario','Creado','Total Ventas']);
+    const userReportBodyList = ref(['Ventas Mensuales','Planes vendidos'])
 
     function handleUpdateUserClick(){
         if(!isUpdateUserVisible.value){
@@ -748,6 +954,6 @@
     const addUserListValues = ref(Array(addUserList.value.length).fill(''));
     const updateUserList = ref(['Nombre','Password','Rol']);
     const updateUserListValues = ref(Array(updateUserList.value.length).fill(''));
-    searchUsers();
+    // searchUsers();
 
 </script>
