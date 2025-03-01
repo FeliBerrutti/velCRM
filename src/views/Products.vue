@@ -409,9 +409,6 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { getProducts, getByName,
-             addProducts, deleteProductByName
-     } from '@/services/products';
 
     const refPlan = ref(null);
     const errorMsg = ref('');
@@ -431,57 +428,4 @@
     function handleUpdatePlanButtonClick(){
         isUpdatePlanVisible.value = !isUpdatePlanVisible.value;
     };
-
-    const searchPlans = async()=>{
-        try{
-            refPlan.value = await getProducts();
-            errorMsg.value = '';
-        }catch(err){
-            errorMsg.value = err;
-            refPlan.value = null;
-        }
-    };
-
-    const handleProductContentClick = async(name)=>{
-        try{
-            refPlanClick.value = await getByName(name);
-            refProductDetails.value = refPlanClick.value[0].details;
-            errorMsg.value = '';
-            console.log('handleProductContentClick ejecutada.');
-            console.log(refProductDetails.value);
-        }catch(err){
-            errorMsg.value = err;
-            refPlanClick.value = null;
-        };
-    };
-
-    const handleRegisterProductButtonClick = async()=>{
-        try{
-            await addProducts(addProductsRef.value[0],
-                              addProductsRef.value[1],
-                              addProductsRef.value[2],
-                              addProductsRef.value[3]);
-            console.log('Plan registrado con exito.');
-            addProductsRef.value = [];
-            handleAddPlanButtonClick();
-            searchPlans();
-        }catch(err){
-            errorMsg.value = err;
-            console.log(errorMsg.value)
-        };
-    };
-
-    const deleteProduct = async(name)=>{
-        try{
-            await deleteProductByName(name);
-            console.log('Plan eliminado correctamente.');
-            refProductDetails.value = '';
-            searchPlans();
-        }catch(err){
-            errorMsg.value = err;
-            console.log(errorMsg.value);
-        };
-    };
-
-    searchPlans();
 </script>

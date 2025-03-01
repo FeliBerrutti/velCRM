@@ -150,7 +150,6 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { loginUser } from '@/services/users';
 
     const errMsg = ref('');
     const userRef = ref(null);
@@ -158,20 +157,5 @@
     const auxN = ref('');
     const auxP = ref('');
     const auxU = ref([auxN.value,auxP.value]);
-
-    const login = async()=>{
-        console.log(auxN.value,auxP.value);
-        try{
-            userRef.value = await loginUser(auxN.value,
-                                            auxP.value);
-            console.log('Usuario logueado.');
-            errMsg.value = '';
-        }catch(err){
-            errMsg.value = err;
-            userRef.value = null;
-            console.log(errMsg.value);
-        }
-    }
-
 
 </script>

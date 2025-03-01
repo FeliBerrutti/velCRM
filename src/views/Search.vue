@@ -387,8 +387,6 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { fetchCustomerById } from '@/services/customers';
-    import { getByDni, addObservation } from '@/services/observations';
 
     const customerId = ref('');
     const customer = ref(null);
@@ -404,41 +402,6 @@
             isAddObservationVisible.value = false;
         }
     }
-
-    const getObservationsByDni = async(aux)=>{
-        try{
-            customerOb.value = await getByDni(aux);
-            errorMsg.value = '';
-        }
-        catch(err){
-            errorMsg.value = err;
-            console.log(errorMsg.value);
-        }
-    }
-
-    const searchCustomer = async() =>{
-        try{
-            customer.value = await fetchCustomerById(customerId.value);
-            getObservationsByDni(customerId.value);
-            errorMsg.value = '';
-        }
-        catch(err){
-            errorMsg.value = err;
-            customer.value = null;
-        }
-    };
-
-    const addNewObservation = async()=>{
-        try{
-            await addObservation(customer.value[0].id, 'Usuario',observationContent.value);
-            console.log('Observación añadida con éxito.');
-            handleIsObservationVisible();
-            getObservationsByDni(customerId.value);
-        }catch(err){
-            errorMsg.value = err;
-            console.log(err);
-        }
-    };
 
     const customerList = ['Nombre','Apellido','DNI','Nacimiento','Alta','Baja','Plan'];
 </script>

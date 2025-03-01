@@ -4,14 +4,53 @@
             Registrar Cliente
         </div>
         <form id="userRegisterForm" action="">
-            <div class="userRegisterFormInputContainer"
-            v-for="(x, index) in customerAttribList"
-                    :key="index">
-                <div class="userRegisterFormInputLabel">
-                    {{ x }}
+            <!-- <div id="userFormRegisterLeft"> -->
+                <div class="userRegisterFormInputContainer"
+                v-for="(x, index) in customerAttribList"
+                        :key="index">
+                    <div class="userRegisterFormInputLabel">
+                        {{ x }}
+                    </div>
+                    <!-- TODO -->
+                     <select
+                     v-model="auxRefPlan"
+                     v-if="index === 4"
+                     class="userRegisterFormInput">
+                        <option v-for="(x, index) in refAddPlan"
+                        :key="index" value="x">
+                        {{ x.name }}
+                        </option>
+                    </select>
+                    <select 
+                    v-model="refPayMethodsList" 
+                    v-if="index === 5"
+                    class="userRegisterFormInput">
+                        <option v-for="(x, index) in payMethodsList"
+                        :key="index" :value="x">
+                            {{ x }}
+                        </option>
+                    </select>
+                    <input v-if="index !== 4 && index !==5" v-model="customerValues[index]"  class="userRegisterFormInput" type="text">
                 </div>
-                <input v-model="customerValues[index]"  class="userRegisterFormInput" type="text">
-            </div>
+                <!-- #1 -->
+                <div class="userRegisterFormInputContainer"
+                v-if="refPayMethodsList === 'CBU'">
+                    <div class="userRegisterFormInputLabel">
+                        CBU
+                    </div>
+                    <input class="userRegisterFormInput" type="text">
+                </div>
+                <!-- #2 -->
+                <div 
+                class="userRegisterFormInputContainer"
+                v-for="(x, index) in creditCardDataList"
+                :key="index"
+                v-if="refPayMethodsList === 'Tarjeta de crédito'">
+                    <div class="userRegisterFormInputLabel">
+                        {{ x }}
+                    </div>
+                    <input class="userRegisterFormInput" type="text">
+                </div>
         </form>
         <button @click="add" id="userRegisterFormButton"><b>Registrar</b></button>
     </div>
@@ -36,6 +75,44 @@
         border: 2px solid black;
         border-radius: 5px;
         background-color: rgba(150,150,150,0.9);
+    }
+
+    #userFormRegisterLeft{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #userFormRegisterRight{
+        border: 2px solid black;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(120,120,120,0.8);
+    }
+
+    #userFormRegisterRightTitle{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(240,240,240,0.7);
+    }
+
+    .userFormRegisterRightContentContainer{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: rgba(240,240,240,0.7);
+    }
+
+    .userFormRegisterRightContent{
+        padding: 0.5%;
     }
 
     .userRegisterFormInputContainer{
@@ -92,31 +169,69 @@
 
         #userRegisterForm{
             min-height: 190px;
-            max-height: 190px;
+            max-height: 340px;
             min-width: 565px;
             max-width: 565px;
+        }
+
+        #userFormRegisterLeft{
+            min-height: 190px;
+            max-height: 310px;
+            min-width: 350px;
+            max-width: 350px;
+        }
+
+        #userFormRegisterRight{
+            min-height: 190px;
+            max-height: 310px;
+            min-width: 210px;
+            max-width: 210px;
+        }
+
+        #userFormRegisterRightTitle{
+            min-width: 50px;
+            max-width: 50px;
+            min-height: 17px;
+            max-height: 17px;
+            margin-top: 2%;
+        }
+
+        .userFormRegisterRightContentContainer{
+            min-height: 20px;
+            max-height: 20px;
+            min-width: 100px;
+            max-width: 180px;
+            margin-top: 2%;
+        }
+
+        .userFormRegisterRightContent{
+            min-height: 17px;
+            max-height: 17px;
+            min-width: 80px;
+            max-width: 160px;
         }
 
         .userRegisterFormInputContainer{
             min-height: 26px;
             max-height: 26px;
-            min-width: 300px;
-            max-width: 300px;
+            min-width: 340px;
+            max-width: 340px;
             margin-top: 1.5%;
         }
 
         .userRegisterFormInputLabel{
             min-height: 20px;
             max-height: 20px;
-            min-width: 90px;
-            max-width: 90px;
+            min-width: 140px;
+            max-width: 150px;
+            margin-right: 3%;
         }
 
         .userRegisterFormInput{
             min-height: 20px;
             max-height: 20px;
-            min-width: 200px;
-            max-width: 200px;
+            min-width: 160px;
+            max-width: 160px;
         }
 
         #userRegisterFormButton{
@@ -138,20 +253,19 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { addCustomer } from '@/services/customers';
 
-    const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Plan']);
+    const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Plan','Metodo de pago']);
     const customerValues = ref(Array(customerAttribList.value.length).fill(''));
     // const observationVModel = ref('');
-    
+    const payMethodsList = ref(['','CBU','Tarjeta de crédito']);
+    const refPayMethodsList = ref('');
 
-    const add = async()=>{
-        await addCustomer(customerValues.value[0],
-                        customerValues.value[1],
-                        customerValues.value[2],
-                        customerValues.value[3],
-                        customerValues.value[4]
-        );
-    };
+    // const cbuData = ref('');
 
+    const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
+    // const creditCardData = ref(Array(creditCardDataList.value.length).fill(''));
+
+    const refAddPlan = ref(null);
+    var auxRefPlan = ref('');
+    const errMsg = ref('');
 </script>
