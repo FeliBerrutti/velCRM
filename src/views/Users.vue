@@ -20,7 +20,7 @@
             </form>
         </div>
         <div id="usersContainer"
-            v-if="genRefUsers"
+            v-if="refUsers"
             @click="handleClickOutUserContents">
             <div class="userContent"
             @click="handleClickOutUserContents">
@@ -31,7 +31,7 @@
             <div class="userContent"
                 v-for="(x, index) in refUsers"
                 :key="index" 
-                @click="handleUserContentClick(x.name)"
+                @click="handleUserContentClick(index)"
                 tabindex="0">
                 <div class="userContentName">
                     {{ x.name }}
@@ -43,6 +43,7 @@
                     {{ x.rol }}
                 </div>
             </div>
+            <!-- REGISTRAR USUARIO -->
             <div id="addUserContainer"
             v-if="isAddUserVisible">
                 <div id="addUserTitle">
@@ -61,9 +62,9 @@
                     </div>
                 </form>
                 <button id="addUserFormButton"
-                            @click="handleNewUserButton"><b>Agregar</b></button>
+                            @click="handleNewUserButton()"><b>Agregar</b></button>
             </div>
-            <!-- TODO -->
+            <!-- EDITAR USUARIO -->
             <div id="updateUserContainer"
                 v-if="isUpdateUserVisible">
                 <div id="updateUserTitle">
@@ -77,8 +78,7 @@
                             {{ x }}
                         </div>
                         <input class="updateUserFormInput" type="text"
-                        v-model="auxUserUpdate[index]" 
-                        :placeholder="handleUpdateUserPlaceholder(index)">
+                        v-model="auxUserUpdate[index]">
                     </div>
                 </form>
                 <button id="updateUserFormButton"
@@ -116,7 +116,7 @@
             <button class="userOptionsButton"
                     @click="handleUpdateUserClick()"><b>Editar</b></button>
             <button class="userOptionsButton"
-                    @click="deleteUserById"><b>Eliminar</b></button>
+                    @click="delUser()"><b>Eliminar</b></button>
             <button class="userOptionsButton"
             @click="handleAddUserClick()"><b>Registrar</b></button>
             <button class="userOptionsButton"
@@ -757,8 +757,12 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { getAllUsers, addUser, deleteUser } from '@/services/UserService';
+    import { User } from '@/models/User';
 
     const refUsers = ref(null);
+    const refUsersClick = ref(null);
+
     const genRefUsers = ref([
         {id: 1,
          name: 'user01',
@@ -766,7 +770,10 @@
          created: '1994-01-01',
          rol: 'Owner'
         }
-    ])
+    ]);
+
+    var auxNewUser = new User(null, null, null);
+
     const errMsg = ref('');
     const isAddUserVisible = ref(false);
     const isUpdateUserVisible = ref(false);
@@ -788,18 +795,44 @@
         }
     }
 
-    function handleUpdateUserClick(){
+    const handleUpdateUserClick = ()=>{
         if(!isUpdateUserVisible.value){
             isUpdateUserVisible.value = true;
         }else{
             isUpdateUserVisible.value = false;
-        }
-    }
+        };
+    };
 
     function handleClickOutUserContents(){
         userContentNameValue.value = null;
         console.log('Función ejecutada');
     };
+
+    const handleAddUserClick = ()=>{
+        if(!isAddUserVisible.value){
+            isAddUserVisible.value = true;
+        }else{
+            isAddUserVisible.value = false;
+        };
+    };
+
+    const searchUsers = async()=>{
+        try{
+            refUsers.value = await getAllUsers();
+            console.log('Usuarios obtenidos exitosamente.');
+        }catch(err){
+            console.error(err);
+        };
+    };
+
+    const handleUserContentClick = (index)=>{
+        refUsersClick.value = refUsers.value[index];
+        updateUserListValues.value = [refUsers.value[0].name,
+                                        refUsers.value[0].password,
+                                        refUsers.value[0].rol];
+        console.log(updateUserListValues.value);
+    };
+
 
     const searchUserOptionsList = ref(['Nombre','ID']);
     const searchUsersInputHandle = ref(Array(searchUserOptionsList.value.length).fill(''));
@@ -807,6 +840,39 @@
     const addUserListValues = ref(Array(addUserList.value.length).fill(''));
     const updateUserList = ref(['Nombre','Password','Rol']);
     const updateUserListValues = ref(Array(updateUserList.value.length).fill(''));
-    // searchUsers();
+
+    const handleNewUserButton = async () => {
+    try {
+        // Validar que todos los campos tengan valores
+        if (!addUserListValues.value[0] || !addUserListValues.value[1] || !addUserListValues.value[2]) {
+            throw new Error('Todos los campos son obligatorios');
+        }
+
+        const auxAddUser = {
+            name: addUserListValues.value[0],
+            password: addUserListValues.value[1],
+            rol: addUserListValues.value[2], // Asegúrate de que este valor no sea undefined
+        };
+
+        console.log(auxAddUser);
+        await addUser(auxAddUser);
+        console.log('Usuario creado con éxito.');
+        handleAddUserClick();
+        searchUsers();
+    } catch (err) {
+        console.error('Error al crear usuario:', err);
+    }
+};
+
+    const delUser = async()=>{
+        try{
+            await deleteUser(refUsersClick.value.id);
+            searchUsers();
+        }catch(err){
+            console.error(err);
+        };
+    };
+
+    searchUsers();
 
 </script>

@@ -12,23 +12,17 @@
                 <div class="productContentValue">
                     <b>Precio</b>
                 </div>
-                <div class="productContentMembers">
-                    <b>Adherentes</b>
-                </div>
             </div>
             <div class="productContent"
             v-for="(x, index) in refPlan"
                     :key="index"
-                    @click="handleProductContentClick(x.name)"
+                    @click="handleProductContentClick(index)"
                     tabindex="0">
                 <div class="productContentLabel">
                     {{ x.name }}
                 </div>
                 <div class="productContentValue">
                     {{ x.price }}
-                </div>
-                <div class="productContentMembers">
-                    {{ x.members }}
                 </div>
             </div>
             <!-- AÑADIR PLAN MODAL -->
@@ -52,7 +46,7 @@
                     Detalles
                 </div>
                 <textarea class="optionsPlanTextArea" 
-                              rows="60" v-model="addProductsRef[3]"></textarea>
+                              rows="60" v-model="addProductsRef[2]"></textarea>
                 <button class="optionsPlansFormButton"
                         @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
             </div>
@@ -83,7 +77,7 @@
         <!-- DETALLES -->
         <div id="productDetailsContainer">
             <div id="productDetailsContent"
-                    v-if="refProductDetails">
+                    >
                 {{ refProductDetails }}
             </div>
         </div>
@@ -91,7 +85,7 @@
             <button class="productsOptionsButton"
             @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
             <button class="productsOptionsButton"
-                    @click="deleteProduct(refPlanClick[0].name)"><b>Eliminar</b></button>
+                    @click="deleteProduct"><b>Eliminar</b></button>
             <button class="productsOptionsButton"
                     @click="handleAddPlanButtonClick"><b>Registrar</b></button>
         </div>
@@ -409,6 +403,8 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { getAllPlans, getPlanByID, addPlan, deletePlan } from '@/services/PlanService';
+    import { Plan } from '@/models/Plan';
 
     const refPlan = ref(null);
     const errorMsg = ref('');
@@ -418,7 +414,7 @@
     const refPlanClick = ref(null);
     const refProductDetails = ref(null);
 
-    const optionsPlanList = ref(['Plan','Precio','Adherentes'])
+    const optionsPlanList = ref(['Plan','Precio'])
     const addProductsRef = ref(Array(optionsPlanList.value.length).fill(''));
 
     function handleAddPlanButtonClick(){
@@ -428,4 +424,50 @@
     function handleUpdatePlanButtonClick(){
         isUpdatePlanVisible.value = !isUpdatePlanVisible.value;
     };
+
+    const searchPlans = async()=>{
+        try{
+            const output = await getAllPlans();
+            refPlan.value = output;
+        }catch(err){
+            console.log(err);
+        };
+    }
+
+    const handleProductContentClick = (index)=>{
+        refPlanClick.value = refPlan.value[index];
+        refProductDetails.value = refPlanClick.value.details;
+    };
+
+    const handleRegisterProductButtonClick = async ()=>{
+        try{
+            const auxAddPlan = {
+                name: addProductsRef.value[0],
+                price: addProductsRef.value[1],
+                details: addProductsRef.value[2],
+                sells: 0,
+                downs: 0
+            };
+            await addPlan(auxAddPlan);
+            console.log('Plan registrado con exito.');
+            handleAddPlanButtonClick();
+            searchPlans();
+        }catch(err){
+            console.error('Error al registrar plan, ', err);
+        };
+    };
+
+    const deleteProduct = async()=>{
+        try{
+            await deletePlan(refPlanClick.value.id);
+            console.log('Plan eliminado con exito.');
+            refPlanClick.value = null;
+            refProductDetails.value = null;
+            searchPlans();
+        }catch(err){
+            console.error(err);
+        };
+    };
+
+    searchPlans();
 </script>

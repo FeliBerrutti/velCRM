@@ -12,7 +12,7 @@
                         {{ x }}
                     </div>
                     <!-- TODO -->
-                     <select
+                     <!-- <select
                      v-model="auxRefPlan"
                      v-if="index === 4"
                      class="userRegisterFormInput">
@@ -20,10 +20,10 @@
                         :key="index" value="x">
                         {{ x.name }}
                         </option>
-                    </select>
+                    </select> -->
                     <select 
                     v-model="refPayMethodsList" 
-                    v-if="index === 5"
+                    v-if="index === 4"
                     class="userRegisterFormInput">
                         <option v-for="(x, index) in payMethodsList"
                         :key="index" :value="x">
@@ -38,7 +38,8 @@
                     <div class="userRegisterFormInputLabel">
                         CBU
                     </div>
-                    <input class="userRegisterFormInput" type="text">
+                    <input class="userRegisterFormInput" type="text"
+                    v-model="auxPayCBU">
                 </div>
                 <!-- #2 -->
                 <div 
@@ -49,7 +50,9 @@
                     <div class="userRegisterFormInputLabel">
                         {{ x }}
                     </div>
-                    <input class="userRegisterFormInput" type="text">
+                    <input class="userRegisterFormInput" type="text"
+                    v-model="auxPayCC[index]">
+
                 </div>
         </form>
         <button @click="add" id="userRegisterFormButton"><b>Registrar</b></button>
@@ -253,19 +256,64 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { Customer } from '@/models/Customer';
+    import { addCustomer } from '@/services/CustomerService';
 
-    const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Plan','Metodo de pago']);
+    const userID = 1;
+
+    const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Metodo de pago']);
     const customerValues = ref(Array(customerAttribList.value.length).fill(''));
-    // const observationVModel = ref('');
     const payMethodsList = ref(['','CBU','Tarjeta de crédito']);
     const refPayMethodsList = ref('');
-
-    // const cbuData = ref('');
+    const auxPayCBU = ref('');
+    const auxPayCC = ref([]);
 
     const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
-    // const creditCardData = ref(Array(creditCardDataList.value.length).fill(''));
 
     const refAddPlan = ref(null);
     var auxRefPlan = ref('');
+    const refPlan = ref(null);
     const errMsg = ref('');
+
+    const add = async () => {
+    try {
+ 
+        var auxCustomer = new Customer(
+            null,null,null,null,null,null,null,null,null
+        );
+
+        if (refPayMethodsList.value === 'CBU') {
+            auxCustomer = {
+                userId: userID,
+                name: customerValues.value[0],
+                lastName: customerValues.value[1],
+                dni: customerValues.value[3],
+                birthday: customerValues.value[2],
+                cbu: auxPayCBU.value,
+                creditCardNumber: '',
+                creditCardCode: '',
+                creditCardExp: ''
+            };
+        };
+
+        if (refPayMethodsList.value === 'Tarjeta de crédito') {
+            auxCustomer = {
+                userId: userID,
+                name: customerValues.value[0],
+                lastName: customerValues.value[1],
+                dni: customerValues.value[3],
+                birthday: customerValues.value[2],
+                cbu: '',
+                creditCardNumber: auxPayCC.value[0],
+                creditCardCode: auxPayCC.value[2],
+                creditCardExp: auxPayCC.value[1]
+            };
+        };
+
+        await addCustomer(auxCustomer);
+        console.log('Cliente añadido con éxito.');
+    } catch (err) {
+        console.error(err);
+    }
+    };
 </script>

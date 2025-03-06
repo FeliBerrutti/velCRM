@@ -304,7 +304,7 @@
             max-height: 285px;
             min-width: 560px;
             max-width: 560px;
-            margin-top: 4%;
+            margin-top: 10%;
         }
 
         .observationValueLabel{
@@ -387,6 +387,11 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { getCustomerByDNI } from '@/services/CustomerService';
+    import { addObservation, getObservationByCI } from '@/services/ObservationService';
+    import { Observation } from '@/models/Observation';
+
+    const userId = 1;
 
     const customerId = ref('');
     const customer = ref(null);
@@ -403,5 +408,35 @@
         }
     }
 
-    const customerList = ['Nombre','Apellido','DNI','Nacimiento','Alta','Baja','Plan'];
+    const customerList = ['Nombre','Apellido','DNI','Nacimiento','Alta', 'Planes'];
+
+    const searchCustomer = async()=>{
+        try{
+            customer.value = await getCustomerByDNI(customerId.value);
+            console.log('Cliente obtenido con exito.')
+            // console.log('id cliente: ' + customer.value[0].id);
+            customerOb.value = await getObservationByCI(customer.value[0].id);
+            console.log('Observaciones obtenidas con exito.');
+        }catch(err){
+            console.error(err);
+        };
+    };
+
+    const addNewObservation = async()=>{
+        try{
+            const auxOb = new Observation(
+                customer.value[0].id,
+                userId,
+                Date.now,
+                TimeRanges.now,
+                observationContent.value
+            );
+            await addObservation(auxOb);
+            handleIsObservationVisible();
+            searchCustomer();
+           
+        }catch(err){
+            console.error(err);
+        };
+    };
 </script>
