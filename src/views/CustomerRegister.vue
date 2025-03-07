@@ -11,16 +11,6 @@
                     <div class="userRegisterFormInputLabel">
                         {{ x }}
                     </div>
-                    <!-- TODO -->
-                     <!-- <select
-                     v-model="auxRefPlan"
-                     v-if="index === 4"
-                     class="userRegisterFormInput">
-                        <option v-for="(x, index) in refAddPlan"
-                        :key="index" value="x">
-                        {{ x.name }}
-                        </option>
-                    </select> -->
                     <select 
                     v-model="refPayMethodsList" 
                     v-if="index === 4"
@@ -55,7 +45,7 @@
 
                 </div>
         </form>
-        <button @click="add" id="userRegisterFormButton"><b>Registrar</b></button>
+        <button @click="add" class="userRegisterFormButton"><b>Registrar</b></button>
     </div>
 </template>
 
@@ -144,12 +134,12 @@
         border-radius: 5px;
     }
 
-    #userRegisterFormButton{
+    .userRegisterFormButton{
         width: 15%;
         padding: 0.5%;
         border: 2px solid black;
         border-radius: 5px;
-        background-color: rgba(0, 0, 255, 0.477);
+        background-color: rgb(0, 0, 255, 0.9);
         color: white;
     }
 
@@ -237,7 +227,7 @@
             max-width: 160px;
         }
 
-        #userRegisterFormButton{
+        .userRegisterFormButton{
             min-height: 28px;
             max-height: 28px;
             min-width: 80px;
@@ -270,11 +260,6 @@
     const auxPayCC = ref([]);
 
     const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
-
-    const refAddPlan = ref(null);
-    var auxRefPlan = ref('');
-    const refPlan = ref(null);
-    const errMsg = ref('');
 
     const add = async () => {
     try {
