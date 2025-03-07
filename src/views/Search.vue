@@ -8,8 +8,10 @@
             <button id="searchContainerButton"
                     @click="searchCustomer"><b>BUSCAR</b></button>
         </div>
+        <!-- ##############--DIV USUARIOS--############## -->
         <div id="resultsContainer"
             v-if="customer">
+            <!-- ##############--DIV MODAL IZQUIERDA--############## -->
             <div id="leftContent">
                 <div class="resultContent"
                             v-for="(x, index) in customerList" :key="index"
@@ -36,11 +38,14 @@
                 <div id="leftContentButtonsContainer">
                     <button id="searchViewButtons"
                     @click="handleIsPlansModalVisible"><b>Planes</b></button>
-                    <button id="searchViewButtons"><b>Info de pago</b></button>
+                    <button id="searchViewButtons"
+                    @click="handleIsPMVisible()"><b>Info de pago</b></button>
                 </div>
             </div>
+            <!-- ##############--DIV MODAL DERECHA--############## -->
             <div id="rightContent">
-                <div id="searchCustomerViewPlansModal"
+                <!-- ##############--MODAL VER PLANES--############## -->
+                <div class="searchCustomerViewModal"
                 v-if="isPlansModalVisible">
                     <div class="modalValuesContainer">
                         <div class="modalValueTitle">
@@ -51,7 +56,8 @@
                         <div class="modalValues">
                             <div class="modalValue"
                             v-for="(x, index) in refPlans"
-                            :key="index">
+                            :key="index"
+                            @click="handleRefPlansClick(index)">
                                 <div class="modalValueContent">{{ x.planName }}</div>
                                 <div class="modalValueContent">{{ x.date }}</div>
                                 <div class="modalValueContent">{{ x.stateDate }}</div>
@@ -61,11 +67,25 @@
                     <div class="searchCustomerViewModalButtonsContainer">
                         <button class="searchCustomerModalButton"
                         @click="handleIsAddPlanModalVisible()"><b>Alta</b></button>
-                        <button class="searchCustomerModalButton"><b>Baja</b></button>
+                        <button class="searchCustomerModalButton"
+                        @click="registerDown()"><b>Baja</b></button>
+                    </div>
+                </div>
+                 <!-- ##############--METODOS DE PAGO--############## -->
+                <div class="searchCustomerViewModal"
+                v-if="isPMVisible">
+                    <div class="modalValue"
+                    v-for="(x, index) in customerPayMethodOptions"
+                    :key="index">
+                        <div class="modalValueContent">{{ x }}</div>
+                        <div class="modalPMValueContent">
+                            {{ customerPMV[0][index] }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- ##############--OBSERVACIONES--############## -->
         <div id="resultContentValueObservations">
                 <div class="observationValueLabel">
                     Observaciones
@@ -96,7 +116,7 @@
                 <button id="searchViewButtons"
                         @click="handleIsObservationVisible"><b>Nueva</b></button>
          </div>
-         <!-- MODAL DAR DE ALTA NUEVO PLAN -->
+         <!-- ##############--DAR DE ALTA NUEVO PLAN--############## -->
          <div id="addSellContainer"
          v-if="isAddPlanModalVisible">
             <div class="addSellContent">
@@ -160,8 +180,6 @@
         width: 30%;
     }
 
-    
-
     #resultsContainer{
         border: 2px solid black;
         border-radius: 10px;
@@ -221,7 +239,7 @@
         width: 60%;
     }
 
-    #searchCustomerViewPlansModal{
+    .searchCustomerViewModal{
         border: 2px solid black;
         border-radius: 10px;
         width: 95%;
@@ -267,7 +285,20 @@
         width: 30%;
         padding: 0.2%;
         background-color: rgb(240,240,240);
-        overflow: hidden;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modalPMValueContent{
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 70%;
+        padding: 0.1%;
+        background-color: rgba(250,250,250,0.9);
     }
 
     .modalValues{
@@ -463,6 +494,7 @@
         justify-content: center;
     }
 
+
     @media(max-width: 820px){
         #searchViewContainer{
             min-height: 600px;
@@ -554,7 +586,7 @@
             max-height: 212px;
         }
 
-        #searchCustomerViewPlansModal{
+        .searchCustomerViewModal{
             min-height: 200px;
             max-height: 200px;
         }
@@ -575,6 +607,11 @@
             max-height: 18px;
         }
 
+        .modalPMValueContent{
+            min-height: 17px;
+            max-height: 17px;
+        }
+
         .modalValues{
             min-height: 90px;
             max-height: 90px;
@@ -583,6 +620,7 @@
         .modalValue{
             min-height: 25px;
             max-height: 25px;
+            margin: 0.5%
         }
 
         #modalsButton{
@@ -712,19 +750,30 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { getCustomerByDNI } from '@/services/CustomerService';
+    import { getCustomerByDNI, getPMbyID } from '@/services/CustomerService';
     import { addObservation, getObservationByCI } from '@/services/ObservationService';
     import { Observation } from '@/models/Observation';
     import { Sell } from '@/models/Sell';
     import { getCustomerPlansById, addSell } from '@/services/SellService';
     import { addPlan, getAllPlans } from '@/services/PlanService';
+    import { addDown } from '@/services/DownService';
 
     //Usuario generico
-    const userId = 16;
+    const userId = 1;
 
+    //Constantes Customers
     const customerId = ref('');
     const customer = ref(null);
     const customerOb = ref(null);
+
+    const customerList = ['Nombre','Apellido','DNI','Nacimiento',
+                            'Alta'];
+    
+    const customerPayMethodOptions = ['CBU','Num tarjeta','Cod Seguridad','Vencimiento'];
+    const customerPMV = ref(null);
+    const isPMVisible = ref(false);
+
+
     const errorMsg = ref('');
     const isAddObservationVisible = ref(false);
     const observationContent = ref('');
@@ -737,6 +786,7 @@
     const isAddPlanModalVisible = ref(false);
 
     const refPlans = ref(null);
+    const refPlansClick = ref(null);
     const refAllPlans = ref(null);
     const refAllPlansContentClick = ref(null);
 
@@ -749,13 +799,15 @@
         }
     }
 
-    const customerList = ['Nombre','Apellido','DNI','Nacimiento',
-                            'Alta'];
 
+//FUNCIONES CUSTOMER
+
+    //BACK
     const searchCustomer = async()=>{
         try{
+            closeModals();
             customer.value = await getCustomerByDNI(customerId.value);
-            console.log('Cliente obtenido con exito.')
+            console.log('Cliente obtenido con exito.');
             customerOb.value = await getObservationByCI(customer.value[0].id);
             console.log('Observaciones obtenidas con exito.');
         }catch(err){
@@ -763,15 +815,61 @@
         };
     };
 
+    const getPMbI = async()=>{
+        try{
+            customerPMV.value = await getPMbyID(customer.value[0].id);
+            console.log('Metodos de pago traídos con exito.');
+            console.log(customerPMV.value);
+        }catch(err){
+            console.error('Error al traer metodos de pago.', err);
+        };
+    };
+
+    //FRONT
+    const handleIsPMVisible = ()=>{
+        if(!isPMVisible.value){
+            getPMbI();
+            isPlansModalVisible.value = false;
+            console.log(customerPMV.value);
+            isPMVisible.value = true;
+        }else{
+            isPMVisible.value = false;
+        };
+    };
+
+    const handleIsPlansModalVisible = ()=>{
+        if(!isPlansModalVisible.value){
+            isPMVisible.value = false;
+            getPlansById();
+            isPlansModalVisible.value = true;
+        }else{
+            isPlansModalVisible.value = false;
+        };
+    };
+
+    const handleRefPlansClick = (index)=>{
+        refPlansClick.value = refPlans.value[index];
+    };
+
+    const handleIsAddPlanModalVisible = ()=>{
+        if(!isAddPlanModalVisible.value){
+            isAddPlanModalVisible.value = true;
+            searchPlans();
+        }else{
+            isAddPlanModalVisible.value = false;
+        };
+    };
+
+//FUNCIONES OBSERVATIONS
+
+    //BACK
     const addNewObservation = async()=>{
         try{
-            const auxOb = new Observation(
-                customer.value[0].id,
-                userId,
-                Date.now,
-                TimeRanges.now,
-                observationContent.value
-            );
+            const auxOb = {
+                customerId: customer.value[0].id,
+                userId: userId,
+                content: observationContent.value
+            };
             await addObservation(auxOb);
             handleIsObservationVisible();
             searchCustomer();
@@ -784,19 +882,13 @@
     //Funciones Plans
 
     //FRONT
-    const handleIsAddPlanModalVisible = ()=>{
-        if(!isAddPlanModalVisible.value){
-            isAddPlanModalVisible.value = true;
-            searchPlans();
-        }else{
-            isAddPlanModalVisible.value = false;
-        };
-    };
 
     const handleAllPlansContentClick = (index)=>{
         refAllPlansContentClick.value = refAllPlans.value[index];
         console.log(refAllPlansContentClick.value);
-    }
+    };
+
+    
 
     //BACK
     const getPlansById = async()=>{
@@ -809,14 +901,6 @@
         };
     };
 
-    const handleIsPlansModalVisible = ()=>{
-        if(!isPlansModalVisible.value){
-            getPlansById();
-            isPlansModalVisible.value = true;
-        }else{
-            isPlansModalVisible.value = false;
-        };
-    };
 
     const searchPlans = async()=>{
         try{
@@ -829,7 +913,6 @@
 
     const registerSell = async()=>{
         try{
-
             const auxSell = {
                 userId: userId,
                 customerId: customer.value[0].id,
@@ -844,6 +927,27 @@
         }catch(err){
             console.error('Error al dar de alta el plan.', err);
         }
-    }
+    };
+
+    const registerDown = async()=>{
+        try{
+            const auxDown = {
+                sellID: refPlansClick.value.sellID,
+                userID: userId 
+            };
+            await addDown(auxDown);
+            console.log('Baja registrada con exito.');
+            getPlansById();
+        }catch(err){
+            console.error('Error al registrar la baja.', err);
+        };
+    };
+
+    //FUNCIONES GENERALES
+    const closeModals = ()=>{
+        isPMVisible.value = false;
+        isPlansModalVisible.value = false;
+        isAddObservationVisible.value = false;
+    };
 
 </script>

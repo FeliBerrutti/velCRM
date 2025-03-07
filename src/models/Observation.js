@@ -1,5 +1,6 @@
 export class Observation{
-    constructor(customerId, userId, date, time, content){
+    constructor(id, customerId, userId, date, time, content){
+        this.id = id;
         this.customerId = customerId;
         this.userId = userId;
         this.date = date;

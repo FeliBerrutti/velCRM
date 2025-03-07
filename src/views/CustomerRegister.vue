@@ -260,7 +260,7 @@
     import { addCustomer } from '@/services/CustomerService';
 
     //Usuario generico
-    const userID = 16;
+    const userID = 1;
 
     const customerAttribList = ref(['Nombre','Apellido','Nacimiento','DNI','Metodo de pago']);
     const customerValues = ref(Array(customerAttribList.value.length).fill(''));
