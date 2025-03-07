@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//##############--GET--##############
 export const getPlanByID = async(id)=>{
     try{
         const response = await axios.get(`/api/Plans/gPbI/${id}`);
@@ -20,6 +21,7 @@ export const getAllPlans = async()=>{
     };
 };
 
+//##############--POST--##############
 export const addPlan = async(plan)=>{
     try{
         const response = await axios.post(`api/Plans/aP`, plan);
@@ -30,6 +32,7 @@ export const addPlan = async(plan)=>{
     };
 };
 
+//##############--DELETE--##############
 export const deletePlan = async(id)=>{
     try{
         const response = await axios.delete(`/api/Plans/dP/${id}`);

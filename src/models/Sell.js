@@ -5,5 +5,5 @@ export class Sell {
       this.planId = planId;
       this.date = date;
       this.state = state;
-    }
-  }
+    };
+  };

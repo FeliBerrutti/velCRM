@@ -10,29 +10,63 @@
         </div>
         <div id="resultsContainer"
             v-if="customer">
-            <div class="resultContent"
-                        v-for="(x, index) in customerList" :key="index"
-                        >
-                <div class="resultContentLabel">
-                    {{ x }}:
+            <div id="leftContent">
+                <div class="resultContent"
+                            v-for="(x, index) in customerList" :key="index"
+                            >
+                    <div class="resultContentLabel">
+                        {{ x }}:
+                    </div>
+                    <div class="resultContentValue">
+                        {{ index === 0 ?
+                            customer[0].name :
+                            index === 1 ?
+                            customer[0].lastName :
+                            index === 2 ?
+                            customer[0].dni :
+                            index === 3 ?
+                            customer[0].birthday :
+                            index === 4 ?
+                            customer[0].registered :
+                            index === 5 ?
+                            customer[0].out :
+                            customer[0].plan }}
+                    </div>
                 </div>
-                <div class="resultContentValue">
-                    {{ index === 0 ?
-                        customer[0].name :
-                        index === 1 ?
-                        customer[0].lastName :
-                        index === 2 ?
-                        customer[0].dni :
-                        index === 3 ?
-                        customer[0].birthday :
-                        index === 4 ?
-                        customer[0].registered :
-                        index === 5 ?
-                        customer[0].out :
-                        customer[0].plan }}
+                <div id="leftContentButtonsContainer">
+                    <button id="searchViewButtons"
+                    @click="handleIsPlansModalVisible"><b>Planes</b></button>
+                    <button id="searchViewButtons"><b>Info de pago</b></button>
                 </div>
             </div>
-            <div id="resultContentValueObservations">
+            <div id="rightContent">
+                <div id="searchCustomerViewPlansModal"
+                v-if="isPlansModalVisible">
+                    <div class="modalValuesContainer">
+                        <div class="modalValueTitle">
+                            <div class="modalValueContent"
+                            v-for="(x, index) in plansModalContentList"
+                            :key="index">{{ x }}</div>
+                        </div>
+                        <div class="modalValues">
+                            <div class="modalValue"
+                            v-for="(x, index) in refPlans"
+                            :key="index">
+                                <div class="modalValueContent">{{ x.planName }}</div>
+                                <div class="modalValueContent">{{ x.date }}</div>
+                                <div class="modalValueContent">{{ x.stateDate }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="searchCustomerViewModalButtonsContainer">
+                        <button class="searchCustomerModalButton"
+                        @click="handleIsAddPlanModalVisible()"><b>Alta</b></button>
+                        <button class="searchCustomerModalButton"><b>Baja</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resultContentValueObservations">
                 <div class="observationValueLabel">
                     Observaciones
                 </div>
@@ -59,10 +93,32 @@
                             @click="addNewObservation"><b>Agregar</b></button>
                     </div>
                 </div>
-                <button id="newObservationButton"
+                <button id="searchViewButtons"
                         @click="handleIsObservationVisible"><b>Nueva</b></button>
+         </div>
+         <!-- MODAL DAR DE ALTA NUEVO PLAN -->
+         <div id="addSellContainer"
+         v-if="isAddPlanModalVisible">
+            <div class="addSellContent">
+                <div class="addSellContentValue"><b>Nombre</b></div>
+                <div class="addSellContentValue"><b>Precio</b></div>
             </div>
-        </div>
+            <div id="addSellContentContainer">
+                <div class="addSellContent"
+                v-for="(x, index) in refAllPlans"
+                :key="index" tabindex="0"
+                @click="handleAllPlansContentClick(index)">
+                    <div class="addSellContentValue">{{ x.name }}</div>
+                    <div class="addSellContentValue">{{ x.price }}</div>
+                </div>
+            </div>
+            <div id="addSellButtonsContainer">
+                <button class="searchCustomerModalButton"
+                @click="registerSell()"><b>Alta</b></button>
+                <button class="searchCustomerModalButton"
+                @click="handleIsAddPlanModalVisible()"><b>Cancelar</b></button>
+            </div>
+         </div>
     </div>
 </template>
 
@@ -104,18 +160,28 @@
         width: 30%;
     }
 
+    
+
     #resultsContainer{
         border: 2px solid black;
         border-radius: 10px;
         width: 96.5%;
         padding: 1%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         background-color: rgba(150,150,150,0.9);
     }
 
+    #leftContent{
+        padding: 0.1%;
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        height: auto;
+    }
+
     .resultContent{
-        width: 50%;
+        width: 90%;
         padding: 0.1%;
         display: flex;
         flex-direction: row;
@@ -125,11 +191,13 @@
     .resultContentLabel{
         width: 28%;
         padding: 0.1%;
+        width: 40%;
     }
 
     .resultContentValue{
         width: 65%;
         padding: 0.1%;
+        width: 58%;
     }
 
     #resultContentValueObservations{
@@ -140,6 +208,104 @@
         display: flex;
         flex-direction: column;
         background-color: rgba(150,150,150,0.9);
+    }
+
+    #leftContentButtonsContainer{
+        padding: 0.5%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #rightContent{
+        width: 60%;
+    }
+
+    #searchCustomerViewPlansModal{
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 95%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(175,175,175,0.9);
+    }
+
+    #modalsButton{
+        border: 2px solid black;
+        width: 7%;
+        padding: 1%;
+    }
+
+    .modalValuesContainer{
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 95%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(120,120,120,0.9);
+    }
+
+    .modalValueTitle{
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 98%;
+        padding: 0.1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: rgba(240,240,240, 0.6);
+    }
+
+    .modalValueContent{
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 30%;
+        padding: 0.2%;
+        background-color: rgb(240,240,240);
+        overflow: hidden;
+    }
+
+    .modalValues{
+        padding: 0.5%;
+        width: 98%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: scroll;
+    }
+
+    .modalValue{
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 0.1%;
+        width: 99.8%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: rgba(240,240,240, 0.6);
+    }
+
+    .searchCustomerViewModalButtonsContainer{
+        width: 98%;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .searchCustomerModalButton{
+        border: 2px solid black;
+        border-radius: 5px;
+        width: 25%;
+        padding: 1%;
+        background-color: rgba(0, 0, 255, 0.477);
+        color: white;
     }
 
     .observationValueLabel{
@@ -222,12 +388,79 @@
         color: white;
     }
 
-    #newObservationButton{
+    #searchViewButtons{
         border: 2px solid black;
         border-radius: 5px;
         background-color: rgba(0, 0, 255, 0.477);
         color: white;
         width: 30%;
+        margin: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    #addSellContainer{
+        border: 2px solid black;
+        border-radius: 10px;
+        background-color: rgb(110,110,110);
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+    }
+
+    .addSellContent{
+        border: 2px solid black;
+        background-color: rgb(185,185,185);
+        border-radius: 5px;
+        width: 80%;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .addSellContent:focus{
+        background-color: rgb(240,240,240);
+    }
+
+    .addSellContentValue{
+        border: 2px solid black;
+        background-color: rgb(240,240,240);
+        border-radius: 5px;
+        width: 40%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #addSellContentContainer{
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 95%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: scroll;
+        background-color: rgb(80,80,80);
+    }
+
+    #addSellButtonsContainer{
+        width: 90%;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
 
     @media(max-width: 820px){
@@ -278,33 +511,96 @@
             margin-top: 1%;
         }
 
+        #leftContent{
+            max-height: 210px;
+        }
+
         .resultContent{
-            min-height: 25px;
-            max-height: 25px;
+            min-height: 20px;
+            max-height: 20px;
             margin-top: 0.5%;
         }
 
         .resultContentLabel{
             min-height: 20px;
             max-height: 20px;
-            min-width: 78px;
-            max-width: 78px;
             margin-right: 1%;
         }
 
         .resultContentValue{
             min-height: 20px;
             max-height: 20px;
-            min-width: 190px;
-            max-width: 190px;
         }
 
         #resultContentValueObservations{
+            margin-top: 2%;
+            margin-left: 1%;
             min-height: 285px;
             max-height: 285px;
             min-width: 560px;
             max-width: 560px;
-            margin-top: 10%;
+            
+        }
+
+        #leftContentButtonsContainer{
+            min-height: 40px;
+            max-height: 40px;
+            margin-top: 3%;
+        }
+
+        #rightContent{
+            max-height: 210px;
+            min-height: 212px;
+            max-height: 212px;
+        }
+
+        #searchCustomerViewPlansModal{
+            min-height: 200px;
+            max-height: 200px;
+        }
+
+        .modalValuesContainer{
+            min-height: 150px;
+            max-height: 150px;
+            margin-top: 2%;
+        }
+
+        .modalValueTitle{
+            min-height: 25px;
+            max-height: 25px;
+        }
+
+        .modalValueContent{
+            min-height: 18px;
+            max-height: 18px;
+        }
+
+        .modalValues{
+            min-height: 90px;
+            max-height: 90px;
+        }
+
+        .modalValue{
+            min-height: 25px;
+            max-height: 25px;
+        }
+
+        #modalsButton{
+            margin-right: -85%;
+            max-height: 20px;
+        }
+
+        .searchCustomerViewModalButtonsContainer{
+            min-height: 25px;
+            max-height: 25px;
+            margin-top: 1%;
+        }
+
+        .searchCustomerModalButton{
+            min-height: 25px;
+            max-height: 25px;
+            margin-left: 1%;
+            margin-right: 1%;
         }
 
         .observationValueLabel{
@@ -343,12 +639,11 @@
             max-width: 440px;
         }
 
-        #newObservationButton{
+        #searchViewButtons{
             min-height: 25px;
             max-height: 25px;
             min-width: 80px;
-            max-width: 80px;
-            margin-top: 1%;
+            max-width: 90px;
         }
 
         #AddObservationContainer{
@@ -382,6 +677,36 @@
             max-width: 70px;
             margin-top: 1.5%;
         }
+
+        #addSellContainer{
+            min-height: 320px;
+            max-height: 320px;
+            top: 10%;
+            left: 25%;
+        }
+
+        .addSellContent{
+            min-height: 25px;
+            margin-top: 2%;
+        }
+
+        .addSellContentValue{
+            min-height: 20px;
+            max-height: 20px;
+            max-width: 150px;
+            margin-left: 1%;
+            margin-right: 1%;
+        }
+
+        #addSellContentContainer{
+            min-height: 210px;
+            max-height: 210px;
+        }
+
+        #addSellButtonsContainer{
+            min-height: 25px;
+            max-height: 25px;
+        }
     }
 </style>
 
@@ -390,8 +715,12 @@
     import { getCustomerByDNI } from '@/services/CustomerService';
     import { addObservation, getObservationByCI } from '@/services/ObservationService';
     import { Observation } from '@/models/Observation';
+    import { Sell } from '@/models/Sell';
+    import { getCustomerPlansById, addSell } from '@/services/SellService';
+    import { addPlan, getAllPlans } from '@/services/PlanService';
 
-    const userId = 1;
+    //Usuario generico
+    const userId = 16;
 
     const customerId = ref('');
     const customer = ref(null);
@@ -399,6 +728,18 @@
     const errorMsg = ref('');
     const isAddObservationVisible = ref(false);
     const observationContent = ref('');
+
+    const plansModalContentList = ref(['Nombre','Alta','Baja']);
+
+    //Constantes Plans
+    
+    const isPlansModalVisible = ref(false);
+    const isAddPlanModalVisible = ref(false);
+
+    const refPlans = ref(null);
+    const refAllPlans = ref(null);
+    const refAllPlansContentClick = ref(null);
+
 
     function handleIsObservationVisible(){
         if(!isAddObservationVisible.value){
@@ -408,13 +749,13 @@
         }
     }
 
-    const customerList = ['Nombre','Apellido','DNI','Nacimiento','Alta', 'Planes'];
+    const customerList = ['Nombre','Apellido','DNI','Nacimiento',
+                            'Alta'];
 
     const searchCustomer = async()=>{
         try{
             customer.value = await getCustomerByDNI(customerId.value);
             console.log('Cliente obtenido con exito.')
-            // console.log('id cliente: ' + customer.value[0].id);
             customerOb.value = await getObservationByCI(customer.value[0].id);
             console.log('Observaciones obtenidas con exito.');
         }catch(err){
@@ -439,4 +780,70 @@
             console.error(err);
         };
     };
+
+    //Funciones Plans
+
+    //FRONT
+    const handleIsAddPlanModalVisible = ()=>{
+        if(!isAddPlanModalVisible.value){
+            isAddPlanModalVisible.value = true;
+            searchPlans();
+        }else{
+            isAddPlanModalVisible.value = false;
+        };
+    };
+
+    const handleAllPlansContentClick = (index)=>{
+        refAllPlansContentClick.value = refAllPlans.value[index];
+        console.log(refAllPlansContentClick.value);
+    }
+
+    //BACK
+    const getPlansById = async()=>{
+        try{
+            refPlans.value = await getCustomerPlansById(customer.value[0].id);
+            console.log(refPlans.value[0].sellID);
+            console.log('Ventas traidas con exito.');
+        }catch(err){
+            console.error('Error al traer ventas.', err);
+        };
+    };
+
+    const handleIsPlansModalVisible = ()=>{
+        if(!isPlansModalVisible.value){
+            getPlansById();
+            isPlansModalVisible.value = true;
+        }else{
+            isPlansModalVisible.value = false;
+        };
+    };
+
+    const searchPlans = async()=>{
+        try{
+            refAllPlans.value = await getAllPlans();
+            console.log('Planes traídos exitosamente.');
+        }catch(err){
+            console.error('Error al traer planes.', err);
+        };
+    };
+
+    const registerSell = async()=>{
+        try{
+
+            const auxSell = {
+                userId: userId,
+                customerId: customer.value[0].id,
+                planId: refAllPlansContentClick.value.id,
+                state: true
+            };
+            console.log(auxSell);
+            await addSell(auxSell);
+            console.log('Plan dado de alta con éxito.');
+            getPlansById();
+            handleIsAddPlanModalVisible();
+        }catch(err){
+            console.error('Error al dar de alta el plan.', err);
+        }
+    }
+
 </script>

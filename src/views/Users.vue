@@ -843,7 +843,6 @@
 
     const handleNewUserButton = async () => {
     try {
-        // Validar que todos los campos tengan valores
         if (!addUserListValues.value[0] || !addUserListValues.value[1] || !addUserListValues.value[2]) {
             throw new Error('Todos los campos son obligatorios');
         }
@@ -851,7 +850,7 @@
         const auxAddUser = {
             name: addUserListValues.value[0],
             password: addUserListValues.value[1],
-            rol: addUserListValues.value[2], // Asegúrate de que este valor no sea undefined
+            rol: addUserListValues.value[2],
         };
 
         console.log(auxAddUser);
@@ -859,6 +858,7 @@
         console.log('Usuario creado con éxito.');
         handleAddUserClick();
         searchUsers();
+        addUserListValues.value = [];
     } catch (err) {
         console.error('Error al crear usuario:', err);
     }
