@@ -68,7 +68,7 @@
                         <button class="searchCustomerModalButton"
                         @click="handleIsAddPlanModalVisible()"><b>Alta</b></button>
                         <button class="searchCustomerModalButton"
-                        @click="registerDown()"><b>Baja</b></button>
+                        @click="handleConfirmDownsModal()"><b>Baja</b></button>
                     </div>
                 </div>
                  <!-- ##############--METODOS DE PAGO--############## -->
@@ -140,6 +140,13 @@
             </div>
          </div>
     </div>
+    <!-- TODO!! -->
+     <!-- MODAL CONFIRMACIÓN EMITIR BAJAS -->
+    <ConfirmationModal 
+      :refMSG="`¿Está seguro de que desea emitir la baja del plan seleccionado?`"
+      :isVisible="isConfirmationDownModalVisible"
+      @onConfirm="handleModalDownsConfirm"
+    />
 </template>
 
 <style scoped>
@@ -757,6 +764,8 @@
     import { getCustomerPlansById, addSell } from '@/services/SellService';
     import { addPlan, getAllPlans } from '@/services/PlanService';
     import { addDown } from '@/services/DownService';
+    import ConfirmationModal from '@/components/ConfirmationModal.vue';
+
 
     //Usuario generico
     const userId = 1;
@@ -798,6 +807,13 @@
             isAddObservationVisible.value = false;
         }
     }
+
+    //TODO!!
+    //Constantes Modal Confirmaciones bajas
+    const refConfirmMsg = ref('mensaje');
+    const isConfirmationDownModalVisible = ref(false);
+
+    const auxConfirm = ref(null);
 
 
 //FUNCIONES CUSTOMER
@@ -929,18 +945,9 @@
         }
     };
 
+    //TODO!!
     const registerDown = async()=>{
-        try{
-            const auxDown = {
-                sellID: refPlansClick.value.sellID,
-                userID: userId 
-            };
-            await addDown(auxDown);
-            console.log('Baja registrada con exito.');
-            getPlansById();
-        }catch(err){
-            console.error('Error al registrar la baja.', err);
-        };
+        
     };
 
     //FUNCIONES GENERALES
@@ -950,4 +957,34 @@
         isAddObservationVisible.value = false;
     };
 
+    //FUNCIONES MODAL
+
+    const handleConfirmDownsModal = ()=>{
+        if(!isConfirmationDownModalVisible.value){
+            isConfirmationDownModalVisible.value = true;
+        }else{
+            isConfirmationDownModalVisible.value = false;
+        };
+    };
+
+    //TODO!!
+    const handleModalDownsConfirm = async(output) => {
+        console.log('handleModalConfirm ejecutada.', output);
+        handleConfirmDownsModal();
+        
+        if(output){
+            try{
+                const auxDown = {
+                    sellID: refPlansClick.value.sellID,
+                    userID: userId 
+                };
+            await addDown(auxDown);
+            console.log('Baja registrada con exito.');
+            getPlansById();
+            }catch(err){
+                console.error('Error al registrar la baja.', err);
+            };
+        }
+
+    };
 </script>
