@@ -1,12 +1,11 @@
 <template>
     <div id="searchViewContainer">
         <div id="searchContainer">
-            <div id="searchContainerLabel">
+            <span>
                 DNI:
-            </div>
+            </span>
             <input v-model="customerId" id="searchContainerInput" type="text"/>
-            <button id="searchContainerButton"
-                    @click="searchCustomer"><b>BUSCAR</b></button>
+            <button @click="searchCustomer"><b>BUSCAR</b></button>
         </div>
         <!-- ##############--DIV USUARIOS--############## -->
         <div id="resultsContainer"
@@ -16,10 +15,10 @@
                 <div class="resultContent"
                             v-for="(x, index) in customerList" :key="index"
                             >
-                    <div class="resultContentLabel">
+                    <span>
                         {{ x }}:
-                    </div>
-                    <div class="resultContentValue">
+                    </span>
+                    <span class="resultContentValue">
                         {{ index === 0 ?
                             customer[0].name :
                             index === 1 ?
@@ -33,13 +32,11 @@
                             index === 5 ?
                             customer[0].out :
                             customer[0].plan }}
-                    </div>
+                    </span>
                 </div>
                 <div id="leftContentButtonsContainer">
-                    <button id="searchViewButtons"
-                    @click="handleIsPlansModalVisible"><b>Planes</b></button>
-                    <button id="searchViewButtons"
-                    @click="handleIsPMVisible()"><b>Info de pago</b></button>
+                    <button @click="handleIsPlansModalVisible"><b>Planes</b></button>
+                    <button @click="handleIsPMVisible()"><b>Info de pago</b></button>
                 </div>
             </div>
             <!-- ##############--DIV MODAL DERECHA--############## -->
@@ -49,9 +46,8 @@
                 v-if="isPlansModalVisible">
                     <div class="modalValuesContainer">
                         <div class="modalValueTitle">
-                            <div class="modalValueContent"
-                            v-for="(x, index) in plansModalContentList"
-                            :key="index">{{ x }}</div>
+                            <span v-for="(x, index) in plansModalContentList"
+                            :key="index">{{ x }}</span>
                         </div>
                         <div class="modalValues">
                             <div class="modalValue"
@@ -59,17 +55,15 @@
                             :key="index"
                             @click="handleRefPlansClick(index)"
                             tabindex="0">
-                                <div class="modalValueContent">{{ x.planName }}</div>
-                                <div class="modalValueContent">{{ x.date }}</div>
-                                <div class="modalValueContent">{{ x.stateDate }}</div>
+                                <span>{{ x.planName }}</span>
+                                <span>{{ x.date }}</span>
+                                <span>{{ x.stateDate }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="searchCustomerViewModalButtonsContainer">
-                        <button class="searchCustomerModalButton"
-                        @click="handleIsAddPlanModalVisible()"><b>Alta</b></button>
-                        <button class="searchCustomerModalButton"
-                        @click="handleConfirmDownsModal()"><b>Baja</b></button>
+                        <button @click="handleIsAddPlanModalVisible()"><b>Alta</b></button>
+                        <button @click="handleConfirmDownsModal()"><b>Baja</b></button>
                     </div>
                 </div>
                  <!-- ##############--METODOS DE PAGO--############## -->
@@ -78,7 +72,7 @@
                     <div class="modalValue"
                     v-for="(x, index) in customerPayMethodOptions"
                     :key="index">
-                        <div class="modalValueContent">{{ x }}</div>
+                        <span>{{ x }}</span>
                         <div class="modalPMValueContent">
                             {{ customerPMV[0][index] }}
                         </div>
@@ -88,26 +82,26 @@
         </div>
         <!-- ##############--OBSERVACIONES--############## -->
         <div id="resultContentValueObservations">
-                <div class="observationValueLabel">
-                    Observaciones
-                </div>
+                <h4>
+                    <b>Observaciones</b>
+                </h4>
                 <div id="observationValueContentContainer"
                 v-if="customerOb">
                     <div class="observationValue"
                     v-for="(x, index) in customerOb"
                     :key="index">
-                        <div class="observationValueDate">
+                        <span class="observationValueDate">
                             {{ x.date }}
-                        </div>
-                        <div class="observationValueContent">
+                        </span>
+                        <span class="observationValueContent">
                             {{ x.content }}
-                        </div>
+                        </span>
                     </div>
                     <div id="AddObservationContainer"
                         v-if="isAddObservationVisible">
-                        <div id="addObservationTitle">
+                        <h4>
                             <b>Agregar observación</b>
-                        </div>
+                        </h4>
                         <textarea id="addObservationTextArea" 
                         rows="28"   v-model="observationContent"></textarea>
                         <div id="addObservationButtonsContainer">
@@ -116,30 +110,27 @@
                         </div>
                     </div>
                 </div>
-                <button id="searchViewButtons"
-                        @click="handleIsObservationVisible"><b>Nueva</b></button>
+                <button @click="handleIsObservationVisible"><b>Nueva</b></button>
          </div>
          <!-- ##############--DAR DE ALTA NUEVO PLAN--############## -->
          <div id="addSellContainer"
          v-if="isAddPlanModalVisible">
             <div class="addSellContent">
-                <div class="addSellContentValue"><b>Nombre</b></div>
-                <div class="addSellContentValue"><b>Precio</b></div>
+                <span><b>Nombre</b></span>
+                <span><b>Precio</b></span>
             </div>
             <div id="addSellContentContainer">
                 <div class="addSellContent"
                 v-for="(x, index) in refAllPlans"
                 :key="index" tabindex="0"
                 @click="handleAllPlansContentClick(index)">
-                    <div class="addSellContentValue">{{ x.name }}</div>
-                    <div class="addSellContentValue">{{ x.price }}</div>
+                    <span>{{ x.name }}</span>
+                    <span>{{ x.price }}</span>
                 </div>
             </div>
             <div id="addSellButtonsContainer">
-                <button class="searchCustomerModalButton"
-                @click="handleConfirmSellsModal()"><b>Alta</b></button>
-                <button class="searchCustomerModalButton"
-                @click="handleIsAddPlanModalVisible()"><b>Cancelar</b></button>
+                <button @click="handleConfirmSellsModal()"><b>Alta</b></button>
+                <button @click="handleIsAddPlanModalVisible()"><b>Cancelar</b></button>
             </div>
          </div>
     </div>
@@ -176,29 +167,28 @@
         display: flex;
         flex-direction: row;
         background-color: rgba(150,150,150,0.9);
-    }
-
-    #searchContainerLabel{
-        width: 15%;
-        padding: 0.1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        span{
+            width: 15%;
+            padding: 0.1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0;
+        }
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+            width: 30%;
+        }
     }
 
     #searchContainerInput{
         width: 30%;
         border: 1.7px solid black;
         border-radius: 5px;
-    }
-
-    #searchContainerButton{
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
-        width: 30%;
     }
 
     #resultsContainer{
@@ -225,12 +215,11 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-    }
-
-    .resultContentLabel{
-        width: 28%;
-        padding: 0.1%;
-        width: 40%;
+        span{
+            width: 28%;
+            padding: 0.1%;
+            width: 40%;
+        }
     }
 
     .resultContentValue{
@@ -247,6 +236,25 @@
         display: flex;
         flex-direction: column;
         background-color: rgba(150,150,150,0.9);
+        h4{
+            width: 20%;
+            padding: 1%;
+            margin: 0;
+        }
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+            width: 30%;
+            margin: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 
     #leftContentButtonsContainer{
@@ -254,6 +262,20 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+            width: 30%;
+            margin: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 
     #rightContent{
@@ -287,6 +309,19 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(120,120,120,0.9);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 30%;
+            padding: 0.2%;
+            background-color: rgb(240,240,240);
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .modalValueTitle{
@@ -298,20 +333,6 @@
         flex-direction: row;
         align-items: center;
         background-color: rgba(240,240,240, 0.6);
-    }
-
-    .modalValueContent{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 30%;
-        padding: 0.2%;
-        background-color: rgb(240,240,240);
-        text-wrap: nowrap;
-        text-overflow: ellipsis;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
     }
 
     .modalPMValueContent{
@@ -340,6 +361,19 @@
         flex-direction: row;
         align-items: center;
         background-color: rgba(240,240,240, 0.6);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 30%;
+            padding: 0.2%;
+            background-color: rgb(240,240,240);
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .modalValue:focus{
@@ -357,20 +391,14 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-    }
-
-    .searchCustomerModalButton{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 25%;
-        padding: 1%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
-    }
-
-    .observationValueLabel{
-        width: 20%;
-        padding: 1%;
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 25%;
+            padding: 1%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     #observationValueContentContainer{
@@ -421,15 +449,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    #addObservationTitle{
-        width: 30%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        h4{
+            width: 30%;
+            padding: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     #addObservationTextArea{
@@ -456,21 +483,6 @@
         }
     }
 
-    #searchViewButtons{
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
-        width: 30%;
-        margin: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-wrap: nowrap;
-        text-overflow: ellipsis;
-    }
-
     #addSellContainer{
         border: 2px solid black;
         border-radius: 10px;
@@ -492,26 +504,25 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        span{
+            border: 2px solid black;
+            background-color: rgb(240,240,240);
+            border-radius: 5px;
+            width: 40%;
+            padding: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .addSellContent:focus{
         background-color: rgb(100,100,100);
-        div{
+        span{
             background-color: rgb(50,50,100);
             color: white;
         }
-    }
-
-    .addSellContentValue{
-        border: 2px solid black;
-        background-color: rgb(240,240,240);
-        border-radius: 5px;
-        width: 40%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
     }
     
     #addSellContentContainer{
@@ -533,6 +544,14 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 25%;
+            padding: 1%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
 
@@ -551,14 +570,20 @@
             max-width: 250px;
             margin-top: 2%;
             margin-left: 2%;
-        }
-
-        #searchContainerLabel{
-            min-height: 16px;
-            max-height: 16px;
-            min-width: 40px;
-            max-width: 40px;
-            margin-right: 1%;
+            span{
+                min-height: 16px;
+                max-height: 16px;
+                min-width: 40px;
+                max-width: 40px;
+                margin-right: 1%;
+                margin-top: 0.5%;
+            }
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 75px;
+                max-width: 75px;
+            }
         }
 
         #searchContainerInput{
@@ -567,13 +592,6 @@
             min-width: 100px;
             max-width: 100px;
             margin-right: 2%;
-        }
-
-        #searchContainerButton{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 75px;
-            max-width: 75px;
         }
 
         #resultsContainer{
@@ -592,12 +610,11 @@
             min-height: 20px;
             max-height: 20px;
             margin-top: 0.5%;
-        }
-
-        .resultContentLabel{
-            min-height: 20px;
-            max-height: 20px;
-            margin-right: 1%;
+            span{
+                min-height: 20px;
+                max-height: 20px;
+                margin-right: 1%;
+            }
         }
 
         .resultContentValue{
@@ -606,19 +623,35 @@
         }
 
         #resultContentValueObservations{
-            margin-top: 2%;
             margin-left: 1%;
             min-height: 285px;
             max-height: 285px;
             min-width: 560px;
             max-width: 560px;
-            
+            h4{
+                min-height: 22px;
+                max-height: 22px;
+                min-width: 100px;
+                max-width: 100px;
+            }
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 80px;
+                max-width: 90px;
+            }
         }
 
         #leftContentButtonsContainer{
             min-height: 40px;
             max-height: 40px;
             margin-top: 3%;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 80px;
+                max-width: 90px;
+            }
         }
 
         #rightContent{
@@ -636,16 +669,15 @@
             min-height: 150px;
             max-height: 150px;
             margin-top: 2%;
+            span{
+                min-height: 18px;
+                max-height: 18px;
+            }
         }
 
         .modalValueTitle{
             min-height: 25px;
             max-height: 25px;
-        }
-
-        .modalValueContent{
-            min-height: 18px;
-            max-height: 18px;
         }
 
         .modalPMValueContent{
@@ -661,7 +693,11 @@
         .modalValue{
             min-height: 25px;
             max-height: 25px;
-            margin: 0.5%
+            margin: 0.5%;
+            span{
+                min-height: 18px;
+                max-height: 18px;
+            }
         }
 
         #modalsButton{
@@ -673,20 +709,12 @@
             min-height: 25px;
             max-height: 25px;
             margin-top: 1%;
-        }
-
-        .searchCustomerModalButton{
-            min-height: 25px;
-            max-height: 25px;
-            margin-left: 1%;
-            margin-right: 1%;
-        }
-
-        .observationValueLabel{
-            min-height: 22px;
-            max-height: 22px;
-            min-width: 100px;
-            max-width: 100px;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
         }
 
         #observationValueContentContainer{
@@ -718,13 +746,6 @@
             max-width: 440px;
         }
 
-        #searchViewButtons{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 80px;
-            max-width: 90px;
-        }
-
         #AddObservationContainer{
             min-height: 250px;
             max-height: 250px;
@@ -732,13 +753,12 @@
             max-width: 500px;
             top: 25%;
             left: 15%;
-        }
-
-        #addObservationTitle{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 190px;
-            max-width: 190px;
+            h4{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 190px;
+                max-width: 190px;
+            }
         }
 
         #addObservationTextArea{
@@ -772,14 +792,13 @@
         .addSellContent{
             min-height: 25px;
             margin-top: 2%;
-        }
-
-        .addSellContentValue{
-            min-height: 20px;
-            max-height: 20px;
-            max-width: 150px;
-            margin-left: 1%;
-            margin-right: 1%;
+            span{
+                min-height: 20px;
+                max-height: 20px;
+                max-width: 150px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
         }
 
         #addSellContentContainer{
@@ -790,6 +809,12 @@
         #addSellButtonsContainer{
             min-height: 25px;
             max-height: 25px;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
         }
     }
 </style>
