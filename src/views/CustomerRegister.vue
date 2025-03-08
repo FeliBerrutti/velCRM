@@ -1,16 +1,16 @@
 <template>
     <div id="userRegisterViewContainer">
-        <div id="userRegisterViewTitle">
+        <h4>
             Registrar Cliente
-        </div>
+        </h4>
         <form id="userRegisterForm" action="">
             <!-- <div id="userFormRegisterLeft"> -->
                 <div class="userRegisterFormInputContainer"
                 v-for="(x, index) in customerAttribList"
                         :key="index">
-                    <div class="userRegisterFormInputLabel">
+                    <span>
                         {{ x }}
-                    </div>
+                    </span>
                     <select 
                     v-model="refPayMethodsList" 
                     v-if="index === 4"
@@ -20,15 +20,15 @@
                             {{ x }}
                         </option>
                     </select>
-                    <input v-if="index !== 4 && index !==5" v-model="customerValues[index]"  class="userRegisterFormInput" type="text">
+                    <input v-if="index !== 4 && index !==5" v-model="customerValues[index]" type="text">
                 </div>
                 <!-- #1 -->
                 <div class="userRegisterFormInputContainer"
                 v-if="refPayMethodsList === 'CBU'">
-                    <div class="userRegisterFormInputLabel">
+                    <span>
                         CBU
-                    </div>
-                    <input class="userRegisterFormInput" type="text"
+                    </span>
+                    <input type="text"
                     v-model="auxPayCBU">
                 </div>
                 <!-- #2 -->
@@ -37,22 +37,19 @@
                 v-for="(x, index) in creditCardDataList"
                 :key="index"
                 v-if="refPayMethodsList === 'Tarjeta de crédito'">
-                    <div class="userRegisterFormInputLabel">
+                    <span>
                         {{ x }}
-                    </div>
-                    <input class="userRegisterFormInput" type="text"
+                    </span>
+                    <input type="text"
                     v-model="auxPayCC[index]">
-
                 </div>
         </form>
-        <button @click="handleConfirmAddCustomerModal()" class="userRegisterFormButton"><b>Registrar</b></button>
+        <button @click="handleConfirmAddCustomerModal()" class=""><b>Registrar</b></button>
         <!-- MODAL CONFIRMACIÓN REGISTRAR CLIENTE -->
-         <!-- TODO!! -->
     <ConfirmationModal 
       :refMSG="`¿¿Registrar nuevo cliente?`"
       :isVisible="isConfirmationAddModalVisible"
-      @onConfirm="handleModalAddConfirm"
-    />
+      @onConfirm="handleModalAddConfirm"/>
     </div>
 </template>
 
@@ -60,11 +57,19 @@
     #userRegisterViewContainer{
         width: 100%;
         padding: 0.1%;
-    }
-
-    #userRegisterViewTitle{
-        width: 20%;
-        padding: 0.1%;
+        h4{
+            width: 20%;
+            padding: 0.1%;
+            margin: 0;
+        }
+        button{
+            width: 15%;
+            padding: 0.5%;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgb(0, 0, 255, 0.9);
+            color: white;
+        }
     }
 
     #userRegisterForm{
@@ -75,6 +80,20 @@
         border: 2px solid black;
         border-radius: 5px;
         background-color: rgba(150,150,150,0.9);
+        span{
+            width: 30%;
+            padding: 0.1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        input, select{
+            width: 50%;
+            padding: 0.1%;
+            border: 1.5px solid black;
+            border-radius: 5px;
+        }
     }
 
     #userFormRegisterLeft{
@@ -125,31 +144,6 @@
         background-color: rgba(240,240,240,0.7);
     }
 
-    .userRegisterFormInputLabel{
-        width: 30%;
-        padding: 0.1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .userRegisterFormInput{
-        width: 50%;
-        padding: 0.1%;
-        border: 1.5px solid black;
-        border-radius: 5px;
-    }
-
-    .userRegisterFormButton{
-        width: 15%;
-        padding: 0.5%;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgb(0, 0, 255, 0.9);
-        color: white;
-    }
-
     #userRegisterFormObservationInput{
         width: 80%;
     }
@@ -160,11 +154,17 @@
             max-height: 595px;
             min-width: 590px;
             max-width: 590px;
-        }
-
-        #userRegisterViewTitle{
-            min-height: 25px;
-            max-height: 25px;
+            h4{
+                min-height: 25px;
+                max-height: 25px;
+            }
+            button{
+                min-height: 28px;
+                max-height: 28px;
+                min-width: 80px;
+                max-width: 80px;
+                margin-top: 2%;
+            }
         }
 
         #userRegisterForm{
@@ -172,6 +172,19 @@
             max-height: 340px;
             min-width: 565px;
             max-width: 565px;
+            span{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 140px;
+                max-width: 150px;
+                margin-right: 3%;
+            }
+            input, select{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 160px;
+                max-width: 160px;
+            }
         }
 
         #userFormRegisterLeft{
@@ -219,28 +232,6 @@
             margin-top: 1.5%;
         }
 
-        .userRegisterFormInputLabel{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 140px;
-            max-width: 150px;
-            margin-right: 3%;
-        }
-
-        .userRegisterFormInput{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 160px;
-            max-width: 160px;
-        }
-
-        .userRegisterFormButton{
-            min-height: 28px;
-            max-height: 28px;
-            min-width: 80px;
-            max-width: 80px;
-            margin-top: 2%;
-        }
 
         #userRegisterFormObservationInput{
             min-height: 170px;

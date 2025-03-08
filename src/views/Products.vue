@@ -1,82 +1,59 @@
 <template>
     <div id="productsViewContainer">
-        <h3>
-            Planes
-        </h3>
+        <h3>Planes</h3>
         <div id="productsContainer"
         v-if="refPlan">
             <div class="productContent">
-                <span>
-                        <b>Plan</b>
-                </span>
-                <span>
-                    <b>Precio</b>
-                </span>
+                <span><b>Plan</b></span>
+                <span><b>Precio</b></span>
             </div>
             <div class="productContent"
             v-for="(x, index) in refPlan"
                     :key="index"
                     @click="handleProductContentClick(index)"
                     tabindex="0">
-                <span>
-                    {{ x.name }}
-                </span>
-                <span>
-                    {{ x.price }}
-                </span>
+                <span>{{ x.name }}</span>
+                <span>{{ x.price }}</span>
             </div>
             <!-- AÑADIR PLAN MODAL -->
             <div class="optionsPlansModal"
                     v-if="isAddPlanVisible">
-                <h3>
-                    Agregar Plan
-                </h3>
+                <h3>Agregar Plan</h3>
                 <form class="optionsPlansForm">
                     <div class="optionsPlanInputContainer"
                             v-for="(x, index) in optionsPlanList"
                             :key="index">
-                        <span>
-                            {{ x }}
-                        </span>
+                        <span>{{ x }}</span>
                         <input type="text"
                                 v-model="addProductsRef[index]">
                     </div>
                 </form>
-                <h4>
-                    Detalles
-                </h4>
+                <h4>Detalles</h4>
                 <textarea rows="60" v-model="addProductsRef[2]"></textarea>
                 <button @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
             </div>
             <!-- EDITAR PLAN -->
             <div class="optionsPlansModal"
             v-if="isUpdatePlanVisible">
-                <h3>
-                    Editar plan
-                </h3>
+                <h3>Editar plan</h3>
                 <form class="optionsPlansForm" action="">
                     <div class="optionsPlanInputContainer"
                     v-for="(x, index) in optionsPlanList"
                     :key="index">
-                        <div class="optionsPlanInputLabel">
-                            {{ x }}
-                        </div>
-                        <input class="optionsPlanInput" type="text">
+                        <span>{{ x }}</span>
+                        <input type="text">
                     </div>
                 </form>
                 <h4>
                     Detalles
                 </h4>
-                <textarea class="optionsPlanTextArea" 
-                              rows="60"></textarea>
-                <button class="optionsPlansFormButton"><b>Editar</b></button>
+                <textarea rows="60"></textarea>
+                <button><b>Editar</b></button>
             </div>
         </div>
         <!-- DETALLES -->
         <div id="productDetailsContainer">
-            <p>
-                {{ refProductDetails }}
-            </p>
+            <p>{{ refProductDetails }}</p>
         </div>
         <div id="productsOptionsContainer">
             <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
