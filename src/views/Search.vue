@@ -152,7 +152,6 @@
       :isVisible="isConfirmationSellModalVisible"
       @onConfirm="handleModalSellsConfirm"
     />
-
     <!-- MODAL MENSAJE DE ERROR -->
      <ErrorModal
         :refErrorModalMSG="refErrorMSG"
@@ -771,8 +770,6 @@
     import { ref } from 'vue';
     import { getCustomerByDNI, getPMbyID } from '@/services/CustomerService';
     import { addObservation, getObservationByCI } from '@/services/ObservationService';
-    import { Observation } from '@/models/Observation';
-    import { Sell } from '@/models/Sell';
     import { getCustomerPlansById, addSell } from '@/services/SellService';
     import { addPlan, getAllPlans } from '@/services/PlanService';
     import { addDown } from '@/services/DownService';
@@ -882,7 +879,7 @@
     const handleRefPlansClick = (index)=>{
         refPlansClick.value = refPlans.value[index];
     };
-    
+
     const handleIsAddPlanModalVisible = ()=>{
         if(!isAddPlanModalVisible.value){
             isAddPlanModalVisible.value = true;
@@ -952,13 +949,20 @@
 
     //---------------FUNCIONES MODALS
 
+    //TODO!!
     //###Modal confirmación Registrar bajas
     const handleConfirmDownsModal = ()=>{
-        if(!isConfirmationDownModalVisible.value){
-            isConfirmationDownModalVisible.value = true;
+        if(refPlansClick.value === null){
+            refErrorMSG.value = 'Debe seleccionar un plan haciendo click sobre el.';
+            handleIsErrorModalVisible();
         }else{
-            isConfirmationDownModalVisible.value = false;
-        };
+            if(!isConfirmationDownModalVisible.value){
+            isConfirmationDownModalVisible.value = true;
+            }else{
+                isConfirmationDownModalVisible.value = false;
+            };
+        }
+        
     };
 
     //BOTONES
@@ -1011,8 +1015,8 @@
             await addSell(auxSell);
             console.log('Plan dado de alta con éxito.');
             getPlansById();
-            // handleIsAddPlanModalVisible();
             handleConfirmSellsModal();
+            handleIsAddPlanModalVisible();
             }catch(err){
                 console.error('Error al dar de alta el plan.', err);
             }

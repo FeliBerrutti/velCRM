@@ -9,7 +9,7 @@
     #errorModalContainer{
         border: 2px solid black;
         border-radius: 10px;
-        background-color: rgb(200,200,200);
+        background-color: rgb(220,100,100);
         width: 40%;
         padding: 1%;
         position: fixed;
@@ -22,7 +22,7 @@
             width: 90%;
             height: auto;
             padding: 1%;
-            background-color: rgb(150,150,150);
+            background-color: rgb(240,240,240);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,7 +42,7 @@
     }
 
     @media(max-width: 820px){
-        #confirmationModalContainer{
+        #errorModalContainer{
             top: 10%;
             left: 30%;
             min-height: 170px;
@@ -53,6 +53,8 @@
             button{
                 margin-left: 1.5%;
                 margin-right: 1.5%;
+                min-height: 25px;
+                max-height: 25px;
             }
         }
     }
