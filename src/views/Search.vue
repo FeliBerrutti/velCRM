@@ -57,7 +57,8 @@
                             <div class="modalValue"
                             v-for="(x, index) in refPlans"
                             :key="index"
-                            @click="handleRefPlansClick(index)">
+                            @click="handleRefPlansClick(index)"
+                            tabindex="0">
                                 <div class="modalValueContent">{{ x.planName }}</div>
                                 <div class="modalValueContent">{{ x.date }}</div>
                                 <div class="modalValueContent">{{ x.stateDate }}</div>
@@ -109,8 +110,10 @@
                         </div>
                         <textarea id="addObservationTextArea" 
                         rows="28"   v-model="observationContent"></textarea>
-                        <button id="addObservationButton"
-                            @click="addNewObservation"><b>Agregar</b></button>
+                        <div id="addObservationButtonsContainer">
+                            <button @click="addNewObservation"><b>Agregar</b></button>
+                            <button @click="handleIsObservationVisible"><b>Cancelar</b></button>
+                        </div>
                     </div>
                 </div>
                 <button id="searchViewButtons"
@@ -339,6 +342,14 @@
         background-color: rgba(240,240,240, 0.6);
     }
 
+    .modalValue:focus{
+        background-color: rgb(100,100,100);
+        div{
+            background-color: rgb(50,50,100);
+            color: white;
+        }
+    }
+
     .searchCustomerViewModalButtonsContainer{
         width: 98%;
         padding: 1%;
@@ -428,13 +439,21 @@
         border-radius: 10px;
     }
 
-    #addObservationButton{
-        width: 15%;
-        padding: 0.5%;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+    #addObservationButtonsContainer{
+        width: 50%;
+        padding: 0.2%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        button{
+            width: 15%;
+            padding: 0.5%;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     #searchViewButtons{
@@ -476,7 +495,11 @@
     }
 
     .addSellContent:focus{
-        background-color: rgb(240,240,240);
+        background-color: rgb(100,100,100);
+        div{
+            background-color: rgb(50,50,100);
+            color: white;
+        }
     }
 
     .addSellContentValue{
@@ -726,12 +749,17 @@
             margin-top: 1%;
         }
 
-        #addObservationButton{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 70px;
-            max-width: 70px;
-            margin-top: 1.5%;
+        #addObservationButtonsContainer{
+            min-height: 30px;
+            max-height: 30px;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 90px;
+                max-width: 90px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
         }
 
         #addSellContainer{
@@ -949,7 +977,6 @@
 
     //---------------FUNCIONES MODALS
 
-    //TODO!!
     //###Modal confirmación Registrar bajas
     const handleConfirmDownsModal = ()=>{
         if(refPlansClick.value === null){
