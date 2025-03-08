@@ -152,6 +152,13 @@
       :isVisible="isConfirmationSellModalVisible"
       @onConfirm="handleModalSellsConfirm"
     />
+
+    <!-- MODAL MENSAJE DE ERROR -->
+     <ErrorModal
+        :refErrorModalMSG="refErrorMSG"
+        :isErrorModalVisible="auxIsErrorModalVisible"
+        @confirmErrorMSG="handleIsErrorModalVisible"
+     ></ErrorModal>
 </template>
 
 <style scoped>
@@ -770,6 +777,7 @@
     import { addPlan, getAllPlans } from '@/services/PlanService';
     import { addDown } from '@/services/DownService';
     import ConfirmationModal from '@/components/ConfirmationModal.vue';
+    import ErrorModal from '@/components/ErrorModal.vue';
 
 
     //Usuario generico
@@ -818,6 +826,10 @@
 
     //Constante Modal confirmaciones ventas
     const isConfirmationSellModalVisible = ref(false);
+
+    //Constantes modal mensaje de error
+    const auxIsErrorModalVisible = ref(false);
+    const refErrorMSG = ref('');
 
 
 //FUNCIONES CUSTOMER
@@ -870,7 +882,7 @@
     const handleRefPlansClick = (index)=>{
         refPlansClick.value = refPlans.value[index];
     };
-
+    
     const handleIsAddPlanModalVisible = ()=>{
         if(!isAddPlanModalVisible.value){
             isAddPlanModalVisible.value = true;
@@ -931,10 +943,6 @@
         };
     };
 
-    const registerSell = async()=>{
-        
-    };
-
     //FUNCIONES GENERALES
     const closeModals = ()=>{
         isPMVisible.value = false;
@@ -942,9 +950,9 @@
         isAddObservationVisible.value = false;
     };
 
-    //FUNCIONES MODALS
+    //---------------FUNCIONES MODALS
 
-    //Modal Registrar bajas
+    //###Modal confirmación Registrar bajas
     const handleConfirmDownsModal = ()=>{
         if(!isConfirmationDownModalVisible.value){
             isConfirmationDownModalVisible.value = true;
@@ -953,6 +961,7 @@
         };
     };
 
+    //BOTONES
     const handleModalDownsConfirm = async(output) => {
         console.log('handleModalConfirm ejecutada.', output);
         handleConfirmDownsModal();
@@ -971,16 +980,23 @@
             };
         }
     };
-    //TODO!!
-    //Modal registrar altas
+
+    //###Modal confirmación registrar altas
     const handleConfirmSellsModal = ()=>{
-        if(!isConfirmationSellModalVisible.value){
-            isConfirmationSellModalVisible.value = true;
+
+        if(refAllPlansContentClick.value === null){
+            refErrorMSG.value = 'Debe seleccionar uno de los planes haciendo click sobre el.'
+            handleIsErrorModalVisible();
         }else{
-            isConfirmationSellModalVisible.value = false;
+            if(!isConfirmationSellModalVisible.value){
+            isConfirmationSellModalVisible.value = true;
+            }else{
+                isConfirmationSellModalVisible.value = false;
+            };
         };
     };
 
+    //BOTONES
     const handleModalSellsConfirm = async(output) => {
         console.log('handleModalSellsConfirm ejecutada.', output);
         if(output){
@@ -995,13 +1011,24 @@
             await addSell(auxSell);
             console.log('Plan dado de alta con éxito.');
             getPlansById();
-            handleIsAddPlanModalVisible();
+            // handleIsAddPlanModalVisible();
             handleConfirmSellsModal();
             }catch(err){
                 console.error('Error al dar de alta el plan.', err);
             }
         }else{
             handleConfirmSellsModal();
+        };
+    };
+
+    //### MODAL MENSAJE DE ERROR
+    const handleIsErrorModalVisible = ()=>{
+        console.log('Entrando a handleIsErrorModalVisible.');
+        if(!auxIsErrorModalVisible.value){
+            auxIsErrorModalVisible.value = true;
+        }else{
+            auxIsErrorModalVisible.value = false;
+            refErrorMSG.value = '';
         };
     };
 </script>
