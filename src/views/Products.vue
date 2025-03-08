@@ -1,61 +1,59 @@
 <template>
     <div id="productsViewContainer">
-        <div id="productsViewTitle">
+        <h3>
             Planes
-        </div>
+        </h3>
         <div id="productsContainer"
         v-if="refPlan">
             <div class="productContent">
-                <div class="productContentLabel">
+                <span>
                         <b>Plan</b>
-                </div>
-                <div class="productContentValue">
+                </span>
+                <span>
                     <b>Precio</b>
-                </div>
+                </span>
             </div>
             <div class="productContent"
             v-for="(x, index) in refPlan"
                     :key="index"
                     @click="handleProductContentClick(index)"
                     tabindex="0">
-                <div class="productContentLabel">
+                <span>
                     {{ x.name }}
-                </div>
-                <div class="productContentValue">
+                </span>
+                <span>
                     {{ x.price }}
-                </div>
+                </span>
             </div>
             <!-- AÑADIR PLAN MODAL -->
             <div class="optionsPlansModal"
                     v-if="isAddPlanVisible">
-                <class id="optionsPlansTitle">
+                <h3>
                     Agregar Plan
-                </class>
+                </h3>
                 <form class="optionsPlansForm">
                     <div class="optionsPlanInputContainer"
                             v-for="(x, index) in optionsPlanList"
                             :key="index">
-                        <div class="optionsPlanInputLabel">
+                        <span>
                             {{ x }}
-                        </div>
-                        <input class="optionsPlanInput" type="text"
+                        </span>
+                        <input type="text"
                                 v-model="addProductsRef[index]">
                     </div>
                 </form>
-                <div class="textAreaTitle">
+                <h4>
                     Detalles
-                </div>
-                <textarea class="optionsPlanTextArea" 
-                              rows="60" v-model="addProductsRef[2]"></textarea>
-                <button class="optionsPlansFormButton"
-                        @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
+                </h4>
+                <textarea rows="60" v-model="addProductsRef[2]"></textarea>
+                <button @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
             </div>
             <!-- EDITAR PLAN -->
             <div class="optionsPlansModal"
             v-if="isUpdatePlanVisible">
-                <div class="optionsPlansTitle">
+                <h3>
                     Editar plan
-                </div>
+                </h3>
                 <form class="optionsPlansForm" action="">
                     <div class="optionsPlanInputContainer"
                     v-for="(x, index) in optionsPlanList"
@@ -66,9 +64,9 @@
                         <input class="optionsPlanInput" type="text">
                     </div>
                 </form>
-                <div class="textAreaTitle">
+                <h4>
                     Detalles
-                </div>
+                </h4>
                 <textarea class="optionsPlanTextArea" 
                               rows="60"></textarea>
                 <button class="optionsPlansFormButton"><b>Editar</b></button>
@@ -76,18 +74,14 @@
         </div>
         <!-- DETALLES -->
         <div id="productDetailsContainer">
-            <div id="productDetailsContent"
-                    >
+            <p>
                 {{ refProductDetails }}
-            </div>
+            </p>
         </div>
         <div id="productsOptionsContainer">
-            <button class="productsOptionsButton"
-            @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
-            <button class="productsOptionsButton"
-                    @click="deleteProduct"><b>Eliminar</b></button>
-            <button class="productsOptionsButton"
-                    @click="handleAddPlanButtonClick"><b>Registrar</b></button>
+            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
+            <button @click="deleteProduct"><b>Eliminar</b></button>
+            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
         </div>
     </div>
 </template>
@@ -99,11 +93,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    #productsViewTitle{
-        width: 20%;
-        padding: 1%;
+        h3{
+            width: 20%;
+            padding: 1%;
+            margin: 0;
+        }
     }
 
     #productsContainer{
@@ -128,18 +122,21 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(240,240,240,0.7);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 30%;
+            padding: 1%;
+            background-color: rgba(240,240,240,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .productContent:focus{
         background-color: rgba(100,100,100,0.7);
-    }
-
-    .productContentLabel{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 30%;
-        padding: 1%;
-        background-color: rgba(240,240,240,0.9);
     }
 
     .productContentValue{
@@ -172,15 +169,14 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(150,150,150,0.9);
-    }
-
-    .productsOptionsButton{
-        border: 2px solid black;
-        border-radius: 5px;
-        padding: 1%;
-        width: 17%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 1%;
+            width: 17%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     .optionsPlansModal{
@@ -192,15 +188,30 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-    
-    .optionsPlansTitle{
-        width: 30%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        h3{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 30%;
+            margin: 0;
+        }
+        h4{
+            margin: 0;
+        }
+        textarea{
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 1%;
+        }
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 20%;
+            padding: 1%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     .optionsPlansForm{
@@ -210,6 +221,12 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        input{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 50%;
+            padding: 0.5%;
+        }
     }
 
     .optionsPlanInputContainer{
@@ -221,37 +238,14 @@
         flex-direction: row;
         align-items: center;
         background-color: rgba(240,240,240,0.7);
+        span{
+            width: 22%;
+            padding: 0.1%;
+            display: flex;
+            flex-direction: column;
+        }
     }
 
-    .optionsPlanInputLabel{
-        width: 22%;
-        padding: 0.1%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .optionsPlanInput{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 50%;
-        padding: 0.5%;
-    }
-
-    .optionsPlanTextArea{
-        border: 2px solid black;
-        border-radius: 5px;
-        padding: 1%;
-    }
-
-    .optionsPlansFormButton{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 20%;
-        padding: 1%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
-    }
-    
     #productDetailsContainer{
         border: 2px solid black;
         border-radius: 5px;
@@ -262,14 +256,14 @@
         align-items: center;
         background-color: rgba(150,150,150,0.9);
         overflow: scroll;
-    }
-
-    #productDetailsContent{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 90%;
-        padding: 1%;
-        background-color: rgba(240,240,240,0.9);
+        p{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 90%;
+            padding: 1%;
+            background-color: rgba(240,240,240,0.9);
+            margin: 0;
+        }
     }
 
     @media(max-width: 820px){
@@ -294,14 +288,13 @@
             min-width: 530px;
             max-width: 530px;
             margin-bottom: 1%;
-        }
-
-        .productContentLabel{
-            min-height: 21px;
-            max-height: 21px;
-            min-width: 120px;
-            max-width: 120px;
-            margin-right: 2%;
+            span{
+                min-height: 21px;
+                max-height: 21px;
+                min-width: 120px;
+                max-width: 120px;
+                margin-right: 2%;
+            }
         }
 
         .productContentValue{
@@ -325,14 +318,13 @@
             min-width: 560px;
             max-width: 560px;
             margin-top: 3%;
-        }
-
-        .productsOptionsButton{
-            min-height: 30px;
-            max-height: 30px;
-            min-width: 95px;
-            max-width: 95px;
-            margin: 3%;
+            button{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 95px;
+                max-width: 95px;
+                margin: 3%;
+            }
         }
 
         .optionsPlansModal{
@@ -341,6 +333,17 @@
             min-width: 520px;
             max-width: 520px;
             top: 12%;
+            textarea{
+                min-width: 500px;
+                margin-top: 1%;
+            }
+            button{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 100px;
+                max-width: 100px;
+                margin-top: 2%;
+            }
         }
 
         .optionsPlansForm{
@@ -348,6 +351,12 @@
             max-height: 170px;
             min-width: 320px;
             max-width: 320px;
+            input{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 150px;
+                max-width: 150px;
+            }
         }
 
         .optionsPlanInputContainer{
@@ -356,34 +365,13 @@
             min-width: 250px;
             max-width: 250px;
             margin-top: 2%;
-        }
-
-        .optionsPlanInputLabel{
-            min-height: 23px;
-            max-height: 23px;
-            min-width: 70px;
-            max-width: 70px;
-            margin-right: 2%;
-        }
-
-        .optionsPlanInput{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 150px;
-            max-width: 150px;
-        }
-
-        .optionsPlanTextArea{
-            min-width: 500px;
-            margin-top: 1%;
-        }
-
-        .optionsPlansFormButton{
-            min-height: 30px;
-            max-height: 30px;
-            min-width: 100px;
-            max-width: 100px;
-            margin-top: 2%;
+            span{
+                min-height: 23px;
+                max-height: 23px;
+                min-width: 70px;
+                max-width: 70px;
+                margin-right: 2%;
+            }
         }
 
         #productDetailsContainer{
@@ -392,10 +380,9 @@
             min-width: 560px;
             max-width: 560px;
             margin-top: 2%;
-        }
-
-        #productDetailsContent{
-            min-height: 125px;
+            p{
+                min-height: 125px;
+            }
         }
     }
 
