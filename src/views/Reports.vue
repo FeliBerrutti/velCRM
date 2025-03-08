@@ -1,83 +1,84 @@
 <template>
     <div id="reportsViewContainer">
-        <div id="reportsTitle">Reportes</div>
+        <h3>Reportes</h3>
         <div id="reportsContentOption">
-            <div class="reportsContentOptionLabel"
-                @click="handleClickReportsOptionPlans">Planes</div>
-            <div class="reportsContentOptionLabel"
-                @click="handleClickReportsOptionUsers">Usuarios</div>
+            <button @click="handleClickReportsOptionPlans"><b>Planes</b></button>
+            <button @click="handleClickReportsOptionUsers"><b>Usuarios</b></button>
         </div>
         <!-- PLANES -->
         <div id="reportsContentContainer"
-            v-if="isPlansReportVisible">
+        v-if="isPlansReportVisible">
             <div class="reportsContentHeader">
-                <div class="reportsContentTitle">PLANES</div>
+                <h4>PLANES</h4>
                 <div class="reportsContentDate">
-                    <div class="reportsContentDateOption"
-                        @click="handleClickViewPlanMensual">Mensual</div>
-                    <div class="reportsContentDateOption"
-                        @click="handleClickViewPlanAnual">Anual</div>
+                    <button @click="handleClickViewPlanMensual">Mensual</button>
+                    <button @click="handleClickViewPlanAnual">Anual</button>
                 </div>
             </div>
             <!-- PLANES MENSUAL -->
             <div class="reportContentBody"
                     v-if="isPlanMensualVisible">
-                <div class="reportContentBodyTitle">Reporte Mensual</div>
+                <h4>Reporte Mensual</h4>
                 <div class="reportContentBodyContainer">
                     <div class="reportContent">
-                        <div class="reportContentValue"
-                            v-for="(x, index) in reportContentList"
-                            :key="index">{{ x }}</div>
+                        <span
+                        v-for="(x, index) in reportContentList"
+                        :key="index">
+                            {{ x }}
+                        </span>
                     </div>
                 </div>
             </div>
             <!-- PLANES ANUAL -->
             <div class="reportContentBody"
                 v-if="isPlanAnualVisible">
-                <div class="reportContentBodyTitle">Reporte Anual</div>
+                <h4>Reporte Anual</h4>
                 <div class="reportContentBodyContainer">
                     <div class="reportContent">
-                        <div class="reportContentValue"
-                            v-for="(x, index) in reportContentList"
-                            :key="index">{{ x }}</div>
+                        <span
+                        v-for="(x, index) in reportContentList"
+                        :key="index">
+                            {{ x }}
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- TODO -->
         <!-- USUARIOS -->
         <div id="reportsContentContainer"
             v-if="isUsersReportVisible">
             <div class="reportsContentHeader">
-                <div class="reportsContentTitle">Usuarios</div>
+                <h4>Usuarios</h4>
                 <div class="reportsContentDate">
-                    <div class="reportsContentDateOption"
-                        @click="handleClickViewUserMensual">Mensual</div>
-                    <div class="reportsContentDateOption"
-                        @click="handleClickViewUserAnual">Anual</div>
+                    <button @click="handleClickViewUserMensual">Mensual</button>
+                    <button @click="handleClickViewUserAnual">Anual</button>
                 </div>
             </div>
             <!-- USUARIOS MENSUAL -->
             <div class="reportContentBody"
-                    v-if="isUserMensualVisible">
-                <div class="reportContentBodyTitle">Reporte Mensual</div>
+            v-if="isUserMensualVisible">
+                <h4>Reporte Mensual</h4>
                 <div class="reportContentBodyContainer">
                     <div class="reportContent">
-                        <div class="reportContentValue"
-                            v-for="(x, index) in reportContentList"
-                            :key="index">{{ x }}</div>
+                        <span
+                        v-for="(x, index) in reportContentList"
+                        :key="index">
+                            {{ x }}
+                    </span>
                     </div>
                 </div>
             </div>
             <!-- USUARIOS ANUAL -->
             <div class="reportContentBody"
                 v-if="isUserAnualVisible">
-                <div class="reportContentBodyTitle">Reporte Anual</div>
+                <h4>Reporte Anual</h4>
                 <div class="reportContentBodyContainer">
                     <div class="reportContent">
-                        <div class="reportContentValue"
-                            v-for="(x, index) in reportContentList"
-                            :key="index">{{ x }}</div>
+                        <span
+                        v-for="(x, index) in reportContentList"
+                        :key="index">
+                            {{ x }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -95,15 +96,15 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    #reportsTitle{
-        width: 15%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        h3{
+            width: 15%;
+            padding: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
     }
 
     #reportsContentOption{
@@ -114,14 +115,13 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-    }
-
-    .reportsContentOptionLabel{
-        border: 2px solid black;
-        border-radius: 3px;
-        padding: 0.5%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+        button{
+            border: 2px solid black;
+            border-radius: 3px;
+            padding: 0.5%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     #reportsContentContainer{
@@ -136,10 +136,10 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-    }
-
-    .reportsContentTitle{
-        border: 2px solid red;
+        h4{
+            margin: 0;
+            margin-left: 43%;
+        }
     }
 
     .reportsContentDate{
@@ -150,18 +150,17 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-    }
-
-    .reportsContentDateOption{
-        border: 1.5px solid black;
-        border-radius: 5px;
-        padding: 0.1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+        button{
+            border: 1.5px solid black;
+            border-radius: 5px;
+            padding: 0.1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     .reportContentBody{
@@ -169,6 +168,9 @@
         border-radius: 5px;
         padding: 1%;
         background-color: rgba(220,220,220,0.8);
+        h4{
+            margin: 0;
+        }
     }
 
     .reportContentBodyContainer{
@@ -186,6 +188,11 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 1%;
+        }
     }
 
     .reportContentValue{
@@ -200,11 +207,10 @@
             max-width: 140px;
             min-height: 30px;
             max-height: 30px;
-        }
-
-        .reportsContentOptionLabel{
-            min-width: 68px;
-            max-width: 68px;
+            button{
+                min-width: 68px;
+                max-width: 68px;
+            }
         }
 
         #reportsContentContainer{
@@ -238,23 +244,18 @@
             max-width: 520px;
         }
 
-        .reportsContentTitle{
-            margin-left: 45%;
-        }
-
         .reportsContentDate{
             margin-left: 18%;
             min-width: 140px;
             max-width: 140px;
             min-height: 25px;
             max-height: 25px;
-        }
-
-        .reportsContentDateOption{
-            min-width: 60px;
-            max-width: 60px;
-            min-height: 20px;
-            max-height: 20px;
+            button{
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 20px;
+                max-height: 20px;
+            }
         }
 
         .reportContentBody{
@@ -278,6 +279,12 @@
             max-height: 30px;
             min-width: 525px;
             max-width: 525px;
+            span{
+                min-height: 17px;
+                max-height: 17px;
+                min-width: 50px;
+                margin: 1%;
+            }
         }
 
         .reportContentValue{
