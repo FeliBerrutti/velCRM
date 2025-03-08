@@ -1,27 +1,19 @@
 <template>
     <div id="loginViewContainer">
         <div id="loginContainer">
-            <div id="loginTitle">
-                <b>Iniciar Sesión</b>
-            </div>
+            <h3>Iniciar Sesión</h3>
                 <form id="loginForm" action="">
                     <div class="loginFormInputContainer">
-                        <div class="loginFormInputText">
-                            Usuario
-                        </div>
-                        <input class="loginFormInput" type="text"
-                                v-model="auxN">
+                        <span>Usuario</span>
+                        <input type="text" v-model="auxN">
                     </div>
+                    <!-- todo!! -->
                     <div class="loginFormInputContainer">
-                        <div class="loginFormInputText">
-                            Contraseña
-                        </div>
-                        <input class="loginFormInput" type="password"
-                                v-model="auxP">
+                        <span>Contraseña</span>
+                        <input type="password" v-model="auxP">
                     </div>
                 </form>
-                <button id="loginFormButton"
-                        @click="login"><b>Ingresar</b></button>
+                <button @click="login"><b>Ingresar</b></button>
         </div>
     </div>
 </template>
@@ -42,12 +34,20 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-    }
-
-    #loginTitle{
-        width: 40%;
-        padding: 1%;
-        text-align: center;
+        h3{
+            width: 40%;
+            padding: 1%;
+            text-align: center;
+            margin: 0;
+        }
+        button{
+            border: 3px solid black;
+            border-radius: 5px;
+            width: 30%;
+            padding: 1%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     #loginForm{
@@ -66,33 +66,22 @@
         flex-direction: row;
         margin-top: 3%;
         background-color: rgba(240,240,240,0.7);
-    }
-
-    .loginFormInputText{
-        border: 2px solid black;
-        border-radius: 10px;
-        width: 30%;
-        padding: 0.1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(240,240,240,0.9);
-    }
-
-    .loginFormInput{
-        border: 2px solid black;
-        border-radius: 10px;
-        width: 55%;
-    }
-
-    #loginFormButton{
-        border: 3px solid black;
-        border-radius: 5px;
-        width: 30%;
-        padding: 1%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+        span{
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 30%;
+            padding: 0.1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(240,240,240,0.9);
+        }
+        input{
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 55%;
+        }
     }
 
     @media(max-width: 820px){
@@ -101,10 +90,16 @@
             max-width: 400px;
             min-height: 200px;
             max-height: 200px;
-        }
-
-        #loginTitle{
-            margin-top: 2%;
+            h3{
+                margin-top: 2%;
+            }
+            button{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 110px;
+                max-width: 110px;
+                margin-top: 2%;
+            }
         }
 
         #loginForm{
@@ -119,30 +114,20 @@
             max-height: 35px;
             min-width: 350px;
             max-width: 350px;
-        }
-
-        .loginFormInputText{
-            min-height: 31px;
-            max-height: 31px;
-            min-width: 100px;
-            max-width: 100px;
-            margin-left: 5%;
-        }
-
-        .loginFormInput{
-            min-height: 30px;
-            max-height: 30px;
-            min-width: 195px;
-            max-width: 195px;
-            margin-left: 5%;
-        }
-
-        #loginFormButton{
-            min-height: 30px;
-            max-height: 30px;
-            min-width: 110px;
-            max-width: 110px;
-            margin-top: 2%;
+            span{
+                min-height: 31px;
+                max-height: 31px;
+                min-width: 100px;
+                max-width: 100px;
+                margin-left: 5%;
+            }
+            input{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 195px;
+                max-width: 195px;
+                margin-left: 5%;
+            }
         }
     }
 
