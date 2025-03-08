@@ -2,8 +2,8 @@
     <div id="confirmationModalContainer" v-if="isVisible">
       <p>{{ refMSG }}</p>
       <div id="confirmationModalButtonsContainer">
-        <button @click="handleButton(true)">Sí</button>
-        <button @click="handleButton(false)">No</button>
+        <button @click="handleButton(true)"><b>Aceptar</b></button>
+        <button @click="handleButton(false)"><b>Cancelar</b></button>
       </div>
     </div>
   </template>
@@ -30,8 +30,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-wrap: nowrap;
-            text-overflow: ellipsis;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
     }
 

@@ -45,7 +45,14 @@
 
                 </div>
         </form>
-        <button @click="add" class="userRegisterFormButton"><b>Registrar</b></button>
+        <button @click="handleConfirmAddCustomerModal()" class="userRegisterFormButton"><b>Registrar</b></button>
+        <!-- MODAL CONFIRMACIÓN REGISTRAR CLIENTE -->
+         <!-- TODO!! -->
+    <ConfirmationModal 
+      :refMSG="`¿¿Registrar nuevo cliente?`"
+      :isVisible="isConfirmationAddModalVisible"
+      @onConfirm="handleModalAddConfirm"
+    />
     </div>
 </template>
 
@@ -248,6 +255,7 @@
     import { ref } from 'vue';
     import { Customer } from '@/models/Customer';
     import { addCustomer } from '@/services/CustomerService';
+    import ConfirmationModal from '@/components/ConfirmationModal.vue';
 
     //Usuario generico
     const userID = 1;
@@ -261,45 +269,66 @@
 
     const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
 
+    //Constantes modal confirmación agregar cliente
+    const isConfirmationAddModalVisible = ref(false);
+
     const add = async () => {
-    try {
- 
-        var auxCustomer = new Customer(
-            null,null,null,null,null,null,null,null,null
-        );
+    
+    };
 
-        if (refPayMethodsList.value === 'CBU') {
-            auxCustomer = {
-                userId: userID,
-                name: customerValues.value[0],
-                lastName: customerValues.value[1],
-                dni: customerValues.value[3],
-                birthday: customerValues.value[2],
-                cbu: auxPayCBU.value,
-                creditCardNumber: '',
-                creditCardCode: '',
-                creditCardExp: ''
-            };
+    //Funciones modal confirmación registrar cliente
+    const handleConfirmAddCustomerModal = ()=>{
+        if(!isConfirmationAddModalVisible.value){
+            isConfirmationAddModalVisible.value = true;
+        }else{
+            isConfirmationAddModalVisible.value = false;
         };
+    };
 
-        if (refPayMethodsList.value === 'Tarjeta de crédito') {
-            auxCustomer = {
-                userId: userID,
-                name: customerValues.value[0],
-                lastName: customerValues.value[1],
-                dni: customerValues.value[3],
-                birthday: customerValues.value[2],
-                cbu: '',
-                creditCardNumber: auxPayCC.value[0],
-                creditCardCode: auxPayCC.value[2],
-                creditCardExp: auxPayCC.value[1]
+    //BOTONES
+    const handleModalAddConfirm = async(output) => {
+        console.log('handleModalAddConfirm ejecutada.', output);
+        handleConfirmAddCustomerModal();
+        
+        if(output){
+            try {
+            var auxCustomer = new Customer(
+                null,null,null,null,null,null,null,null,null
+            );
+
+            if (refPayMethodsList.value === 'CBU') {
+                auxCustomer = {
+                    userId: userID,
+                    name: customerValues.value[0],
+                    lastName: customerValues.value[1],
+                    dni: customerValues.value[3],
+                    birthday: customerValues.value[2],
+                    cbu: auxPayCBU.value,
+                    creditCardNumber: '',
+                    creditCardCode: '',
+                    creditCardExp: ''
+                };
             };
-        };
 
-        await addCustomer(auxCustomer);
-        console.log('Cliente añadido con éxito.');
-    } catch (err) {
-        console.error(err);
-    }
+            if (refPayMethodsList.value === 'Tarjeta de crédito') {
+                auxCustomer = {
+                    userId: userID,
+                    name: customerValues.value[0],
+                    lastName: customerValues.value[1],
+                    dni: customerValues.value[3],
+                    birthday: customerValues.value[2],
+                    cbu: '',
+                    creditCardNumber: auxPayCC.value[0],
+                    creditCardCode: auxPayCC.value[2],
+                    creditCardExp: auxPayCC.value[1]
+                };
+            };
+
+            await addCustomer(auxCustomer);
+            console.log('Cliente añadido con éxito.');
+        }catch (err) {
+            console.error(err);
+        }
+    };
     };
 </script>
