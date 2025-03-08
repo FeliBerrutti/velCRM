@@ -7,7 +7,6 @@
                         <span>Usuario</span>
                         <input type="text" v-model="auxN">
                     </div>
-                    <!-- todo!! -->
                     <div class="loginFormInputContainer">
                         <span>Contraseña</span>
                         <input type="password" v-model="auxP">

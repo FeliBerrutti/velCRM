@@ -81,7 +81,8 @@
             </div>
         </div>
         <!-- ##############--OBSERVACIONES--############## -->
-        <div id="resultContentValueObservations">
+        <div id="resultContentValueObservations"
+        v-if="customer">
                 <h4>
                     <b>Observaciones</b>
                 </h4>
@@ -623,6 +624,7 @@
         }
 
         #resultContentValueObservations{
+            margin-top: 2.5%;
             margin-left: 1%;
             min-height: 285px;
             max-height: 285px;
