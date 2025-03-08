@@ -134,18 +134,23 @@
             </div>
             <div id="addSellButtonsContainer">
                 <button class="searchCustomerModalButton"
-                @click="registerSell()"><b>Alta</b></button>
+                @click="handleConfirmSellsModal()"><b>Alta</b></button>
                 <button class="searchCustomerModalButton"
                 @click="handleIsAddPlanModalVisible()"><b>Cancelar</b></button>
             </div>
          </div>
     </div>
-    <!-- TODO!! -->
      <!-- MODAL CONFIRMACIÓN EMITIR BAJAS -->
     <ConfirmationModal 
       :refMSG="`¿Está seguro de que desea emitir la baja del plan seleccionado?`"
       :isVisible="isConfirmationDownModalVisible"
       @onConfirm="handleModalDownsConfirm"
+    />
+    <!-- MODAL CONFIRMACIÓN EMITIR ALTAs -->
+    <ConfirmationModal 
+      :refMSG="`¿Dar de alta el plan seleccionado?`"
+      :isVisible="isConfirmationSellModalVisible"
+      @onConfirm="handleModalSellsConfirm"
     />
 </template>
 
@@ -808,12 +813,11 @@
         }
     }
 
-    //TODO!!
-    //Constantes Modal Confirmaciones bajas
-    const refConfirmMsg = ref('mensaje');
+    //Constante Modal Confirmaciones bajas
     const isConfirmationDownModalVisible = ref(false);
 
-    const auxConfirm = ref(null);
+    //Constante Modal confirmaciones ventas
+    const isConfirmationSellModalVisible = ref(false);
 
 
 //FUNCIONES CUSTOMER
@@ -928,25 +932,6 @@
     };
 
     const registerSell = async()=>{
-        try{
-            const auxSell = {
-                userId: userId,
-                customerId: customer.value[0].id,
-                planId: refAllPlansContentClick.value.id,
-                state: true
-            };
-            console.log(auxSell);
-            await addSell(auxSell);
-            console.log('Plan dado de alta con éxito.');
-            getPlansById();
-            handleIsAddPlanModalVisible();
-        }catch(err){
-            console.error('Error al dar de alta el plan.', err);
-        }
-    };
-
-    //TODO!!
-    const registerDown = async()=>{
         
     };
 
@@ -957,8 +942,9 @@
         isAddObservationVisible.value = false;
     };
 
-    //FUNCIONES MODAL
+    //FUNCIONES MODALS
 
+    //Modal Registrar bajas
     const handleConfirmDownsModal = ()=>{
         if(!isConfirmationDownModalVisible.value){
             isConfirmationDownModalVisible.value = true;
@@ -967,7 +953,6 @@
         };
     };
 
-    //TODO!!
     const handleModalDownsConfirm = async(output) => {
         console.log('handleModalConfirm ejecutada.', output);
         handleConfirmDownsModal();
@@ -985,6 +970,38 @@
                 console.error('Error al registrar la baja.', err);
             };
         }
+    };
+    //TODO!!
+    //Modal registrar altas
+    const handleConfirmSellsModal = ()=>{
+        if(!isConfirmationSellModalVisible.value){
+            isConfirmationSellModalVisible.value = true;
+        }else{
+            isConfirmationSellModalVisible.value = false;
+        };
+    };
 
+    const handleModalSellsConfirm = async(output) => {
+        console.log('handleModalSellsConfirm ejecutada.', output);
+        if(output){
+            try{
+            const auxSell = {
+                userId: userId,
+                customerId: customer.value[0].id,
+                planId: refAllPlansContentClick.value.id,
+                state: true
+            };
+            console.log(auxSell);
+            await addSell(auxSell);
+            console.log('Plan dado de alta con éxito.');
+            getPlansById();
+            handleIsAddPlanModalVisible();
+            handleConfirmSellsModal();
+            }catch(err){
+                console.error('Error al dar de alta el plan.', err);
+            }
+        }else{
+            handleConfirmSellsModal();
+        };
     };
 </script>
