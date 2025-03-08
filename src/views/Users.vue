@@ -1,126 +1,99 @@
 <template>
     <div id="usersViewContainer">
-        <div id="usersViewTitle">
-            Usuarios
-        </div>
+        <h4>Usuarios</h4>
         <div id="searchUsersContainer">
             <form id="searchUsersForm" action="">
                 <div class="searchUserFormContent"
                         v-for="(x, index) in searchUserOptionsList"
                         :key="index">
-                    <div class="searchUsersFormLabel">
-                        {{ x }}
-                    </div>
-                    <input 
-                    class="searchFormUsersInput" type="text"
+                    <span>{{ x }}</span>
+                    <input type="text"
                     v-model="searchUsersInputHandle[index]">
                 </div>
-                <button id="searchUsersFormButton"
-                        @click="handleButtonSearchClick"><b>Buscar</b></button>
+                <button @click="handleButtonSearchClick"><b>Buscar</b></button>
             </form>
         </div>
         <div id="usersContainer"
-            v-if="refUsers"
-            @click="handleClickOutUserContents">
+        v-if="refUsers"
+        @click="handleClickOutUserContents">
             <div class="userContent"
             @click="handleClickOutUserContents">
-                <div class="userContentName"><b>Nombre</b></div>
-                <div class="userContentCreated"><b>Creado</b></div>
-                <div class="userContentRol"><b>Rol</b></div>
+                <span><b>Nombre</b></span>
+                <span><b>Creado</b></span>
+                <span><b>Rol</b></span>
             </div>
             <div class="userContent"
-                v-for="(x, index) in refUsers"
-                :key="index" 
-                @click="handleUserContentClick(index)"
-                tabindex="0">
-                <div class="userContentName">
-                    {{ x.name }}
-                </div>
-                <div class="userContentCreated">
-                    {{ x.created }}
-                </div>
-                <div class="userContentRol">
-                    {{ x.rol }}
-                </div>
+            v-for="(x, index) in refUsers"
+            :key="index" 
+            @click="handleUserContentClick(index)"
+            tabindex="0">
+                <span>{{ x.name }}</span>
+                <span>{{ x.created }}</span>
+                <span>{{ x.rol }}</span>
             </div>
             <!-- REGISTRAR USUARIO -->
             <div id="addUserContainer"
             v-if="isAddUserVisible">
-                <div id="addUserTitle">
-                    Registrar usuario
-                </div>
+                <h4>Registrar usuario</h4>
                 <form id="addUserForm">
                     <div class="addUserFormInputContainer"
                     v-for="(x, index) in addUserList"
                     :key="index">
-                        <div class="addUserFormLabel">
-                            {{x}}
-                        </div>
+                        <span>{{x}}</span>
                         <input 
-                        v-model="addUserListValues[index]"
-                        class="addUserFormInput" type="text">
+                        v-model="addUserListValues[index]" type="text">
                     </div>
                 </form>
-                <button id="addUserFormButton"
-                            @click="handleNewUserButton()"><b>Agregar</b></button>
+                <button @click="handleNewUserButton()"><b>Agregar</b></button>
             </div>
             <!-- EDITAR USUARIO -->
-            <div id="updateUserContainer"
-                v-if="isUpdateUserVisible">
-                <div id="updateUserTitle">
-                    Editar usuario
-                </div>
-                <form id="updateUserForm">
-                    <div class="updateUserFormInputContainer"
-                        v-for="(x, index) in updateUserList"
-                        :key="index">
-                        <div class="updateUserFormLabel">
-                            {{ x }}
-                        </div>
-                        <input class="updateUserFormInput" type="text"
+            <div id="addUserContainer"
+            v-if="isUpdateUserVisible">
+                <h4>Editar usuario</h4>
+                <form id="addUserForm">
+                    <div class="addUserFormInputContainer"
+                    v-for="(x, index) in updateUserList"
+                    :key="index">
+                        <span>{{ x }}</span>
+                        <input type="text"
                         v-model="auxUserUpdate[index]">
                     </div>
                 </form>
-                <button id="updateUserFormButton"
-                        @click="handleUpdateUserFormButtonClick"><b>Editar</b></button>
+                <button @click="handleUpdateUserFormButtonClick"><b>Editar</b></button>
             </div>
             <!-- REPORTES -->
             <div id="userReportContainer"
-                v-if="isReportUserVisible">
+            v-if="isReportUserVisible">
                 <div id="userReportHeader">
                     <div class="userReportHeaderContent"
                     v-for="(x, index) in userReportHeaderList"
                     :key="index">
-                        <div class="userReportHeaderLabel">{{ x }}</div>
-                        <div class="userReportHeaderValue">UserName</div>
+                        <span>{{ x }}</span>
+                        <span class="userReportHeaderValue">UserName</span>
                     </div>
                 </div>
                 <div id="userReportBody">
                     <div class="userReportBodyContainer"
                     v-for="(x, index) in userReportsD"
                     :key="index">
-                        <div class="userReportBodyContainerTitle">{{ x }}</div>
+                        <span>{{ x }}</span>
                         <div class="userReportBodyContent"
                         v-for="(x, index) in userReportBodyList"
                         :key="index">
-                            <div class="userReportBodyContentLabel">
+                            <span>
                                 {{ x }}
-                            </div>
-                            <div class="userReportBodyContentValue"></div>
+                            </span>
+                            <span id="userReportBodyContentValue"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="userOptionsContainer">
-            <button class="userOptionsButton"
-                    @click="handleUpdateUserClick()"><b>Editar</b></button>
-            <button class="userOptionsButton"
-                    @click="delUser()"><b>Eliminar</b></button>
-            <button class="userOptionsButton"
-            @click="handleAddUserClick()"><b>Registrar</b></button>
-            <button class="userOptionsButton"
-            @click="handleOpenReportsClick"><b>Reportes</b></button>
+            <button @click="handleUpdateUserClick()"><b>Editar</b></button>
+            <button @click="delUser()"><b>Eliminar</b></button>
+            <button @click="handleAddUserClick()"><b>Registrar</b></button>
+            <button @click="handleOpenReportsClick"><b>Reportes</b></button>
         </div>
     </div>
 </template>
@@ -129,11 +102,11 @@
     #usersViewContainer{
         width: 100%;
         padding: 1%;
-    }
-
-    #usersViewTitle{
-        width: 20%;
-        padding: 1%;
+        h4{
+            width: 20%;
+            padding: 1%;
+            margin: 0;
+        }
     }
 
     #searchUsersContainer{
@@ -149,6 +122,14 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        button{
+            width: 15%;
+            padding: 0.5%;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     .searchUserFormContent{
@@ -159,31 +140,20 @@
         flex-direction: row;
         align-items: center;
         background-color: rgba(240,240,240,0.7);
-    }
-
-    .searchUsersFormLabel{
-        width: 10%;
-        padding: 0.1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .searchFormUsersInput{
-        width: 17%;
-        padding: 0.1%;
-        border: 1.5px solid black;
-        border-radius: 5px;
-    }
-
-    #searchUsersFormButton{
-        width: 15%;
-        padding: 0.5%;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+        span{
+            width: 10%;
+            padding: 0.1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            width: 17%;
+            padding: 0.1%;
+            border: 1.5px solid black;
+            border-radius: 5px;
+        }
     }
 
     #usersContainer{
@@ -208,22 +178,21 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(240,240,240,0.7);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 20%;
+            padding: 0.5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(240,240,240,0.9);
+        }
     }
 
     .userContent:focus{
         background-color: rgba(100,100,100,0.7);
-    }
-
-    .userContentName{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 20%;
-        padding: 0.5%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(240,240,240,0.9);
     }
 
     .userContentCreated{
@@ -260,15 +229,14 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(150,150,150,0.9);
-    }
-
-    .userOptionsButton{
-        width: 20%;
-        padding: 0.5%;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
+        button{
+            width: 20%;
+            padding: 0.5%;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     #addUserContainer{
@@ -282,6 +250,19 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        h4{
+            margin: 0;
+            text-overflow: ellipsis;
+            text-wrap: nowrap;
+        }
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 20%;
+            padding: 1%;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+        }
     }
 
     #addUserForm{
@@ -300,39 +281,15 @@
         display: flex;
         flex-direction: row;
         background-color: rgba(240,240,240,0.7);
-    }
-
-    .addUserFormLabel{
-        width: 22%;
-        padding: 1%;
-    }
-
-    .addUserFormInput{
-        border: 1.5px solid black;
-        border-radius: 5px;
-        padding: 1%;
-    }
-
-    #addUserFormButton{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 20%;
-        padding: 1%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
-    }
-
-    #updateUserContainer{
-        border: 2px solid black;
-        border-radius: 5px;
-        padding: 1%;
-        width: 60%;
-        background-color: rgb(150,150,150);
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        span{
+            width: 22%;
+            padding: 1%;
+        }
+        input{
+            border: 1.5px solid black;
+            border-radius: 5px;
+            padding: 1%;
+        }
     }
 
     #updateUserTitle{
@@ -342,50 +299,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    #updateUserForm{
-        width: 50%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .updateUserFormInputContainer{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 95%;
-        padding: 1%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        background-color: rgba(240,240,240,0.7);
-    }
-
-    .updateUserFormLabel{
-        width: 25%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .updateUserFormInput{
-        border: 2px solid black;
-        border-radius: 5px;
-        padding: 1%;
-    }
-
-    #updateUserFormButton{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 20%;
-        padding: 1%;
-        background-color: rgba(0, 0, 255, 0.477);
-        color: white;
     }
 
     #userReportContainer{
@@ -419,9 +332,18 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(90,90,90,0.8);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(150,150,150);
+        }
     }
 
-    .userReportHeaderLabel{
+    /* .userReportHeaderLabel{
         border: 2px solid black;
         border-radius: 5px;
         display: flex;
@@ -429,7 +351,7 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(150,150,150);
-    }
+    } */
 
     .userReportHeaderValue{
         border: 2px solid black;
@@ -457,17 +379,16 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(90,90,90,0.8);
-    }
-
-    .userReportBodyContainerTitle{
-        border: 2px solid black;
-        border-radius: 5px;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(150,150,150);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(150,150,150);
+        }
     }
 
     .userReportBodyContent{
@@ -478,20 +399,19 @@
         flex-direction: row;
         align-items: center;
         background-color: rgba(190,190,190);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 1%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(150,150,150);
+        }
     }
 
-    .userReportBodyContentLabel{
-        border: 2px solid black;
-        border-radius: 5px;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(150,150,150);
-    }
-
-    .userReportBodyContentValue{
+    #userReportBodyContentValue{
         border: 2px solid black;
         border-radius: 5px;
         padding: 1%;
@@ -504,13 +424,12 @@
             max-height: 580px;
             min-width: 575px;
             max-width: 575px;
-        }
-
-        #usersViewTitle{
-            min-height: 23px;
-            max-height: 23px;
-            min-width: 100px;
-            max-width: 100px;
+            h4{
+                min-height: 23px;
+                max-height: 23px;
+                min-width: 100px;
+                max-width: 100px;
+            }
         }
 
         #searchUsersContainer{
@@ -524,6 +443,12 @@
         #searchUsersForm{
             min-height: 33px;
             max-height: 33px;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 80px;
+                max-width: 80px;
+            }
         }
 
         .searchUserFormContent{
@@ -532,29 +457,21 @@
             min-width: 200px;
             max-width: 200px;
             margin-right: 2%;
+            span{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 60px;
+                max-width: 60px;
+                margin-right: 2%;
+            }
+            input{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 100px;
+                max-width: 100px;
+            }
         }
 
-        .searchUsersFormLabel{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 60px;
-            max-width: 60px;
-            margin-right: 2%;
-        }
-
-        .searchFormUsersInput{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 100px;
-            max-width: 100px;
-        }
-
-        #searchUsersFormButton{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 80px;
-            max-width: 80px;
-        }
 
         #usersContainer{
             min-height: 400px;
@@ -570,14 +487,13 @@
             min-width: 440px;
             max-width: 440px;
             margin-top: 1%;
-        }
-
-        .userContentName{
-            min-height: 21.5px;
-            max-height: 21.5px;
-            min-width: 100px;
-            max-width: 100px;
-            margin-right: 2%;
+            span{
+                min-height: 21.5px;
+                max-height: 21.5px;
+                min-width: 100px;
+                max-width: 100px;
+                margin-right: 2%;
+            }
         }
 
         .userContentCreated{
@@ -601,14 +517,13 @@
             min-width: 570px;
             max-width: 570px;
             margin-top: 1%;
-        }
-
-        .userOptionsButton{
-            min-height: 25px;
-            max-height: 25px;
-            min-width: 100px;
-            max-width: 100px;
-            margin: 3%;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                min-width: 100px;
+                max-width: 100px;
+                margin: 3%;
+            }
         }
 
         #addUserContainer{
@@ -631,51 +546,19 @@
             min-width: 270px;
             max-width: 270px;
             margin-bottom: 2%;
-        }
-
-        .addUserFormLabel{
-            min-height: 18px;
-            max-height: 18px;
-            min-width: 60px;
-            max-width: 60px;
-            margin-right: 1%;
-        }
-
-        .addUserFormInput{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 150px;
-            max-width: 150px;
-        }
-
-        #updateUserContainer{
-            min-height: 300px;
-            max-height: 300px;
-            min-width: 500px;
-            max-width: 500px;
-        }
-
-        #updateUserForm{
-            min-height: 200px;
-            max-height: 200px;
-            min-width: 300px;
-            max-width: 300px;
-        }
-
-        .updateUserFormInputContainer{
-            min-height: 30px;
-            max-height: 30px;
-            min-width: 280px;
-            max-width: 280px;
-            margin-bottom: 2%;
-        }
-
-        .updateUserFormInput{
-            min-height: 18px;
-            max-height: 18px;
-            min-width: 150px;
-            max-width: 150px;
-            margin-left: 1%;
+            span{
+                min-height: 18px;
+                max-height: 18px;
+                min-width: 60px;
+                max-width: 60px;
+                margin-right: 1%;
+            }
+            input{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 150px;
+                max-width: 150px;
+            }
         }
 
         #userReportContainer{
@@ -693,15 +576,21 @@
             max-height: 40px;
             min-width: 140px;
             max-width: 140px;
-            margin: 1%
+            margin: 1%;
+            span{
+                min-height: 15px;
+                max-height: 15px;
+                min-width: 120px;
+                max-width: 120px;
+            }
         }
 
-        .userReportHeaderLabel{
+        /* .userReportHeaderLabel{
             min-height: 15px;
             max-height: 15px;
             min-width: 120px;
             max-width: 120px;
-        }
+        } */
 
         .userReportHeaderValue{
             min-height: 19px;
@@ -721,13 +610,12 @@
         .userReportBodyContainer{
             min-height: 110px;
             max-height: 110px;
-        }
-
-        .userReportBodyContainerTitle{
-            min-height: 13px;
-            max-height: 13px;
-            min-width: 100px;
-            max-width: 100px;
+            span{
+                min-height: 13px;
+                max-height: 13px;
+                min-width: 100px;
+                max-width: 100px;
+            }
         }
 
         .userReportBodyContent{
@@ -736,17 +624,16 @@
             min-width: 420px;
             max-width: 420px;
             margin-top: 0.5%;
+            span{
+                min-height: 15px;
+                max-height: 15px;
+                min-width: 120px;
+                max-width: 120px;
+                margin-right: 1.5%;
+            }
         }
 
-        .userReportBodyContentLabel{
-            min-height: 15px;
-            max-height: 15px;
-            min-width: 120px;
-            max-width: 120px;
-            margin-right: 1.5%;
-        }
-
-        .userReportBodyContentValue{
+        #userReportBodyContentValue{
             min-height: 15px;
             max-height: 15px;
             min-width: 250px;
