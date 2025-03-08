@@ -3,9 +3,7 @@
         <div class="verticalOption"
         v-for="(x, index) in optionsList" 
         :key="index" @click="handleOptionClick(index)">
-            <div class="verticalOptionText">
-                <b>{{ x }}</b>
-            </div>
+            <span><b>{{ x }}</b></span>
         </div>
     </div>
 </template>
