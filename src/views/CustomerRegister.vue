@@ -4,7 +4,6 @@
             Registrar Cliente
         </h4>
         <form id="userRegisterForm" action="">
-            <!-- <div id="userFormRegisterLeft"> -->
                 <div class="userRegisterFormInputContainer"
                 v-for="(x, index) in customerAttribList"
                         :key="index">
@@ -51,6 +50,12 @@
       :isVisible="isConfirmationAddModalVisible"
       @onConfirm="handleModalAddConfirm"/>
     </div>
+    <!-- MODAL MENSAJE DE ERROR -->
+    <ErrorModal
+        :refErrorModalMSG="refErrorMSG"
+        :isErrorModalVisible="auxIsErrorModalVisible"
+        @confirmErrorMSG="handleIsErrorModalVisible"
+     ></ErrorModal>
 </template>
 
 <style scoped>
@@ -247,6 +252,7 @@
     import { Customer } from '@/models/Customer';
     import { addCustomer } from '@/services/CustomerService';
     import ConfirmationModal from '@/components/ConfirmationModal.vue';
+    import ErrorModal from '@/components/ErrorModal.vue';
 
     //Usuario generico
     const userID = 1;
@@ -263,20 +269,128 @@
     //Constantes modal confirmación agregar cliente
     const isConfirmationAddModalVisible = ref(false);
 
-    const add = async () => {
-    
-    };
-
-    //Funciones modal confirmación registrar cliente
-    const handleConfirmAddCustomerModal = ()=>{
-        if(!isConfirmationAddModalVisible.value){
-            isConfirmationAddModalVisible.value = true;
+     //### FUNCIONES MODAL MENSAJE DE ERROR
+     const handleIsErrorModalVisible = (aux)=>{
+        console.log('Entrando a handleIsErrorModalVisible.');
+        if(!auxIsErrorModalVisible.value){
+            refErrorMSG.value = aux;
+            auxIsErrorModalVisible.value = true;
         }else{
-            isConfirmationAddModalVisible.value = false;
+            auxIsErrorModalVisible.value = false;
+            refErrorMSG.value = '';
         };
     };
 
+    //Constantes modal mensaje de error
+    const auxIsErrorModalVisible = ref(false);
+    const refErrorMSG = ref('');
+
+    //todo!!
+    //Funciones modal confirmación registrar cliente
+    const handleConfirmAddCustomerModal = ()=>{
+        const name = customerValues.value[0];
+        const lastname = customerValues.value[1];
+        const dni = customerValues.value[3];
+        const birthday = customerValues.value[2];
+        const cbu = auxPayCBU.value;
+        const creditCardNumber = auxPayCC.value[0];
+        const creditCardCode = auxPayCC.value[2];
+        const creditCardExp = auxPayCC.value[1];
+        const infoPay = refPayMethodsList.value;
+        // console.log(`Nombre: ${name},
+        //             apellido: ${lastname},
+        //             dni : ${dni},
+        //             cumpleaños: ${birthday},
+        //             cbu: ${cbu},
+        //             numero de tarjeta: ${creditCardNumber},
+        //             codigo de seguridad: ${creditCardCode},
+        //             fecha de vencimiento: ${creditCardExp}`);    
+
+        var aprob = true;
+
+        //VALIDACIONES CAMPO NOMBRE, APELLIDO, CUMPLEAÑOS, DNI, METODO DE PAGO
+        
+            //VALIDAR TODOS LOS CAMPOS
+        if(name.trim() === '' &&
+        lastname.trim() === '' &&
+        dni.trim() === '' &&
+        birthday.trim() === '' &&
+        infoPay === ''){
+            handleIsErrorModalVisible('Todos los campos son obligatorios.');
+            aprob = false;
+        };
+
+        //VALIDAR NOMBRE
+        if(name.trim() === '' &&
+        lastname.trim() !== '' &&
+        dni.trim() !== '' &&
+        birthday.trim() !== '' &&
+        infoPay !== ''){
+            handleIsErrorModalVisible('Todos los campos son obligatorios.');
+            aprob = false;
+        };
+
+        // //VALIDACIONES DNI
+        // if(dni.trim().length < 8 ||
+        //     dni.trim().length > 8){
+        //         handleIsErrorModalVisible('Número de DNI debe tener 8 caracteres.');
+        //         aprob = false;  
+        //     };
+        
+        //VALIDACIONES NUMERO DE CBU
+        if(infoPay === 'CBU' &&
+                cbu.trim().length < 22 ||
+                cbu.trim().length > 22
+        ){
+            handleIsErrorModalVisible('CBU debe tener 22 caracteres.');
+            aprob = false;
+        };
+
+        if(infoPay === 'CBU' &&
+            cbu.trim() !== '' )
+        {}
+
+        // //VALIDACIONES NUMERO DE TARJETA DE CRÉDITO
+        // if(infoPay === 'Tarjeta de crédito' &&
+        //     creditCardNumber.length < 14 ||
+        //     creditCardNumber.length > 16){
+        //         handleIsErrorModalVisible('El numero de tarjeta de crédito debe tener entre 14 y 16 dígitos.');
+        //         aprob = false;
+        //     };
+        
+        // //VALIDACIONES CODIGO DE SEGURIDAD
+        // if(infoPay === 'Tarjeta de crédito' &&
+        //     creditCardCode.length < 3 ||
+        //     creditCardCode.length > 4){
+        //         handleIsErrorModalVisible('El codigo de seguridad debe tener entre 3 y 4 dígitos.');
+        //         aprob = false;
+        //     };
+
+        // //VALIDACIONES FECHA DE VENCIMIENTO
+        // if(infoPay === 'Tarjeta de crédito' &&
+        //     creditCardExp === ''){
+        //         handleIsErrorModalVisible('Fecha de vencimiento es obligatoria.');
+        //     };
+
+        if(aprob === true){
+            if(!isConfirmationAddModalVisible.value){
+                isConfirmationAddModalVisible.value = true;
+            }else{
+                isConfirmationAddModalVisible.value = false;
+            };
+        }
+    };
+
     //BOTONES
+
+    //todo!!
+    const handleAddCustomerConfirmations = ()=>{
+        if(!customerValues){
+            console.log('Todos los campos son obligatorios.');
+        }
+    }
+
+
     const handleModalAddConfirm = async(output) => {
         console.log('handleModalAddConfirm ejecutada.', output);
         handleConfirmAddCustomerModal();

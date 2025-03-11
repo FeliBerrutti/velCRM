@@ -2,7 +2,7 @@
     <div id="loginViewContainer">
         <div id="loginContainer">
             <h3>Iniciar Sesión</h3>
-                <form id="loginForm" action="">
+                <form action="">
                     <div class="loginFormInputContainer">
                         <span>Usuario</span>
                         <input type="text" v-model="auxN">
@@ -18,6 +18,7 @@
 </template>
 
 <style scoped>
+
     #loginViewContainer{
         width: 100%;
         display: flex;
@@ -47,13 +48,12 @@
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
         }
-    }
-
-    #loginForm{
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        form{
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 
     .loginFormInputContainer{
@@ -99,13 +99,12 @@
                 max-width: 110px;
                 margin-top: 2%;
             }
-        }
-
-        #loginForm{
-            min-width: 380px;
-            max-width: 380px;
-            min-height: 120px;
-            max-height: 120px;
+            form{
+                min-width: 380px;
+                max-width: 380px;
+                min-height: 120px;
+                max-height: 120px;
+            }
         }
 
         .loginFormInputContainer{
@@ -130,6 +129,51 @@
         }
     }
 
+    @media(min-width: 821px) and (max-width: 960px){
+        #loginContainer{
+            min-width: 400px;
+            max-width: 400px;
+            min-height: 200px;
+            max-height: 200px;
+            h3{
+                margin-top: 2%;
+            }
+            button{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 110px;
+                max-width: 110px;
+                margin-top: 2%;
+            }
+            form{
+                min-width: 380px;
+                max-width: 380px;
+                min-height: 120px;
+                max-height: 120px;
+            }
+        }
+
+        .loginFormInputContainer{
+            min-height: 35px;
+            max-height: 35px;
+            min-width: 350px;
+            max-width: 350px;
+            span{
+                min-height: 31px;
+                max-height: 31px;
+                min-width: 100px;
+                max-width: 100px;
+                margin-left: 5%;
+            }
+            input{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 195px;
+                max-width: 195px;
+                margin-left: 5%;
+            }
+        }
+    }
 </style>
 
 <script setup>
