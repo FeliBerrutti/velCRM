@@ -3,11 +3,13 @@
         <h3>Planes</h3>
         <div id="productsContainer"
         v-if="refPlan">
-            <div class="productContent">
+        <!-- todo!! -->
+            <div>
                 <span><b>Plan</b></span>
                 <span><b>Precio</b></span>
             </div>
-            <div class="productContent"
+            <!-- todo!! -->
+            <div
             v-for="(x, index) in refPlan"
                     :key="index"
                     @click="handleProductContentClick(index)"
@@ -15,41 +17,39 @@
                 <span>{{ x.name }}</span>
                 <span>{{ x.price }}</span>
             </div>
-            <!-- AÑADIR PLAN MODAL -->
-            <div class="optionsPlansModal"
-                    v-if="isAddPlanVisible">
-                <h3>Agregar Plan</h3>
-                <form class="optionsPlansForm">
-                    <div
-                    v-for="(x, index) in optionsPlanList"
-                    :key="index">
-                        <span>{{ x }}</span>
-                        <input type="text"
-                                v-model="addProductsRef[index]">
-                    </div>
-                </form>
-                <h4>Detalles</h4>
-                <textarea rows="60" v-model="addProductsRef[2]"></textarea>
-                <button @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
-            </div>
-            <!-- EDITAR PLAN -->
-            <div class="optionsPlansModal"
-            v-if="isUpdatePlanVisible">
-                <h3>Editar plan</h3>
-                <form class="optionsPlansForm" action="">
-                    <div class="optionsPlanInputContainer"
-                    v-for="(x, index) in optionsPlanList"
-                    :key="index">
-                        <span>{{ x }}</span>
-                        <input type="text">
-                    </div>
-                </form>
-                <h4>
-                    Detalles
-                </h4>
-                <textarea rows="60"></textarea>
-                <button><b>Editar</b></button>
-            </div>
+        </div>
+        <!-- AÑADIR PLAN MODAL -->
+        <div class="optionsPlansModal"
+        v-if="isAddPlanVisible">
+            <h3>Agregar Plan</h3>
+            <form class="optionsPlansForm">
+                <div
+                v-for="(x, index) in optionsPlanList"
+                :key="index">
+                    <span>{{ x }}</span>
+                    <input type="text"
+                     v-model="addProductsRef[index]">
+                </div>
+            </form>
+            <h4>Detalles</h4>
+            <textarea rows="60" v-model="addProductsRef[2]"></textarea>
+            <button @click="handleRegisterProductButtonClick"><b>Agregar</b></button>
+        </div>
+        <!-- EDITAR PLAN -->
+        <div class="optionsPlansModal"
+        v-if="isUpdatePlanVisible">
+            <h3>Editar plan</h3>
+            <form class="optionsPlansForm" action="">
+                <div class="optionsPlanInputContainer"
+                v-for="(x, index) in optionsPlanList"
+                :key="index">
+                    <span>{{ x }}</span>
+                    <input type="text">
+                </div>
+            </form>
+            <h4>Detalles</h4>
+            <textarea rows="60"></textarea>
+            <button><b>Editar</b></button>
         </div>
         <!-- DETALLES -->
         <div id="productDetailsContainer">
@@ -90,9 +90,37 @@
         align-items: center;
         background-color: rgba(150,150,150,0.9);
         overflow: scroll;
+        div{
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 95%;
+            padding: 0.5%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(240,240,240,0.7);
+        }
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 25%;
+            padding: 1%;
+            background-color: rgba(240,240,240,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        :hover{
+            cursor: pointer;
+        }
+        :focus{
+            background-color: rgba(100,100,100,0.7);
+        }
     }
 
-    .productContent{
+    /* .productContent{
         border: 2px solid black;
         border-radius: 10px;
         width: 95%;
@@ -117,11 +145,11 @@
 
     .productContent:hover{
         cursor: pointer;
-    }
+    } */
 
-    .productContent:focus{
+    /* .productContent:focus{
         background-color: rgba(100,100,100,0.7);
-    }
+    } */
 
     #productsOptionsContainer{
         border: 2px solid black;
@@ -241,9 +269,19 @@
             min-height: 300px;
             max-height: 300px;
             margin-top: 1%;
+            div{
+                min-height: 35px;
+                max-height: 35px;
+                margin-bottom: 1%;
+            }
+            span{
+                min-height: 21px;
+                max-height: 21px;
+                margin-right: 2%;
+            }
         }
 
-        .productContent{
+        /* .productContent{
             min-height: 35px;
             max-height: 35px;
             margin-bottom: 1%;
@@ -252,7 +290,7 @@
                 max-height: 21px;
                 margin-right: 2%;
             }
-        }
+        } */
 
         #productsOptionsContainer{
             min-height: 40px;
