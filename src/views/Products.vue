@@ -128,7 +128,7 @@
             background-color: rgba(240,240,240,0.7);
         }
         span{
-            border: 2px solid black;
+            border: 1.8px solid black;
             border-radius: 5px;
             width: 25%;
             padding: 1%;
@@ -376,6 +376,7 @@
                 max-height: 35px;
                 margin-bottom: 1%;
                 width: 99%;
+                padding: 1%;
             }
             span{
                 min-height: 21px;
