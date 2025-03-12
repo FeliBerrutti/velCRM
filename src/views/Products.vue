@@ -1,14 +1,12 @@
 <template>
     <div id="productsViewContainer">
-        <h3>Planes</h3>
-        <div id="productsContainer"
-        v-if="refPlan">
         <!-- todo!! -->
-            <div>
+        <div id="productsContainerTitle">
                 <span><b>Plan</b></span>
                 <span><b>Precio</b></span>
-            </div>
-            <!-- todo!! -->
+        </div>
+        <div id="productsContainer"
+        v-if="refPlan">
             <div
             v-for="(x, index) in refPlan"
                     :key="index"
@@ -70,6 +68,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
         h3{
             width: 20%;
             padding: 1%;
@@ -77,6 +76,29 @@
         }
         button:hover{
             cursor: pointer;
+        }
+    }
+
+    #productsContainerTitle{
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 95%;
+        padding: 0.5%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(240,240,240,0.7);
+        span{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 25%;
+            padding: 1%;
+            background-color: rgba(240,240,240,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     }
 
@@ -89,7 +111,11 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         div{
             border: 2px solid black;
             border-radius: 10px;
@@ -120,41 +146,10 @@
         }
     }
 
-    /* .productContent{
-        border: 2px solid black;
-        border-radius: 10px;
-        width: 95%;
-        padding: 0.5%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(240,240,240,0.7);
-        span{
-            border: 2px solid black;
-            border-radius: 5px;
-            width: 25%;
-            padding: 1%;
-            background-color: rgba(240,240,240,0.9);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-    }
-
-    .productContent:hover{
-        cursor: pointer;
-    } */
-
-    /* .productContent:focus{
-        background-color: rgba(100,100,100,0.7);
-    } */
-
     #productsOptionsContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 95%;
+        width: 96%;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
@@ -168,6 +163,10 @@
             width: 17%;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     }
 
@@ -247,8 +246,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         p{
             border: 2px solid black;
             border-radius: 5px;
@@ -259,15 +263,25 @@
         }
     }
 
-    @media(min-width: 821px){
+    @media(min-width: 820px) and (max-width: 1024px){
         #productsViewContainer{
             min-height: 600px;
             max-height: 650px;
         }
 
+        #productsContainerTitle{
+            min-height: 35px;
+            max-height: 35px;
+            span{
+                min-height: 21px;
+                max-height: 21px;
+                margin-right: 2%;
+            }
+        }
+
         #productsContainer{
-            min-height: 300px;
-            max-height: 300px;
+            min-height: 310px;
+            max-height: 310px;
             margin-top: 1%;
             div{
                 min-height: 35px;
@@ -280,17 +294,6 @@
                 margin-right: 2%;
             }
         }
-
-        /* .productContent{
-            min-height: 35px;
-            max-height: 35px;
-            margin-bottom: 1%;
-            span{
-                min-height: 21px;
-                max-height: 21px;
-                margin-right: 2%;
-            }
-        } */
 
         #productsOptionsContainer{
             min-height: 40px;
@@ -337,8 +340,8 @@
         }
 
         #productDetailsContainer{
-            min-height: 140px;
-            max-height: 140px;
+            min-height: 160px;
+            max-height: 160px;
             margin-top: 2%;
             p{
                 min-height: 125px;
@@ -347,19 +350,98 @@
     }
 
     @media(min-width: 1025px){
+        #productsViewContainer{
+            min-height: 670px;
+            max-height: 670px;
+        }
+
+        #productsContainerTitle{
+            min-height: 35px;
+            max-height: 35px;
+            width: 85%;
+            span{
+                min-height: 21px;
+                max-height: 21px;
+                margin-right: 2%;
+            }
+        }
+
         #productsContainer{
-            min-height: 350px;
-            max-height: 350px;
+            min-height: 280px;
+            max-height: 280px;
+            margin-top: 1%;
+            width: 86%;
+            div{
+                min-height: 35px;
+                max-height: 35px;
+                margin-bottom: 1%;
+                width: 99%;
+            }
+            span{
+                min-height: 21px;
+                max-height: 21px;
+                margin-right: 2%;
+            }
         }
-    }
 
-    @media(min-width: 1328px){
+        #productsOptionsContainer{
+            width: 86%;
+            min-height: 40px;
+            max-height: 40px;
+            margin-top: 1%;
+            button{
+                min-height: 30px;
+                max-height: 30px;
+                min-width: 120px;
+                max-width: 120px;
+                margin: 3%;
+            }
+        }
+
+        .optionsPlansModal{
+            min-height: 400px;
+            max-height: 400px;
+            top: 12%;
+            textarea{
+                margin-top: 1%;
+            }
+            button{
+                min-height: 30px;
+                max-height: 30px;
+                margin-top: 2%;
+            }
+        }
+
+        .optionsPlansForm{
+            min-height: 170px;
+            max-height: 170px;
+            input{
+                min-height: 20px;
+                max-height: 20px;
+            }
+            div{
+                min-height: 30px;
+                max-height: 30px;
+                margin-top: 2%;
+            }
+            span{
+                min-height: 23px;
+                max-height: 23px;
+                margin-right: 2%;
+            }
+        }
+
         #productDetailsContainer{
-            min-height: 180px;
-            max-height: 180px;
+            min-height: 190px;
+            max-height: 190px;
+            width: 86%;
+            margin-top: 2%;
+            p{
+                min-height: 135px;
+                max-height: 135px;
+            }
         }
     }
-
 </style>
 
 <script setup>
