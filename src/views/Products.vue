@@ -55,11 +55,6 @@
         <div id="productDetailsContainer">
             <p>{{ refProductDetails }}</p>
         </div>
-        <div id="productsOptionsContainer">
-            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
-            <button @click="deleteProduct"><b>Eliminar</b></button>
-            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
-        </div>
     </div>
 </template>
 
