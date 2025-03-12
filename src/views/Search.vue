@@ -159,6 +159,9 @@
     #searchViewContainer{
         width: 100%;
         height: auto;
+        button:hover{
+            cursor: pointer;
+        }
     }
 
     #searchContainer{
@@ -378,6 +381,10 @@
         }
     }
 
+    .modalValue:hover{
+        cursor: pointer;
+    }
+
     .modalValue:focus{
         background-color: rgb(100,100,100);
         div{
@@ -517,6 +524,10 @@
             align-items: center;
             justify-content: center;
         }
+    }
+
+    .addSellContent:hover{
+        cursor: pointer;
     }
 
     .addSellContent:focus{

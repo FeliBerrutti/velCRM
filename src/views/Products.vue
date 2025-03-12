@@ -75,6 +75,9 @@
             padding: 1%;
             margin: 0;
         }
+        button:hover{
+            cursor: pointer;
+        }
     }
 
     #productsContainer{
@@ -110,6 +113,10 @@
             align-items: center;
             justify-content: center;
         }
+    }
+
+    .productContent:hover{
+        cursor: pointer;
     }
 
     .productContent:focus{

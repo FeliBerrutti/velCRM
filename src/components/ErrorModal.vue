@@ -39,6 +39,9 @@
             width: 25%;
             text-align: center;
         }
+        button:hover{
+          cursor: pointer;
+        }
     }
 
     @media(max-width: 820px){

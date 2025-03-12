@@ -70,6 +70,9 @@
             background-color: rgb(0, 0, 255, 0.9);
             color: white;
         }
+        button:hover{
+            cursor: pointer;
+        }
     }
 
     #userRegisterForm{
@@ -93,6 +96,9 @@
             padding: 0.1%;
             border: 1.5px solid black;
             border-radius: 5px;
+        }
+        select:hover{
+            cursor: pointer;
         }
     }
 

@@ -33,6 +33,10 @@
         box-shadow: 2px 2px 1px 1px grey;
     }
 
+    .verticalOption:hover{
+        cursor: pointer;
+    }
+
     @media(min-width: 821px){
         #verticalOptionsContainer{
             min-height: 605px;
