@@ -56,11 +56,12 @@
         }
     }
 
-    @media(max-width: 820px){
+    @media(min-width: 820px){
         #confirmationModalContainer{
             top: 10%;
             left: 30%;
             min-height: 170px;
+            max-width: 400px;
             p{
                 min-height: 100px;
                 margin-bottom: 2%;

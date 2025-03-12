@@ -44,11 +44,12 @@
         }
     }
 
-    @media(max-width: 820px){
+    @media(min-width: 820px){
         #errorModalContainer{
             top: 10%;
             left: 30%;
             min-height: 170px;
+            max-width: 400px;
             p{
                 min-height: 100px;
                 margin-bottom: 2%;
@@ -61,6 +62,12 @@
             }
         }
     }
+
+  @media(min-width: 1000px){
+      #errorModalContainer{
+        left: 35%;
+      }
+  }
 </style>
 
 <script setup>
