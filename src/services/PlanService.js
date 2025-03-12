@@ -32,10 +32,10 @@ export const addPlan = async(plan)=>{
     };
 };
 
-//##############--DELETE--##############
+//##############--PUT--##############
 export const deletePlan = async(id)=>{
     try{
-        const response = await axios.delete(`/api/Plans/dP/${id}`);
+        const response = await axios.put(`/api/Plans/dP/${id}`);
         return response.data;
     }catch(err){
         console.error('Error al eliminar plan.');
