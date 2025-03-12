@@ -126,7 +126,7 @@
                 :key="index" tabindex="0"
                 @click="handleAllPlansContentClick(index)">
                     <span>{{ x.name }}</span>
-                    <span>{{ x.price }}</span>
+                    <span>${{ x.price }}</span>
                 </div>
             </div>
             <div id="addSellButtonsContainer">
@@ -314,6 +314,11 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(120,120,120,0.9);
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         span{
             border: 2px solid black;
             border-radius: 5px;
@@ -407,6 +412,10 @@
             padding: 1%;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     }
 
@@ -417,7 +426,11 @@
         padding: 1%;
         display: flex;
         flex-direction: column;
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         background-color: rgba(175,175,175,0.9);
     }
 
@@ -546,8 +559,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         background-color: rgb(80,80,80);
+        
     }
 
     #addSellButtonsContainer{
@@ -564,249 +582,14 @@
             padding: 1%;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     }
 
-
-    /* @media(max-width: 820px){
-        #searchViewContainer{
-            min-height: 600px;
-            max-height: 600px;
-        }
-
-        #searchContainer{
-            min-height: 20px;
-            max-height: 20px;
-            min-width: 250px;
-            max-width: 250px;
-            margin-top: 2%;
-            margin-left: 2%;
-            span{
-                min-height: 16px;
-                max-height: 16px;
-                margin-right: 1%;
-                margin-top: 0.5%;
-            }
-            button{
-                min-height: 25px;
-                max-height: 25px;
-            }
-        }
-
-        #searchContainerInput{
-            min-height: 19px;
-            max-height: 19px;
-            min-width: 100px;
-            max-width: 100px;
-            margin-right: 2%;
-        }
-
-        #resultsContainer{
-            min-height: 210px;
-            max-height: 210px;
-            min-width: 575px;
-            max-width: 575px;
-            margin-top: 1%;
-        }
-
-        #leftContent{
-            max-height: 210px;
-        }
-
-        .resultContent{
-            min-height: 20px;
-            max-height: 20px;
-            margin-top: 0.5%;
-            h5{
-                min-height: 20px;
-                max-height: 20px;
-                margin-right: 1%;
-            }
-            span{
-                min-height: 20px;
-                max-height: 20px;
-            }
-        }
-
-        #resultContentValueObservations{
-            margin-top: 2.5%;
-            margin-left: 1%;
-            min-height: 285px;
-            max-height: 285px;
-            min-width: 560px;
-            max-width: 560px;
-            h4{
-                min-height: 22px;
-                max-height: 22px;
-            }
-            button{
-                min-height: 25px;
-                max-height: 25px;
-            }
-        }
-
-        #leftContentButtonsContainer{
-            min-height: 40px;
-            max-height: 40px;
-            margin-top: 3%;
-            button{
-                min-height: 25px;
-                max-height: 25px;
-            }
-        }
-
-        #rightContent{
-            max-height: 210px;
-            min-height: 212px;
-            max-height: 212px;
-        }
-
-        .searchCustomerViewModal{
-            min-height: 200px;
-            max-height: 200px;
-        }
-
-        .modalValuesContainer{
-            min-height: 150px;
-            max-height: 150px;
-            margin-top: 2%;
-            span{
-                min-height: 18px;
-                max-height: 18px;
-            }
-        }
-
-        .modalValueTitle{
-            min-height: 25px;
-            max-height: 25px;
-        }
-
-        .modalPMValueContent{
-            min-height: 17px;
-            max-height: 17px;
-        }
-
-        .modalValues{
-            min-height: 90px;
-            max-height: 90px;
-        }
-
-        .modalValue{
-            min-height: 25px;
-            max-height: 25px;
-            margin: 0.5%;
-            span{
-                min-height: 18px;
-                max-height: 18px;
-            }
-        }
-
-        #modalsButton{
-            margin-right: -85%;
-            max-height: 20px;
-        }
-
-        .searchCustomerViewModalButtonsContainer{
-            min-height: 25px;
-            max-height: 25px;
-            margin-top: 1%;
-            button{
-                min-height: 25px;
-                max-height: 25px;
-                margin-left: 1%;
-                margin-right: 1%;
-            }
-        }
-
-        #observationValueContentContainer{
-            min-height: 200px;
-            max-height: 200px;
-            min-width: 540px;
-            max-width: 540px;
-        }
-
-        .observationValue{
-            min-height: 45px;
-            max-height: 45px;
-            min-width: 530px;
-            max-width: 530px;
-            margin-top: 1%;
-        }
-
-        .observationValueDate{
-            min-height: 25px;
-            max-height: 25px;
-        }
-
-        .observationValueContent{
-            min-height: 40px;
-            max-height: 40px;
-        }
-
-        #AddObservationContainer{
-            min-height: 250px;
-            max-height: 250px;
-            top: 25%;
-            left: 15%;
-            h4{
-                min-height: 25px;
-                max-height: 25px;
-            }
-        }
-
-        #addObservationTextArea{
-            min-height: 150px;
-            max-height: 150px;
-            margin-top: 1%;
-        }
-
-        #addObservationButtonsContainer{
-            min-height: 30px;
-            max-height: 30px;
-            button{
-                min-height: 25px;
-                max-height: 25px;
-                margin-left: 1%;
-                margin-right: 1%;
-            }
-        }
-
-        #addSellContainer{
-            min-height: 320px;
-            max-height: 320px;
-            top: 10%;
-            left: 25%;
-        }
-
-        .addSellContent{
-            min-height: 25px;
-            margin-top: 2%;
-            span{
-                min-height: 20px;
-                max-height: 20px;
-                margin-left: 1%;
-                margin-right: 1%;
-            }
-        }
-
-        #addSellContentContainer{
-            min-height: 210px;
-            max-height: 210px;
-        }
-
-        #addSellButtonsContainer{
-            min-height: 25px;
-            max-height: 25px;
-            button{
-                min-height: 25px;
-                max-height: 25px;
-                margin-left: 1%;
-                margin-right: 1%;
-            }
-        }
-    } */
-
-    @media(min-width: 821px){
+    @media(min-width: 820px){
         #searchViewContainer{
             min-height: 610px;
         }
@@ -1031,6 +814,35 @@
                 margin-left: 1%;
                 margin-right: 1%;
             }
+        }
+    }
+
+    @media(min-width: 1329px){
+        #addSellContainer{
+            min-height: 320px;
+            max-height: 320px;
+        }
+
+        #resultContentValueObservations{
+            margin-top: 0.2%;
+        }
+
+        #searchContainer{
+            margin-top: 0%;
+        }
+
+        #resultsContainer{
+            margin-top: 0%;
+        }
+
+        #resultContentValueObservations{
+            min-height: 350px;
+            max-height: 350px;
+        }
+
+        #observationValueContentContainer{
+            min-height: 250px;
+            max-height: 250px;
         }
     }
 </style>

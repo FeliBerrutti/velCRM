@@ -40,7 +40,7 @@
     @media(min-width: 821px){
         #verticalOptionsContainer{
             min-height: 605px;
-            max-height: 690px;
+            max-height: 700px;
         }
 
         .verticalOption{

@@ -155,7 +155,7 @@
         background-color: rgba(240,240,240,0.7);
     }
 
-    @media(min-width: 821px){
+    @media(min-width: 820px){
         #userRegisterViewContainer{
             min-height: 595px;
             max-height: 595px;

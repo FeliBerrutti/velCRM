@@ -35,16 +35,30 @@
         }
     }
 
-    @media(min-width: 1328px){
+    @media(min-width: 1025px) and (max-width: 1328px){
         #container{
-            min-height: 740px;
-            max-height: 740px;
+            min-height: 690px;
+            max-height: 690px;
         }
 
         #rVC{
-            min-height: 700px;
-            max-height: 700px;
+            min-height: 660px;
+            max-height: 660px;
             margin-left: 1%;
+        }
+    }
+
+    @media(min-width: 1329px){
+        #container{
+            min-height: 720px;
+            max-height: 720px;
+        }
+
+        #rVC{
+            min-height: 690px;
+            max-height: 690px;
+            margin-left: 1%;
+            padding-top: 0.5%;
         }
     }
 </style>
