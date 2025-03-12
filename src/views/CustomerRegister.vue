@@ -250,7 +250,7 @@
     const payMethodsList = ref(['','CBU','Tarjeta de crédito']);
     const refPayMethodsList = ref('');
     const auxPayCBU = ref('');
-    const auxPayCC = ref([]);
+    const auxPayCC = ref(['','','']);
 
     const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
 
@@ -285,80 +285,101 @@
         const creditCardCode = auxPayCC.value[2];
         const creditCardExp = auxPayCC.value[1];
         const infoPay = refPayMethodsList.value;
-        // console.log(`Nombre: ${name},
-        //             apellido: ${lastname},
-        //             dni : ${dni},
-        //             cumpleaños: ${birthday},
-        //             cbu: ${cbu},
-        //             numero de tarjeta: ${creditCardNumber},
-        //             codigo de seguridad: ${creditCardCode},
-        //             fecha de vencimiento: ${creditCardExp}`);    
+        console.log(`Nombre: ${name},
+                    apellido: ${lastname},
+                    dni : ${dni},
+                    cumpleaños: ${birthday},
+                    cbu: ${cbu},
+                    numero de tarjeta: ${creditCardNumber},
+                    codigo de seguridad: ${creditCardCode},
+                    fecha de vencimiento: ${creditCardExp}`);    
 
         var aprob = true;
 
-        //VALIDACIONES CAMPO NOMBRE, APELLIDO, CUMPLEAÑOS, DNI, METODO DE PAGO
-        
-            //VALIDAR TODOS LOS CAMPOS
-        if(name.trim() === '' &&
-        lastname.trim() === '' &&
-        dni.trim() === '' &&
-        birthday.trim() === '' &&
-        infoPay === ''){
-            handleIsErrorModalVisible('Todos los campos son obligatorios.');
+        //VALIDAR NOMBRE Y APELLIDOS
+        if(name.trim() === '' || 
+        lastname.trim() === '') {
+            handleIsErrorModalVisible('Nombre y apellido son obligatorios.');
             aprob = false;
-        };
+        }
 
-        //VALIDAR NOMBRE
-        if(name.trim() === '' &&
-        lastname.trim() !== '' &&
-        dni.trim() !== '' &&
-        birthday.trim() !== '' &&
-        infoPay !== ''){
-            handleIsErrorModalVisible('Todos los campos son obligatorios.');
+        else if(/\d/.test(name) || /\d/.test(lastname)) {
+            handleIsErrorModalVisible('Nombre y apellido no pueden contener números.');
             aprob = false;
-        };
-
-        // //VALIDACIONES DNI
-        // if(dni.trim().length < 8 ||
-        //     dni.trim().length > 8){
-        //         handleIsErrorModalVisible('Número de DNI debe tener 8 caracteres.');
-        //         aprob = false;  
-        //     };
+        }
         
-        //VALIDACIONES NUMERO DE CBU
-        if(infoPay === 'CBU' &&
-                cbu.trim().length < 22 ||
-                cbu.trim().length > 22
-        ){
-            handleIsErrorModalVisible('CBU debe tener 22 caracteres.');
+        //VALIDAR FECHA DE NACIMIENTO
+        else if(birthday.trim() === ''){
+            handleIsErrorModalVisible('Fecha de nacimiento es obligatoria.');
             aprob = false;
-        };
-
-        if(infoPay === 'CBU' &&
-            cbu.trim() !== '' )
-        {}
-
-        // //VALIDACIONES NUMERO DE TARJETA DE CRÉDITO
-        // if(infoPay === 'Tarjeta de crédito' &&
-        //     creditCardNumber.length < 14 ||
-        //     creditCardNumber.length > 16){
-        //         handleIsErrorModalVisible('El numero de tarjeta de crédito debe tener entre 14 y 16 dígitos.');
-        //         aprob = false;
-        //     };
+        }
         
-        // //VALIDACIONES CODIGO DE SEGURIDAD
-        // if(infoPay === 'Tarjeta de crédito' &&
-        //     creditCardCode.length < 3 ||
-        //     creditCardCode.length > 4){
-        //         handleIsErrorModalVisible('El codigo de seguridad debe tener entre 3 y 4 dígitos.');
-        //         aprob = false;
-        //     };
+        //VALIDAR DNI
+        else if(dni.trim().length !== 8) {
+            handleIsErrorModalVisible('DNI debe tener 8 dígitos.');
+            aprob = false;
+        }
 
-        // //VALIDACIONES FECHA DE VENCIMIENTO
-        // if(infoPay === 'Tarjeta de crédito' &&
-        //     creditCardExp === ''){
-        //         handleIsErrorModalVisible('Fecha de vencimiento es obligatoria.');
-        //     };
+        else if(!/^\d+$/.test(dni.trim())) {
+            handleIsErrorModalVisible('DNI debe contener solo números.');
+            aprob = false;
+        } 
+
+        //VALIDAR METODO DE PAGO
+        else if(infoPay === ''){
+            handleIsErrorModalVisible('Información de pago obligatoria.');
+            aprob = false;
+        }
+
+        //VALIDAR METODO DE PAGO CBU
+        else if(infoPay === 'CBU' && cbu.trim().length !== 22) {
+            handleIsErrorModalVisible('CBU debe tener 22 dígitos.');
+            aprob = false;
+        }
+        else if(infoPay === 'CBU' && !/^\d+$/.test(cbu.trim())) {
+            handleIsErrorModalVisible('CBU debe contener solo números.');
+            aprob = false;
+        } 
+
+
+        //VALIDAR TARJETA DE CREDITO
+            //CODIGO TARJETA
+        else if(infoPay === 'Tarjeta de crédito' &&
+                (creditCardNumber.trim().length < 15 || 
+                creditCardNumber.trim().length > 16)) {
+            handleIsErrorModalVisible('El número de tarjeta de crédito debe tener entre 15 y 16 dígitos.');
+            aprob = false;
+        }
+        else if(infoPay === 'Tarjeta de crédito' && !/^\d+$/.test(creditCardNumber.trim())) {
+            handleIsErrorModalVisible('El número de tarjeta de crédito debe contener solo números.');
+            aprob = false;
+        } 
+
+            //FECHA DE VENCIMIENTO
+        else if(infoPay === 'Tarjeta de crédito' && creditCardExp.trim().length < 5) {
+            handleIsErrorModalVisible('Fecha de vencimiento es obligatoria.');
+            aprob = false;
+        }
+
+        else if(infoPay === 'Tarjeta de crédito' && !/^\d{2}\/\d{2}$/.test(creditCardExp.trim())) {
+            handleIsErrorModalVisible('Fecha de vencimiento debe tener el formato MM/AA.');
+            aprob = false;
+        } 
+
+            //CODIGO DE SEGURIDAD
+        else if(infoPay === 'Tarjeta de crédito' &&
+                (creditCardCode.trim().length < 3 || 
+                creditCardCode.trim().length > 4)) {
+            handleIsErrorModalVisible('El código de seguridad debe tener entre 3 y 4 dígitos.');
+            aprob = false;
+        }
+        else if(infoPay === 'Tarjeta de crédito' && !/^\d+$/.test(creditCardCode.trim())) {
+            handleIsErrorModalVisible('El código de seguridad debe contener solo números.');
+            aprob = false;
+        } 
+
+
+
 
         if(aprob === true){
             if(!isConfirmationAddModalVisible.value){
