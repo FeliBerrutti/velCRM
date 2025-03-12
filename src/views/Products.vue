@@ -1,8 +1,8 @@
 <template>
-    <div id="productsViewContainer">
+    <div id="productsViewContainer"
+    v-if="refPlan">
         <h3>Planes</h3>
-        <div id="productsContainer"
-        v-if="refPlan">
+        <div id="productsContainer">
             <div class="productContent">
                 <span><b>Plan</b></span>
                 <span><b>Precio</b></span>
@@ -89,7 +89,11 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
     }
 
     .productContent{
@@ -220,7 +224,11 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         p{
             border: 2px solid black;
             border-radius: 5px;

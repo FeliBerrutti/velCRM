@@ -314,6 +314,11 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(120,120,120,0.9);
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         span{
             border: 2px solid black;
             border-radius: 5px;
@@ -417,7 +422,11 @@
         padding: 1%;
         display: flex;
         flex-direction: column;
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         background-color: rgba(175,175,175,0.9);
     }
 
@@ -546,8 +555,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
         background-color: rgb(80,80,80);
+        
     }
 
     #addSellButtonsContainer{
