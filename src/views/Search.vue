@@ -126,7 +126,7 @@
                 :key="index" tabindex="0"
                 @click="handleAllPlansContentClick(index)">
                     <span>{{ x.name }}</span>
-                    <span>{{ x.price }}</span>
+                    <span>${{ x.price }}</span>
                 </div>
             </div>
             <div id="addSellButtonsContainer">
@@ -582,6 +582,10 @@
             padding: 1%;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     }
 

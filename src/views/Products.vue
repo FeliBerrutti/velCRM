@@ -13,7 +13,7 @@
                     @click="handleProductContentClick(index)"
                     tabindex="0">
                 <span>{{ x.name }}</span>
-                <span>{{ x.price }}</span>
+                <span>${{ x.price }}</span>
             </div>
         </div>
         <!-- AÑADIR PLAN MODAL -->
