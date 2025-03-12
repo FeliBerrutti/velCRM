@@ -34,6 +34,9 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
+        button:hover{
+            cursor: pointer;
+        }
     }
 
     #confirmationModalButtonsContainer{

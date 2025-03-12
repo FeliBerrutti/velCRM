@@ -13,7 +13,6 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        border: 2px solid black;
         background-color: rgba(240,240,240,0.9);
     }
 
@@ -21,19 +20,30 @@
         width: 73%;
         border: 2px solid black;
         border-radius: 10px;
+        width: 79%;
         padding: 1%;
         display: flex;
         flex-direction: row;
         background-color: rgba(200,200,200,0.9);
     }
 
-    @media(max-width: 820px){
+    @media(min-width: 820px) and (max-width: 1024px){
         #rVC{
             min-height: 600px;
-            max-height: 600px;
-            min-width: 590px;
-            max-width: 590px;
             margin-top: 0.8%;
+            margin-left: 1%;
+        }
+    }
+
+    @media(min-width: 1328px){
+        #container{
+            min-height: 740px;
+            max-height: 740px;
+        }
+
+        #rVC{
+            min-height: 700px;
+            max-height: 700px;
             margin-left: 1%;
         }
     }

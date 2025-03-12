@@ -15,10 +15,10 @@
                 <div class="resultContent"
                             v-for="(x, index) in customerList" :key="index"
                             >
-                    <span>
+                    <h5>
                         {{ x }}:
-                    </span>
-                    <span class="resultContentValue">
+                    </h5>
+                    <span>
                         {{ index === 0 ?
                             customer[0].name :
                             index === 1 ?
@@ -158,6 +158,10 @@
 <style scoped>
     #searchViewContainer{
         width: 100%;
+        height: auto;
+        button:hover{
+            cursor: pointer;
+        }
     }
 
     #searchContainer{
@@ -182,7 +186,7 @@
             border-radius: 5px;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
-            width: 30%;
+            width: 28%;
         }
     }
 
@@ -195,7 +199,7 @@
     #resultsContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 96.5%;
+        width: 98%;
         padding: 1%;
         display: flex;
         flex-direction: row;
@@ -211,28 +215,27 @@
     }
 
     .resultContent{
-        width: 90%;
+        width: 98%;
         padding: 0.1%;
         display: flex;
         flex-direction: row;
         align-items: center;
-        span{
+        h5{
             width: 28%;
             padding: 0.1%;
-            width: 40%;
+            width: 30%;
         }
-    }
-
-    .resultContentValue{
-        width: 65%;
-        padding: 0.1%;
-        width: 58%;
+        span{
+            width: 68%;
+            padding: 0.1%;
+            width: 58%;
+        }
     }
 
     #resultContentValueObservations{
         border: 2px solid black;
         border-radius: 10px;
-        width: 96.5%;
+        width: 98%;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -247,7 +250,7 @@
             border-radius: 5px;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
-            width: 30%;
+            width: 15%;
             margin: 1%;
             display: flex;
             flex-direction: column;
@@ -259,6 +262,7 @@
     }
 
     #leftContentButtonsContainer{
+        width: 97%;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
@@ -328,7 +332,7 @@
     .modalValueTitle{
         border: 2px solid black;
         border-radius: 5px;
-        width: 98%;
+        width: 95%;
         padding: 0.1%;
         display: flex;
         flex-direction: row;
@@ -357,7 +361,7 @@
         border: 2px solid black;
         border-radius: 5px;
         padding: 0.1%;
-        width: 99.8%;
+        width: 97%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -375,6 +379,10 @@
             align-items: center;
             justify-content: center;
         }
+    }
+
+    .modalValue:hover{
+        cursor: pointer;
     }
 
     .modalValue:focus{
@@ -405,7 +413,7 @@
     #observationValueContentContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 90%;
+        width: 97%;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -416,7 +424,7 @@
     .observationValue{
         border: 2px solid black;
         border-radius: 10px;
-        width: 99%;
+        width: 98.5%;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
@@ -427,12 +435,12 @@
 
     .observationValueDate{
         border-radius: 5px;
-        width: 15%;
+        width: 12%;
         padding: 0.1%;
     }
 
     .observationValueContent{
-        width: 85%;
+        width: 90%;
         padding: 0.2%;
         border: 1.6px solid black;
         border-radius: 10px;
@@ -475,7 +483,7 @@
         align-items: center;
         justify-content: center;
         button{
-            width: 15%;
+            width: 25%;
             padding: 0.5%;
             border: 2px solid black;
             border-radius: 5px;
@@ -518,6 +526,10 @@
         }
     }
 
+    .addSellContent:hover{
+        cursor: pointer;
+    }
+
     .addSellContent:focus{
         background-color: rgb(100,100,100);
         span{
@@ -556,12 +568,10 @@
     }
 
 
-    @media(max-width: 820px){
+    /* @media(max-width: 820px){
         #searchViewContainer{
             min-height: 600px;
             max-height: 600px;
-            min-width: 590px;
-            max-width: 590px;
         }
 
         #searchContainer{
@@ -574,16 +584,12 @@
             span{
                 min-height: 16px;
                 max-height: 16px;
-                min-width: 40px;
-                max-width: 40px;
                 margin-right: 1%;
                 margin-top: 0.5%;
             }
             button{
                 min-height: 25px;
                 max-height: 25px;
-                min-width: 75px;
-                max-width: 75px;
             }
         }
 
@@ -611,16 +617,15 @@
             min-height: 20px;
             max-height: 20px;
             margin-top: 0.5%;
-            span{
+            h5{
                 min-height: 20px;
                 max-height: 20px;
                 margin-right: 1%;
             }
-        }
-
-        .resultContentValue{
-            min-height: 20px;
-            max-height: 20px;
+            span{
+                min-height: 20px;
+                max-height: 20px;
+            }
         }
 
         #resultContentValueObservations{
@@ -633,14 +638,10 @@
             h4{
                 min-height: 22px;
                 max-height: 22px;
-                min-width: 100px;
-                max-width: 100px;
             }
             button{
                 min-height: 25px;
                 max-height: 25px;
-                min-width: 80px;
-                max-width: 90px;
             }
         }
 
@@ -651,8 +652,6 @@
             button{
                 min-height: 25px;
                 max-height: 25px;
-                min-width: 80px;
-                max-width: 90px;
             }
         }
 
@@ -737,37 +736,27 @@
         .observationValueDate{
             min-height: 25px;
             max-height: 25px;
-            min-width: 80px;
-            max-width: 80px;
         }
 
         .observationValueContent{
             min-height: 40px;
             max-height: 40px;
-            min-width: 440px;
-            max-width: 440px;
         }
 
         #AddObservationContainer{
             min-height: 250px;
             max-height: 250px;
-            min-width: 500px;
-            max-width: 500px;
             top: 25%;
             left: 15%;
             h4{
                 min-height: 25px;
                 max-height: 25px;
-                min-width: 190px;
-                max-width: 190px;
             }
         }
 
         #addObservationTextArea{
             min-height: 150px;
             max-height: 150px;
-            min-width: 430px;
-            max-width: 430px;
             margin-top: 1%;
         }
 
@@ -777,8 +766,6 @@
             button{
                 min-height: 25px;
                 max-height: 25px;
-                min-width: 90px;
-                max-width: 90px;
                 margin-left: 1%;
                 margin-right: 1%;
             }
@@ -797,7 +784,234 @@
             span{
                 min-height: 20px;
                 max-height: 20px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
+        }
+
+        #addSellContentContainer{
+            min-height: 210px;
+            max-height: 210px;
+        }
+
+        #addSellButtonsContainer{
+            min-height: 25px;
+            max-height: 25px;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
+        }
+    } */
+
+    @media(min-width: 821px){
+        #searchViewContainer{
+            min-height: 610px;
+        }
+
+        #searchContainer{
+            min-height: 20px;
+            max-height: 30px;
+            min-width: 310px;
+            max-width: 310px;
+            margin-top: 2%;
+            margin-left: 2%;
+            span{
+                min-height: 16px;
+                max-height: 16px;
+                margin-right: 1%;
+                margin-top: 0.5%;
+            }
+            button{
+                min-height: 25px;
+                max-height: 25px;
+            }
+            input{
+                min-height: 19px;
+                max-height: 19px;
+                min-width: 150px;
                 max-width: 150px;
+                margin-right: 2%;
+            }
+        }
+
+        #resultsContainer{
+            margin-top: 1%;
+            min-height: 240px;
+            max-height: 240px;
+        }
+
+        #leftContent{
+            max-height: 210px;
+        }
+
+        .resultContent{
+            min-height: 20px;
+            max-height: 22px;
+            margin-top: 0.5%;
+            h5{
+                min-height: 20px;
+                max-height: 20px;
+                margin-right: 0;
+            }
+            span{
+                min-height: 20px;
+                max-height: 20px;
+            }
+        }
+
+        #leftContentButtonsContainer{
+            min-height: 40px;
+            max-height: 40px;
+            margin-top: 3%;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+            }
+        }
+
+        #rightContent{
+            min-height: 212px;
+            max-height: 212px;
+        }
+
+        .searchCustomerViewModal{
+            min-height: 200px;
+            max-height: 300px;
+        }
+
+        .modalValuesContainer{
+            min-height: 150px;
+            max-height: 150px;
+            margin-top: 2%;
+            span{
+                min-height: 18px;
+                max-height: 18px;
+            }
+        }
+
+        .modalValueTitle{
+            min-height: 25px;
+            max-height: 25px;
+        }
+
+        .modalPMValueContent{
+            min-height: 17px;
+            max-height: 17px;
+        }
+
+        .modalValues{
+            min-height: 90px;
+            max-height: 90px;
+        }
+
+        .modalValue{
+            min-height: 25px;
+            max-height: 25px;
+            margin: 0.5%;
+            span{
+                min-height: 18px;
+                max-height: 18px;
+            }
+        }
+
+        #modalsButton{
+            margin-right: -85%;
+            max-height: 20px;
+        }
+
+        .searchCustomerViewModalButtonsContainer{
+            min-height: 25px;
+            max-height: 25px;
+            margin-top: 1%;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
+        }
+
+        #resultContentValueObservations{
+            margin-top: 2.5%;
+            min-height: 285px;
+            max-height: 300px;
+            h4{
+                min-height: 22px;
+                max-height: 22px;
+            }
+            button{
+                min-height: 25px;
+                max-height: 25px;
+            }
+        }
+
+        #observationValueContentContainer{
+            min-height: 200px;
+            max-height: 200px;
+        }
+
+        .observationValue{
+            min-height: 45px;
+            max-height: 45px;
+            margin-top: 1%;
+        }
+
+        .observationValueDate{
+            min-height: 25px;
+            max-height: 25px;
+        }
+
+        .observationValueContent{
+            min-height: 40px;
+            max-height: 40px;
+        }
+
+        #AddObservationContainer{
+            min-height: 250px;
+            max-height: 300px;
+            max-width: 550px;
+            top: 20%;
+            left: 23%;
+            h4{
+                min-height: 25px;
+                max-height: 25px;
+            }
+        }
+
+        #addObservationTextArea{
+            min-height: 150px;
+            max-height: 150px;
+            margin-top: 1%;
+        }
+
+        #addObservationButtonsContainer{
+            margin-top: 1%;
+            min-height: 30px;
+            max-height: 30px;
+            button{
+                min-height: 25px;
+                max-height: 25px;
+                margin-left: 1.5%;
+                margin-right: 1.5%;
+            }
+        }
+
+        #addSellContainer{
+            min-height: 320px;
+            max-height: 320px;
+            top: 10%;
+            left: 25%;
+        }
+
+        .addSellContent{
+            min-height: 25px;
+            margin-top: 2%;
+            span{
+                min-height: 20px;
+                max-height: 20px;
                 margin-left: 1%;
                 margin-right: 1%;
             }
