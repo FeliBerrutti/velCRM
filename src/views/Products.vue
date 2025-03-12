@@ -224,7 +224,7 @@
         }
     }
 
-    @media(min-width: 820px) and (max-width: 960px){
+    @media(min-width: 821px){
         #productsViewContainer{
             min-height: 600px;
             max-height: 650px;
@@ -298,6 +298,13 @@
             p{
                 min-height: 125px;
             }
+        }
+    }
+
+    @media(min-width: 1328px){
+        #productDetailsContainer{
+            min-height: 180px;
+            max-height: 180px;
         }
     }
 

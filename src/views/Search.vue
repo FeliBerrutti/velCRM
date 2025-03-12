@@ -557,7 +557,7 @@
     }
 
 
-    @media(max-width: 820px){
+    /* @media(max-width: 820px){
         #searchViewContainer{
             min-height: 600px;
             max-height: 600px;
@@ -793,9 +793,9 @@
                 margin-right: 1%;
             }
         }
-    }
+    } */
 
-    @media(min-width: 821px) and (max-width: 960px){
+    @media(min-width: 821px){
         #searchViewContainer{
             min-height: 610px;
         }
@@ -828,6 +828,8 @@
 
         #resultsContainer{
             margin-top: 1%;
+            min-height: 240px;
+            max-height: 240px;
         }
 
         #leftContent{
@@ -866,7 +868,7 @@
 
         .searchCustomerViewModal{
             min-height: 200px;
-            max-height: 200px;
+            max-height: 300px;
         }
 
         .modalValuesContainer{
@@ -924,7 +926,7 @@
         #resultContentValueObservations{
             margin-top: 2.5%;
             min-height: 285px;
-            max-height: 285px;
+            max-height: 300px;
             h4{
                 min-height: 22px;
                 max-height: 22px;
@@ -958,7 +960,8 @@
 
         #AddObservationContainer{
             min-height: 250px;
-            max-height: 250px;
+            max-height: 300px;
+            max-width: 550px;
             top: 20%;
             left: 23%;
             h4{
@@ -974,13 +977,14 @@
         }
 
         #addObservationButtonsContainer{
+            margin-top: 1%;
             min-height: 30px;
             max-height: 30px;
             button{
                 min-height: 25px;
                 max-height: 25px;
-                margin-left: 1%;
-                margin-right: 1%;
+                margin-left: 1.5%;
+                margin-right: 1.5%;
             }
         }
 

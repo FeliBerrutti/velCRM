@@ -12,7 +12,7 @@
     #verticalOptionsContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 20%;
+        width: 15%;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -33,26 +33,10 @@
         box-shadow: 2px 2px 1px 1px grey;
     }
 
-    @media(max-width: 820px){
+    @media(min-width: 821px){
         #verticalOptionsContainer{
-            min-height: 600px;
-            max-height: 600px;
-            margin-top: 0.8%;
-        }
-
-        .verticalOption{
-            min-height: 30px;
-            max-height: 30px;
-            margin-bottom: 5%;
-        }
-    }
-
-    @media(min-width: 821px) and (max-width: 960px){
-        #verticalOptionsContainer{
-            min-height: 600px;
-            max-height: 620px;
-            margin-top: 0.8%;
-            width: 15%;
+            min-height: 605px;
+            max-height: 690px;
         }
 
         .verticalOption{
