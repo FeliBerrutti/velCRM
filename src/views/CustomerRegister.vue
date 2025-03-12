@@ -144,10 +144,6 @@
         background-color: rgba(240,240,240,0.7);
     }
 
-    #userRegisterFormObservationInput{
-        width: 80%;
-    }
-
     @media(max-width: 820px){
         #userRegisterViewContainer{
             min-height: 595px;
@@ -170,8 +166,6 @@
         #userRegisterForm{
             min-height: 190px;
             max-height: 340px;
-            min-width: 565px;
-            max-width: 565px;
             span{
                 min-height: 20px;
                 max-height: 20px;
@@ -231,13 +225,86 @@
             max-width: 340px;
             margin-top: 1.5%;
         }
+    }
 
+    @media(min-width: 821px) and (max-width: 960px){
+        #userRegisterViewContainer{
+            min-height: 595px;
+            max-height: 595px;
+            h4{
+                min-height: 25px;
+                max-height: 25px;
+            }
+            button{
+                min-height: 28px;
+                max-height: 28px;
+                min-width: 80px;
+                max-width: 80px;
+                margin-top: 2%;
+            }
+        }
 
-        #userRegisterFormObservationInput{
-            min-height: 170px;
-            max-height: 170px;
-            min-width: 470px;
-            max-width: 470px;
+        #userRegisterForm{
+            min-height: 190px;
+            max-height: 340px;
+            span{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 140px;
+                max-width: 150px;
+                margin-right: 3%;
+            }
+            input, select{
+                min-height: 20px;
+                max-height: 20px;
+                min-width: 160px;
+                max-width: 160px;
+            }
+        }
+
+        #userFormRegisterLeft{
+            min-height: 190px;
+            max-height: 310px;
+            min-width: 350px;
+            max-width: 350px;
+        }
+
+        #userFormRegisterRight{
+            min-height: 190px;
+            max-height: 310px;
+            min-width: 210px;
+            max-width: 210px;
+        }
+
+        #userFormRegisterRightTitle{
+            min-width: 50px;
+            max-width: 50px;
+            min-height: 17px;
+            max-height: 17px;
+            margin-top: 2%;
+        }
+
+        .userFormRegisterRightContentContainer{
+            min-height: 20px;
+            max-height: 20px;
+            min-width: 100px;
+            max-width: 180px;
+            margin-top: 2%;
+        }
+
+        .userFormRegisterRightContent{
+            min-height: 17px;
+            max-height: 17px;
+            min-width: 80px;
+            max-width: 160px;
+        }
+
+        .userRegisterFormInputContainer{
+            min-height: 26px;
+            max-height: 26px;
+            min-width: 340px;
+            max-width: 340px;
+            margin-top: 1.5%;
         }
     }
 </style>

@@ -43,8 +43,21 @@
         .verticalOption{
             min-height: 30px;
             max-height: 30px;
-            min-width: 145px;
-            max-width: 145px;
+            margin-bottom: 5%;
+        }
+    }
+
+    @media(min-width: 821px) and (max-width: 960px){
+        #verticalOptionsContainer{
+            min-height: 600px;
+            max-height: 620px;
+            margin-top: 0.8%;
+            width: 15%;
+        }
+
+        .verticalOption{
+            min-height: 30px;
+            max-height: 30px;
             margin-bottom: 5%;
         }
     }

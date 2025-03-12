@@ -20,9 +20,9 @@
                     v-if="isAddPlanVisible">
                 <h3>Agregar Plan</h3>
                 <form class="optionsPlansForm">
-                    <div class="optionsPlanInputContainer"
-                            v-for="(x, index) in optionsPlanList"
-                            :key="index">
+                    <div
+                    v-for="(x, index) in optionsPlanList"
+                    :key="index">
                         <span>{{ x }}</span>
                         <input type="text"
                                 v-model="addProductsRef[index]">
@@ -80,7 +80,7 @@
     #productsContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 90%;
+        width: 95%;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -102,7 +102,7 @@
         span{
             border: 2px solid black;
             border-radius: 5px;
-            width: 30%;
+            width: 25%;
             padding: 1%;
             background-color: rgba(240,240,240,0.9);
             display: flex;
@@ -114,26 +114,6 @@
 
     .productContent:focus{
         background-color: rgba(100,100,100,0.7);
-    }
-
-    .productContentValue{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 50%;
-        padding: 1%;
-        background-color: rgba(240,240,240,0.9);
-    }
-
-    .productContentMembers{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 10%;
-        padding: 1%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(240,240,240,0.9);
     }
 
     #productsOptionsContainer{
@@ -159,6 +139,7 @@
     .optionsPlansModal{
         border: 2px solid black;
         border-radius: 5px;
+        width: 50%;
         padding: 1%;
         background-color: rgb(150,150,150);
         position: fixed;
@@ -177,6 +158,7 @@
             margin: 0;
         }
         textarea{
+            width: 90%;
             border: 2px solid black;
             border-radius: 5px;
             padding: 1%;
@@ -192,7 +174,7 @@
     }
 
     .optionsPlansForm{
-        width: 80%;
+        width: 95%;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -201,20 +183,19 @@
         input{
             border: 2px solid black;
             border-radius: 5px;
-            width: 50%;
+            width: 70%;
             padding: 0.5%;
         }
-    }
-
-    .optionsPlanInputContainer{
-        border: 2px solid black;
-        border-radius: 5px;
-        width: 80%;
-        padding: 1%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        background-color: rgba(240,240,240,0.7);
+        div{
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 70%;
+            padding: 1%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgba(240,240,240,0.7);
+        }
         span{
             width: 22%;
             padding: 0.1%;
@@ -243,63 +224,36 @@
         }
     }
 
-    @media(max-width: 820px){
+    @media(min-width: 820px) and (max-width: 960px){
         #productsViewContainer{
             min-height: 600px;
-            max-height: 600px;
-            min-width: 585px;
-            max-width: 585px;
+            max-height: 650px;
         }
 
         #productsContainer{
             min-height: 300px;
             max-height: 300px;
-            min-width: 560px;
-            max-width: 560px;
             margin-top: 1%;
         }
 
         .productContent{
             min-height: 35px;
             max-height: 35px;
-            min-width: 530px;
-            max-width: 530px;
             margin-bottom: 1%;
             span{
                 min-height: 21px;
                 max-height: 21px;
-                min-width: 120px;
-                max-width: 120px;
                 margin-right: 2%;
             }
-        }
-
-        .productContentValue{
-            min-height: 21px;
-            max-height: 21px;
-            min-width: 100px;
-            max-width: 100px;
-            margin-right: 2%;
-        }
-
-        .productContentMembers{
-            min-height: 21px;
-            max-height: 21px;
-            min-width: 70px;
-            max-width: 70px;
         }
 
         #productsOptionsContainer{
             min-height: 40px;
             max-height: 40px;
-            min-width: 560px;
-            max-width: 560px;
             margin-top: 3%;
             button{
                 min-height: 30px;
                 max-height: 30px;
-                min-width: 95px;
-                max-width: 95px;
                 margin: 3%;
             }
         }
@@ -307,18 +261,13 @@
         .optionsPlansModal{
             min-height: 400px;
             max-height: 400px;
-            min-width: 520px;
-            max-width: 520px;
             top: 12%;
             textarea{
-                min-width: 500px;
                 margin-top: 1%;
             }
             button{
                 min-height: 30px;
                 max-height: 30px;
-                min-width: 100px;
-                max-width: 100px;
                 margin-top: 2%;
             }
         }
@@ -326,27 +275,18 @@
         .optionsPlansForm{
             min-height: 170px;
             max-height: 170px;
-            min-width: 320px;
-            max-width: 320px;
             input{
                 min-height: 20px;
                 max-height: 20px;
-                min-width: 150px;
-                max-width: 150px;
             }
-        }
-
-        .optionsPlanInputContainer{
-            min-height: 30px;
-            max-height: 30px;
-            min-width: 250px;
-            max-width: 250px;
-            margin-top: 2%;
+            div{
+                min-height: 30px;
+                max-height: 30px;
+                margin-top: 2%;
+            }
             span{
                 min-height: 23px;
                 max-height: 23px;
-                min-width: 70px;
-                max-width: 70px;
                 margin-right: 2%;
             }
         }
@@ -354,8 +294,6 @@
         #productDetailsContainer{
             min-height: 140px;
             max-height: 140px;
-            min-width: 560px;
-            max-width: 560px;
             margin-top: 2%;
             p{
                 min-height: 125px;
