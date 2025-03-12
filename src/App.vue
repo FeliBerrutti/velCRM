@@ -35,15 +35,16 @@
         }
     }
 
-    @media(min-width: 1328px){
+    @media(min-width: 1025px){
         #container{
-            min-height: 740px;
-            max-height: 740px;
+
+            min-height: 690px;
+            max-height: 690px;
         }
 
         #rVC{
-            min-height: 700px;
-            max-height: 700px;
+            min-height: 667px;
+            max-height: 667px;
             margin-left: 1%;
         }
     }

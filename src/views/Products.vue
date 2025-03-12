@@ -1,8 +1,8 @@
 <template>
-    <div id="productsViewContainer"
-    v-if="refPlan">
+    <div id="productsViewContainer">
         <h3>Planes</h3>
-        <div id="productsContainer">
+        <div id="productsContainer"
+        v-if="refPlan">
             <div class="productContent">
                 <span><b>Plan</b></span>
                 <span><b>Precio</b></span>
@@ -13,7 +13,7 @@
                     @click="handleProductContentClick(index)"
                     tabindex="0">
                 <span>{{ x.name }}</span>
-                <span>${{ x.price }}</span>
+                <span>{{ x.price }}</span>
             </div>
             <!-- AÑADIR PLAN MODAL -->
             <div class="optionsPlansModal"
@@ -89,11 +89,7 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: overlay;
-        scrollbar-width: none;
-        ::-webkit-scrollbar{
-            display: none;
-        }
+        overflow: scroll;
     }
 
     .productContent{
@@ -224,11 +220,7 @@
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: overlay;
-        scrollbar-width: none;
-        ::-webkit-scrollbar{
-            display: none;
-        }
+        overflow: scroll;
         p{
             border: 2px solid black;
             border-radius: 5px;
@@ -313,6 +305,13 @@
             p{
                 min-height: 125px;
             }
+        }
+    }
+
+    @media(min-width: 1025px){
+        #productsContainer{
+            min-height: 350px;
+            max-height: 350px;
         }
     }
 
