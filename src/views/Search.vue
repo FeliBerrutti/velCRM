@@ -1047,6 +1047,13 @@
             }
         }
     }
+
+    @media(min-width: 1328px){
+        #addSellContainer{
+            min-height: 320px;
+            max-height: 320px;
+        }
+    }
 </style>
 
 <script setup>
