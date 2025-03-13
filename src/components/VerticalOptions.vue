@@ -56,7 +56,7 @@
 
     const handleOptionClick = (index)=>{
         index === 0 ?
-        router.push('/search') :
+        router.push('/search/ ') :
         index === 1 ?
         router.push('/customerRegister') :
         index === 2 ? 

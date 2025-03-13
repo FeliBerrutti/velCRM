@@ -942,7 +942,8 @@
     const searchCustomer = async () => {
         try {
             closeModals();
-            const response = await getCustomerByDNI(customerId.value);
+            const auxCustomerId = ref(customerId.value.trim());
+            const response = await getCustomerByDNI(auxCustomerId.value);
             console.log('verificando response: ' + response);
             if (response && response.length > 0) {
                 customer.value = response;
