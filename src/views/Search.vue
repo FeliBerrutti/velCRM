@@ -342,6 +342,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         background-color: rgba(240,240,240, 0.6);
     }
 
@@ -362,6 +363,7 @@
         overflow: scroll;
     }
 
+    /* todo!! */
     .modalValue{
         border: 2px solid black;
         border-radius: 5px;
@@ -370,6 +372,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         background-color: rgba(240,240,240, 0.6);
         span{
             border: 2px solid black;
@@ -833,6 +836,18 @@
 
         #resultsContainer{
             margin-top: 0%;
+        }
+
+        .modalValue{
+        border: 2px solid black;
+        min-height: 35px;
+        margin-bottom: 0.5%;
+        span{
+            width: 30%;
+        }
+        div{
+            width: 75%;
+        }
         }
 
         #resultContentValueObservations{

@@ -14,6 +14,7 @@
         display: flex;
         flex-direction: row;
         background-color: rgba(240,240,240,0.9);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
 
     #rVC{
