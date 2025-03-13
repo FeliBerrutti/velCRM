@@ -260,6 +260,9 @@
             padding: 1%;
             background-color: rgba(240,240,240,0.9);
             margin: 0;
+            text-align: start;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
     }
 
