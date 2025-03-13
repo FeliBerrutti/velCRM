@@ -848,7 +848,7 @@
 </style>
 
 <script setup>
-    import { ref } from 'vue';
+    import { defineProps, onMounted, ref } from 'vue';
     import { getCustomerByDNI, getPMbyID } from '@/services/CustomerService';
     import { addObservation, getObservationByCI } from '@/services/ObservationService';
     import { getCustomerPlansById, addSell } from '@/services/SellService';
@@ -856,10 +856,22 @@
     import { addDown } from '@/services/DownService';
     import ConfirmationModal from '@/components/ConfirmationModal.vue';
     import ErrorModal from '@/components/ErrorModal.vue';
+    import { useRoute } from 'vue-router';
+
+    const route = useRoute();
+
+    const props = defineProps({
+        searchValue: {
+            type: String
+        }
+    });
+
+
 
 
     //Usuario generico
     const userId = 1;
+
 
     //Constantes Customers
     const customerId = ref('');
@@ -913,17 +925,45 @@
 //FUNCIONES CUSTOMER
 
     //BACK
-    const searchCustomer = async()=>{
-        try{
+    //todo!!
+    // const searchCustomer = async()=>{
+    //     try{
+    //         closeModals();
+    //         customer.value = await getCustomerByDNI(customerId.value);
+    //         console.log('Cliente obtenido con exito.');
+    //         console.log('Cliente: ' + customer.value[0].name);
+    //         console.log('DNI: ' + customerId.value);
+    //         customerOb.value = await getObservationByCI(customer.value[0].id);
+    //         console.log('Observaciones obtenidas con exito.');
+    //     }catch(err){
+    //         console.error(err);
+    //     };
+    // };
+    const searchCustomer = async () => {
+        try {
             closeModals();
-            customer.value = await getCustomerByDNI(customerId.value);
-            console.log('Cliente obtenido con exito.');
-            customerOb.value = await getObservationByCI(customer.value[0].id);
-            console.log('Observaciones obtenidas con exito.');
-        }catch(err){
+            const response = await getCustomerByDNI(customerId.value);
+            console.log('verificando response: ' + response);
+            if (response && response.length > 0) {
+                customer.value = response;
+                console.log('Cliente:', customer.value[0].dni);
+                console.log('DNI:', customerId.value);
+                if (customer.value[0].id) {
+                    customerOb.value = await getObservationByCI(customer.value[0].id);
+                    console.log('Observaciones obtenidas con éxito.');
+                } else {
+                    console.error('El cliente no tiene un id válido.');
+                };
+            } 
+            else {
+                console.error('No se encontró el cliente.');
+            }
+        } 
+        catch (err) {
             console.error(err);
-        };
+        }
     };
+
 
     const getPMbI = async()=>{
         try{
@@ -1115,4 +1155,13 @@
             refErrorMSG.value = '';
         };
     };
+
+    // todo!!
+    onMounted(()=>{
+    if(route.params.searchValue){
+        customerId.value = route.params.searchValue;
+        console.log(' probando onmounted' + customerId.value);
+        searchCustomer();
+    }
+    });
 </script>

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const getCustomerByDNI = async(dni)=>{
     try{
-        const response = await axios.get(`api/Customers/gbD/${dni}`);
+        const response = await axios.get(`/api/Customers/gbD/${dni}`);
         return response.data;
     }catch(err){
         console.log('Error al obtener cliente. CustomerService');
