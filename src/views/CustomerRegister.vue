@@ -397,7 +397,6 @@
 
 
     const handleModalAddConfirm = async(output) => {
-        console.log('handleModalAddConfirm ejecutada.', output);
         handleConfirmAddCustomerModal();
         
         if(output){
@@ -435,9 +434,7 @@
             };
 
             await addCustomer(auxCustomer);
-            console.log('Probando function paa: ' + customerValues.value[3])
             router.push(`/search/${customerValues.value[3]}`);
-            console.log('Cliente añadido con éxito.');
         }catch (err) {
             console.error(err);
             handleIsErrorModalVisible('Error al registrar al cliente, pulse F5 y presione nuevamente.');
