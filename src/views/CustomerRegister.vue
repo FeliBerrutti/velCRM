@@ -281,7 +281,6 @@
     const auxIsErrorModalVisible = ref(false);
     const refErrorMSG = ref('');
 
-    //todo!!
     //Funciones modal confirmación registrar cliente
     const handleConfirmAddCustomerModal = ()=>{
         const name = customerValues.value[0];
@@ -429,6 +428,7 @@
             console.log('Cliente añadido con éxito.');
         }catch (err) {
             console.error(err);
+            handleIsErrorModalVisible('Error al registrar al cliente, pulse F5 y presione nuevamente.');
         }
     };
     };
