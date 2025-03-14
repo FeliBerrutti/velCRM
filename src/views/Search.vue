@@ -150,6 +150,11 @@
                 <button @click="handleIsAddPlanModalVisible()"><b>Cancelar</b></button>
             </div>
          </div>
+         <!-- DIV SPINNER -->
+       <div id="divSpinner" style="align-items: center; justify-content: center;"
+       v-if="isSpinnerVisible">
+        <Spinner></Spinner>
+       </div>
     </div>
      <!-- MODAL CONFIRMACIÓN EMITIR BAJAS -->
     <ConfirmationModal 
@@ -178,6 +183,13 @@
         button:hover{
             cursor: pointer;
         }
+    }
+
+    #divSpinner{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     #searchContainer{
@@ -686,6 +698,11 @@
             min-height: 610px;
         }
 
+        #divSpinner{
+            min-height: 525px;
+            max-height: 525px;
+        }
+
         #searchContainer{
             min-height: 20px;
             max-height: 30px;
@@ -1031,6 +1048,7 @@
     import ErrorModal from '@/components/ErrorModal.vue';
     import { useRoute } from 'vue-router';
     import router from '@/router';
+    import Spinner from '@/components/Spinner.vue';
 
     const route = useRoute();
 
@@ -1075,6 +1093,22 @@
     const refAllPlans = ref(null);
     const refAllPlansContentClick = ref(null);
 
+    //Constante spinner
+    const isSpinnerVisible = ref(false);
+
+    //FUNCION SPINNER
+    const showSpinner = ()=>{
+        if(!isSpinnerVisible.value){
+            isSpinnerVisible.value = true;
+        }
+    };
+
+    const closeSpinner = ()=>{
+        if(isSpinnerVisible.value){
+            isSpinnerVisible.value = false;
+        }
+    };
+
 
     function handleIsObservationVisible(){
         if(!isAddObservationVisible.value){
@@ -1096,6 +1130,15 @@
 
     //Constante usuario no encontrado
     const isUserNotFoundVisible = ref(false);
+
+    const handleIsUserNotFoundVisible = ()=>{
+        if(!isUserNotFoundVisible.value){
+            closeSpinner();
+            isUserNotFoundVisible.value = true;
+        }else{
+            isUserNotFoundVisible.value = false;
+        };
+    };
 
     //CONSTANTES OBSERVACIONES
 
@@ -1140,24 +1183,27 @@
             closeModals();
             const auxCustomerId = ref(customerId.value.trim());
             if(customerId.value.trim() !== ''){
+                showSpinner();
                 const response = await getCustomerByDNI(auxCustomerId.value);
             if (response && response.length > 0) {
+                closeSpinner();
                 customer.value = response;
                 if (customer.value[0].id) {
                     customerOb.value = await getObservationByCI(customer.value[0].id);
                 } else {
-                    isUserNotFoundVisible.value = true;
+                    handleIsUserNotFoundVisible();
                     console.error('El cliente no tiene un id válido.');
                 };
             } 
             else {
-                isUserNotFoundVisible.value = true;
+                isSpinnerVisible.value = false;
+                handleIsUserNotFoundVisible();
                 console.error('No se encontró el cliente.');
             }
             }
         } 
         catch (err) {
-            isUserNotFoundVisible.value = true;
+            handleIsUserNotFoundVisible();
             console.error(err);
         }
     };
