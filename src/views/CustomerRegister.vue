@@ -20,7 +20,8 @@
                         </option>
                     </select>
                     <input id="dateInput" v-if="index === 2" v-model="customerValues[index]" type="date">
-                    <input v-if="index !== 4 && index !==5 && index !==2" v-model="customerValues[index]" type="text">
+                    <input v-if="index !== 4 && index !==5 && index !==2" v-model="customerValues[index]" type="text"
+                    :placeholder="placeholderInfo[index]">
                 </div>
                 <!-- #1 -->
                 <div class="userRegisterFormInputContainer"
@@ -29,7 +30,8 @@
                         CBU
                     </span>
                     <input type="text"
-                    v-model="auxPayCBU">
+                    v-model="auxPayCBU"
+                    :placeholder="placeholderCBU">
                 </div>
                 <!-- #2 -->
                 <div 
@@ -41,7 +43,8 @@
                         {{ x }}
                     </span>
                     <input type="text"
-                    v-model="auxPayCC[index]">
+                    v-model="auxPayCC[index]"
+                    :placeholder="placeholderCC[index]">
                 </div>
         </form>
         <button @click="handleConfirmAddCustomerModal()" class=""><b>Registrar</b></button>
@@ -265,6 +268,11 @@
     const auxPayCC = ref(['','','']);
 
     const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
+
+    //Listas placeholders
+    const placeholderInfo = ['NOMBRE','APELLIDO','','XXXXXXXX'];
+    const placeholderCC = ['XXXXXXXXXXXXXXXX','dd/mm','XXX']
+    const placeholderCBU = ['XXXXXXXXXXXXXXXXXXXXXX']
 
     //Constantes modal confirmación agregar cliente
     const isConfirmationAddModalVisible = ref(false);
