@@ -59,8 +59,14 @@
         router.push('/search/ ') :
         index === 1 ?
         router.push('/customerRegister') :
-        router.push('/products')
+        index === 2 ? 
+        router.push('/products') :
+        index === 3 ?
+        router.push('/reports') :
+        index === 4 ?
+        router.push('/users') :
+        console.log('Cerrar sesión.')
     }
 
-    const optionsList = ['Buscar','Registrar','Planes']
+    const optionsList = ['Buscar','Registrar','Planes','Reportes','Usuarios','Cerrar Sesión']
 </script>

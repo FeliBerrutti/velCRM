@@ -58,6 +58,11 @@
         <div id="productDetailsContainer">
             <p>{{ refProductDetails }}</p>
         </div>
+        <div id="productsOptionsContainer">
+            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
+            <button @click="deleteProduct"><b>Eliminar</b></button>
+            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
+        </div>
     </div>
 </template>
 
@@ -283,8 +288,8 @@
         }
 
         #productsContainer{
-            min-height: 350px;
-            max-height: 350px;
+            min-height: 310px;
+            max-height: 310px;
             div{
                 min-height: 35px;
                 max-height: 35px;
@@ -369,10 +374,9 @@
         }
 
         #productsContainer{
-            min-height: 350px;
-            max-height: 350px;
+            min-height: 280px;
+            max-height: 280px;
             width: 86%;
-            margin-bottom: 1%;
             div{
                 min-height: 35px;
                 max-height: 35px;

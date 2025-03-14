@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://crmapi.somee.com/',
+        target: 'https://localhost:7266',
         changeOrigin: true,
         secure: false,
       },
@@ -17,7 +17,6 @@ export default defineConfig({
   plugins: [
     vue()
   ],
-  base: 'https://feliberrutti.github.io/velCRM',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
