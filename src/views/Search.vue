@@ -2,12 +2,11 @@
     <div id="searchViewContainer">
         <div id="searchContainer">
             <span>
-                DNI:
+                <b>DNI:</b>
             </span>
             <input v-model="customerId" id="searchContainerInput" type="text"/>
             <button @click="searchCustomer"><b>BUSCAR</b></button>
         </div>
-        <!-- todo!! -->
          <!-- DIV CLIENTE NO ENCONTRADO -->
         <div class="resultsContainer" style="align-items: end;"
         v-if="isUserNotFoundVisible">
@@ -89,6 +88,13 @@
                 </div>
             </div>
         </div>
+        <!-- ##############--MODAL VER OBSERVACIONES--############## -->
+         <div id="showObservationModal"
+         v-if="isShowObservationVisible">
+            <span>Fecha: {{ customerObClick.date }}</span>
+            <p>{{ customerObClick.content }}</p>
+            <button @click="closeShowObservationModal()"><B>CERRAR</B></button>
+         </div>
         <!-- ##############--OBSERVACIONES--############## -->
         <div id="resultContentValueObservations"
         v-if="customer && !isUserNotFoundVisible">
@@ -99,7 +105,8 @@
                 v-if="customerOb">
                     <div class="observationValue"
                     v-for="(x, index) in customerOb"
-                    :key="index">
+                    :key="index"
+                    @click="handleObservationClick(index)">
                         <span class="observationValueDate">
                             {{ x.date }}
                         </span>
@@ -486,6 +493,11 @@
         box-shadow: 2px 2px 0.1px 1px grey;
     }
 
+    .observationValue:hover{
+        background-color: rgb(100,100,100);
+        cursor: pointer
+    }
+
     .observationValueDate{
         border-radius: 5px;
         width: 7%;
@@ -498,6 +510,46 @@
         border: 1.6px solid black;
         border-radius: 10px;
         background-color: rgb(240,240,240);
+    }
+
+    #showObservationModal{
+        border: 2px solid black;
+        border-radius: 5px;
+        position: fixed;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(180,180,180);
+        span{
+            width:25%;
+            padding: 0.5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3%;
+        }
+        p{
+            padding: 1%;
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 90%;
+            background-color: rgb(220,220,220);
+        }
+        button{
+            padding: 0.4%;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+            width: 18%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     #AddObservationContainer{
@@ -772,6 +824,23 @@
             }
         }
 
+        #showObservationModal{
+            left: 20%;
+            top: 10%;
+            min-height: 350px;
+            max-height: 350px;
+            p{
+                min-height: 240px;
+                max-height: 240px;
+            }
+            button{
+                min-height: 23px;
+                max-height: 25px;
+                max-width: 100px;
+                margin-bottom: 2%;
+            }
+        }
+
         #resultContentValueObservations{
             margin-top: 2.5%;
             min-height: 285px;
@@ -886,6 +955,15 @@
             padding-top: 0%;
             max-height: 165px;
         }
+
+        #showObservationModal{
+            min-height: 355px;
+            max-height: 355px;
+            max-width: 650px;
+            button{
+                margin-bottom: 4%;
+            }
+        }
     }
 
     @media(min-width: 1329px){
@@ -929,6 +1007,16 @@
             min-height: 250px;
             max-height: 250px;
         }
+
+        #showObservationModal{
+            min-height: 355px;
+            max-height: 355px;
+            max-width: 650px;
+            top: 8%;
+            button{
+                margin-bottom: 4%;
+            }
+        }
     }
 </style>
 
@@ -962,7 +1050,6 @@
     //Constantes Customers
     const customerId = ref('');
     const customer = ref(null);
-    const customerOb = ref(null);
 
     const customerList = ['Nombre','Apellido','DNI','Nacimiento',
                             'Alta'];
@@ -1009,6 +1096,40 @@
 
     //Constante usuario no encontrado
     const isUserNotFoundVisible = ref(false);
+
+    //CONSTANTES OBSERVACIONES
+
+//Constante ver Observaciones
+    const isShowObservationVisible = ref(false);
+    //Observaciones del cliente
+    const customerOb = ref(null);
+        //Auxiliar Click
+    const customerObClick = ref(null);
+
+    //FUNCIONES OBSERVACIONES
+
+    //MOSTRAR MODAL VER OBSERVACIONES
+    const openShowObservationModalVisible = ()=>{
+        if(!isShowObservationVisible.value){
+            isShowObservationVisible.value = true;
+        };
+    };
+
+    const closeShowObservationModal = ()=>{
+        if(isShowObservationVisible.value){
+            isShowObservationVisible.value = false;
+        };
+    };
+
+    const ShowObservationModal = ()=>{
+        isShowObservationVisible.value = false;
+    };
+
+    //OBSERVACION CLICK
+    const handleObservationClick = (index)=>{
+        customerObClick.value = customerOb.value[index];
+        openShowObservationModalVisible();
+    };
 
 
 //FUNCIONES CUSTOMER
