@@ -11,7 +11,7 @@
         <div class="resultsContainer" style="align-items: end;"
         v-if="isUserNotFoundVisible">
             <div id="userNotFind">
-                <span><b>Usuario no encontrado.</b></span>
+                <span><b>Cliente no encontrado.</b></span>
                 <button @click="router.push('/customerRegister')" ><b>Registrar</b></button>
             </div>
         </div>
