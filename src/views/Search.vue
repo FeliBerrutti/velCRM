@@ -9,7 +9,8 @@
         </div>
         <!-- todo!! -->
          <!-- DIV CLIENTE NO ENCONTRADO -->
-        <div class="resultsContainer" style="align-items: end;">
+        <div class="resultsContainer" style="align-items: end;"
+        v-if="isUserNotFoundVisible">
             <div id="userNotFind">
                 <span><b>Usuario no encontrado.</b></span>
                 <button @click="router.push('/customerRegister')" ><b>Registrar</b></button>
@@ -17,7 +18,7 @@
         </div>
         <!-- ##############--DIV USUARIOS--############## -->
         <div class="resultsContainer"
-            v-if="customer">
+            v-if="customer && !isUserNotFoundVisible">
             <!-- ##############--DIV MODAL IZQUIERDA--############## -->
             <div id="leftContent">
                 <div class="resultContent"
@@ -90,7 +91,7 @@
         </div>
         <!-- ##############--OBSERVACIONES--############## -->
         <div id="resultContentValueObservations"
-        v-if="customer">
+        v-if="customer && !isUserNotFoundVisible">
                 <h4>
                     <b>Observaciones</b>
                 </h4>
@@ -487,7 +488,7 @@
 
     .observationValueDate{
         border-radius: 5px;
-        width: 12%;
+        width: 7%;
         padding: 0.1%;
     }
 
@@ -703,6 +704,7 @@
             max-height: 40px;
             margin-top: 3%;
             button{
+                min-width: 90px;
                 min-height: 25px;
                 max-height: 25px;
             }
@@ -798,6 +800,7 @@
         .observationValueDate{
             min-height: 25px;
             max-height: 25px;
+            min-width: 85px;
         }
 
         .observationValueContent{
@@ -867,6 +870,21 @@
                 margin-left: 1%;
                 margin-right: 1%;
             }
+        }
+    }
+
+    @media(min-width: 1000px) and (max-width: 1328px){
+        #resultContentValueObservations{
+            max-height: 290px;
+            margin-top: 0.5%;
+            button{
+                margin-top: 0.8%;
+            }
+        }
+
+        #observationValueContentContainer{
+            padding-top: 0%;
+            max-height: 165px;
         }
     }
 
@@ -989,29 +1007,19 @@
     const auxIsErrorModalVisible = ref(false);
     const refErrorMSG = ref('');
 
+    //Constante usuario no encontrado
+    const isUserNotFoundVisible = ref(false);
+
 
 //FUNCIONES CUSTOMER
 
     //BACK
-    //todo!!
-    // const searchCustomer = async()=>{
-    //     try{
-    //         closeModals();
-    //         customer.value = await getCustomerByDNI(customerId.value);
-    //         console.log('Cliente obtenido con exito.');
-    //         console.log('Cliente: ' + customer.value[0].name);
-    //         console.log('DNI: ' + customerId.value);
-    //         customerOb.value = await getObservationByCI(customer.value[0].id);
-    //         console.log('Observaciones obtenidas con exito.');
-    //     }catch(err){
-    //         console.error(err);
-    //     };
-    // };
     const searchCustomer = async () => {
         try {
             closeModals();
             const auxCustomerId = ref(customerId.value.trim());
-            const response = await getCustomerByDNI(auxCustomerId.value);
+            if(customerId.value.trim() !== ''){
+                const response = await getCustomerByDNI(auxCustomerId.value);
             console.log('verificando response: ' + response);
             if (response && response.length > 0) {
                 customer.value = response;
@@ -1021,14 +1029,18 @@
                     customerOb.value = await getObservationByCI(customer.value[0].id);
                     console.log('Observaciones obtenidas con éxito.');
                 } else {
+                    isUserNotFoundVisible.value = true;
                     console.error('El cliente no tiene un id válido.');
                 };
             } 
             else {
+                isUserNotFoundVisible.value = true;
                 console.error('No se encontró el cliente.');
+            }
             }
         } 
         catch (err) {
+            isUserNotFoundVisible.value = true;
             console.error(err);
         }
     };
@@ -1135,6 +1147,7 @@
         isPMVisible.value = false;
         isPlansModalVisible.value = false;
         isAddObservationVisible.value = false;
+        isUserNotFoundVisible.value = false;
     };
 
     //---------------FUNCIONES MODALS
