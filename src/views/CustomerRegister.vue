@@ -19,7 +19,7 @@
                             {{ x }}
                         </option>
                     </select>
-                    <input v-if="index === 2" v-model="customerValues[index]" type="date">
+                    <input id="dateInput" v-if="index === 2" v-model="customerValues[index]" type="date">
                     <input v-if="index !== 4 && index !==5 && index !==2" v-model="customerValues[index]" type="text">
                 </div>
                 <!-- #1 -->
@@ -106,6 +106,10 @@
         select:hover{
             cursor: pointer;
         }
+    }
+
+    #dateInput:hover{
+        cursor: pointer;
     }
 
     #userFormRegisterLeft{
