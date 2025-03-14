@@ -279,7 +279,6 @@
 
      //### FUNCIONES MODAL MENSAJE DE ERROR
      const handleIsErrorModalVisible = (aux)=>{
-        console.log('Entrando a handleIsErrorModalVisible.');
         if(!auxIsErrorModalVisible.value){
             refErrorMSG.value = aux;
             auxIsErrorModalVisible.value = true;
@@ -304,14 +303,6 @@
         const creditCardCode = auxPayCC.value[2];
         const creditCardExp = auxPayCC.value[1];
         const infoPay = refPayMethodsList.value;
-        console.log(`Nombre: ${name},
-                    apellido: ${lastname},
-                    dni : ${dni},
-                    cumpleaños: ${birthday},
-                    cbu: ${cbu},
-                    numero de tarjeta: ${creditCardNumber},
-                    codigo de seguridad: ${creditCardCode},
-                    fecha de vencimiento: ${creditCardExp}`);    
 
         //VALIDAR NOMBRE Y APELLIDOS
         if(name.trim() === '' || 
