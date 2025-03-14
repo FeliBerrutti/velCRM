@@ -101,7 +101,7 @@
             justify-content: center;
         }
         input, select{
-            width: 50%;
+            width: 52%;
             padding: 0.1%;
             border: 1.5px solid black;
             border-radius: 5px;
@@ -156,7 +156,7 @@
     .userRegisterFormInputContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 70%;
+        width: 80%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -191,8 +191,8 @@
             input, select{
                 min-height: 20px;
                 max-height: 20px;
-                min-width: 160px;
-                max-width: 160px;
+                /* min-width: 160px;
+                max-width: 160px; */
             }
         }
 
@@ -236,8 +236,8 @@
         .userRegisterFormInputContainer{
             min-height: 26px;
             max-height: 26px;
-            min-width: 340px;
-            max-width: 340px;
+            min-width: 380px;
+            max-width: 380px;
             margin-top: 1.5%;
         }
     }
