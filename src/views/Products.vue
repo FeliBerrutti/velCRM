@@ -278,8 +278,8 @@
         }
 
         #productsContainer{
-            min-height: 310px;
-            max-height: 310px;
+            min-height: 350px;
+            max-height: 350px;
             div{
                 min-height: 35px;
                 max-height: 35px;
@@ -364,9 +364,10 @@
         }
 
         #productsContainer{
-            min-height: 280px;
-            max-height: 280px;
+            min-height: 350px;
+            max-height: 350px;
             width: 86%;
+            margin-bottom: 1%;
             div{
                 min-height: 35px;
                 max-height: 35px;
