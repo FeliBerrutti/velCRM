@@ -1,6 +1,11 @@
 <template>
-    <div id="productsViewContainer">
-        <!-- todo!! -->
+    <!-- DIV SPINNER -->
+     <div class="productsViewContainer" style="justify-content: center;"
+     v-if="isSpinnerVisible">
+        <Spinner></Spinner>
+     </div>
+    <div class="productsViewContainer"
+    v-if="refPlan && !isSpinnerVisible">
         <div id="productsContainerTitle">
                 <span><b>Plan</b></span>
                 <span><b>Precio</b></span>
@@ -62,7 +67,7 @@
 </template>
 
 <style scoped>
-    #productsViewContainer{
+    .productsViewContainer{
         width: 100%;
         padding: 0.1%;
         display: flex;
@@ -267,7 +272,7 @@
     }
 
     @media(min-width: 820px) and (max-width: 1024px){
-        #productsViewContainer{
+        .productsViewContainer{
             min-height: 600px;
             max-height: 650px;
         }
@@ -352,7 +357,7 @@
     }
 
     @media(min-width: 1025px){
-        #productsViewContainer{
+        .productsViewContainer{
             min-height: 670px;
             max-height: 670px;
         }
@@ -449,6 +454,7 @@
     import { ref } from 'vue';
     import { getAllPlans, getPlanByID, addPlan, deletePlan } from '@/services/PlanService';
     import { Plan } from '@/models/Plan';
+    import Spinner from '@/components/Spinner.vue';
 
     const refPlan = ref(null);
     const errorMsg = ref('');
@@ -461,6 +467,21 @@
     const optionsPlanList = ref(['Plan','Precio'])
     const addProductsRef = ref(Array(optionsPlanList.value.length).fill(''));
 
+    //CONSTANTE SPINNER
+    const isSpinnerVisible = ref(false);
+    //FUNCIONES SPINNER
+    const showSpinner = ()=>{
+        if(!isSpinnerVisible.value){
+            isSpinnerVisible.value = true;
+        }
+    };
+
+    const closeSpinner = ()=>{
+        if(isSpinnerVisible.value){
+            isSpinnerVisible.value = false;
+        }
+    };
+
     function handleAddPlanButtonClick(){
         isAddPlanVisible.value = !isAddPlanVisible.value;
     };
@@ -471,9 +492,14 @@
 
     const searchPlans = async()=>{
         try{
-            const output = await getAllPlans();
-            refPlan.value = output;
+            showSpinner();
+            const response = await getAllPlans();
+            if(response){
+                closeSpinner();
+                refPlan.value = response;
+            }
         }catch(err){
+            closeSpinner();
             console.log(err);
         };
     }
