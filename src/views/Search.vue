@@ -1096,7 +1096,7 @@
     //Constante spinner
     const isSpinnerVisible = ref(false);
 
-    //FUNCION SPINNER
+    //FUNCIONES SPINNER
     const showSpinner = ()=>{
         if(!isSpinnerVisible.value){
             isSpinnerVisible.value = true;

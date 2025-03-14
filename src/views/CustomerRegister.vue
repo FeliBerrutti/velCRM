@@ -1,5 +1,12 @@
 <template>
-    <div id="userRegisterViewContainer">
+    <!-- DIV SPINNER -->
+     <div class="userRegisterViewContainer" style="display: flex; flex-direction: column; 
+     justify-content: center; align-items: center;"
+     v-if="isSpinnerVisible">
+        <Spinner></Spinner>
+     </div>
+    <div class="userRegisterViewContainer"
+    v-if="!isSpinnerVisible">
         <h4>
             Registrar Cliente
         </h4>
@@ -63,7 +70,7 @@
 </template>
 
 <style scoped>
-    #userRegisterViewContainer{
+    .userRegisterViewContainer{
         width: 100%;
         padding: 0.1%;
         h4{
@@ -164,7 +171,7 @@
     }
 
     @media(min-width: 820px){
-        #userRegisterViewContainer{
+        .userRegisterViewContainer{
             min-height: 595px;
             max-height: 595px;
             h4{
@@ -256,6 +263,7 @@
     import ConfirmationModal from '@/components/ConfirmationModal.vue';
     import ErrorModal from '@/components/ErrorModal.vue';
     import router from '@/router';
+    import Spinner from '@/components/Spinner.vue';
 
     //Usuario generico
     const userID = 1;
@@ -279,7 +287,6 @@
 
      //### FUNCIONES MODAL MENSAJE DE ERROR
      const handleIsErrorModalVisible = (aux)=>{
-        console.log('Entrando a handleIsErrorModalVisible.');
         if(!auxIsErrorModalVisible.value){
             refErrorMSG.value = aux;
             auxIsErrorModalVisible.value = true;
@@ -287,6 +294,22 @@
             auxIsErrorModalVisible.value = false;
             refErrorMSG.value = '';
         };
+    };
+
+    //CONSTANTE SPINNER
+    const isSpinnerVisible = ref(null);
+
+    //FUNCIONES SPINNER
+    const showSpinner = ()=>{
+        if(!isSpinnerVisible.value){
+            isSpinnerVisible.value = true;
+        }
+    };
+
+    const closeSpinner = ()=>{
+        if(isSpinnerVisible.value){
+            isSpinnerVisible.value = false;
+        }
     };
 
     //Constantes modal mensaje de error
@@ -304,14 +327,6 @@
         const creditCardCode = auxPayCC.value[2];
         const creditCardExp = auxPayCC.value[1];
         const infoPay = refPayMethodsList.value;
-        console.log(`Nombre: ${name},
-                    apellido: ${lastname},
-                    dni : ${dni},
-                    cumpleaños: ${birthday},
-                    cbu: ${cbu},
-                    numero de tarjeta: ${creditCardNumber},
-                    codigo de seguridad: ${creditCardCode},
-                    fecha de vencimiento: ${creditCardExp}`);    
 
         //VALIDAR NOMBRE Y APELLIDOS
         if(name.trim() === '' || 
@@ -432,11 +447,15 @@
                     creditCardExp: auxPayCC.value[1]
                 };
             };
-
-            await addCustomer(auxCustomer);
-            router.push(`/search/${customerValues.value[3]}`);
+            showSpinner();
+            const response = await addCustomer(auxCustomer);
+            if(response){
+                closeSpinner();
+                router.push(`/search/${customerValues.value[3]}`);
+            }
         }catch (err) {
             console.error(err);
+            closeSpinner();
             handleIsErrorModalVisible('Error al registrar al cliente, pulse F5 y presione nuevamente.');
         }
     };

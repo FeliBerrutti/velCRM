@@ -31,9 +31,10 @@
         justify-content: center;
         background-color: rgba(240,240,240,0.7);
         box-shadow: 2px 2px 1px 1px grey;
-    }:hover{
+    }
+
+    .verticalOption:hover{
         cursor: pointer;
-        background-color: rgba(0,80,90);
     }
     
     @media(min-width: 821px){
