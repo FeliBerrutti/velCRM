@@ -12,15 +12,15 @@
                 <button @click="handleButtonSearchClick"><b>Buscar</b></button>
             </form>
         </div>
-        <div id="usersContainer"
-        v-if="refUsers"
-        @click="handleClickOutUserContents">
-            <div class="userContent"
+        <div class="userContent" id="userContentTitle"
             @click="handleClickOutUserContents">
                 <span><b>Nombre</b></span>
                 <span><b>Creado</b></span>
                 <span><b>Rol</b></span>
             </div>
+        <div id="usersContainer"
+        v-if="refUsers"
+        @click="handleClickOutUserContents">
             <div class="userContent"
             v-for="(x, index) in refUsers"
             :key="index" 
@@ -99,18 +99,18 @@
 
 <style scoped>
     #usersViewContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         padding: 1%;
-        h4{
-            width: 20%;
-            padding: 1%;
-            margin: 0;
-        }
     }
 
     #searchUsersContainer{
         border: 2px solid black;
         border-radius: 10px;
+        width: 95%;
         padding: 1%;
         background-color: rgba(150,150,150,0.9);
     }
@@ -122,19 +122,22 @@
         flex-direction: row;
         align-items: center;
         button{
-            width: 15%;
+            width: 20%;
             padding: 0.5%;
             border: 2px solid black;
             border-radius: 5px;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     }
 
     .searchUserFormContent{
         border: 2px solid black;
         border-radius: 5px;
-        width: 35%;
+        width: 45%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -148,7 +151,7 @@
             justify-content: center;
         }
         input{
-            width: 17%;
+            width: 70%;
             padding: 0.1%;
             border: 1.5px solid black;
             border-radius: 5px;
@@ -160,17 +163,23 @@
         border-radius: 10px;
         width: 97%;
         padding: 1%;
+        padding-top: 0%;
         display: flex;
         flex-direction: column;
         align-items: center;
         background-color: rgba(150,150,150,0.9);
-        overflow: scroll;
+        overflow: overlay;
+        scrollbar-width: none;
+        ::-webkit-scrollbar{
+            display: none;
+        }
+
     }
 
     .userContent{
         border: 2px solid black;
         border-radius: 10px;
-        width: 70%;
+        width: 90%;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
@@ -180,13 +189,23 @@
         span{
             border: 2px solid black;
             border-radius: 5px;
-            width: 20%;
+            width: 30%;
             padding: 0.5%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: rgba(240,240,240,0.9);
+        }
+    }
+
+    #userContentTitle{
+        width: 98%;
+        margin-bottom: 0%;
+        background-color: rgba(50,50,250,0.5);
+        span{
+            width: 26.5%;
+            background-color: rgba(200,250,200,0.5);
         }
     }
 
@@ -221,7 +240,7 @@
     #userOptionsContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 99%;
+        width: 98%;
         padding: 0.1%;
         display: flex;
         flex-direction: row;
@@ -235,6 +254,10 @@
             border-radius: 5px;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     }
 
@@ -342,16 +365,6 @@
         }
     }
 
-    /* .userReportHeaderLabel{
-        border: 2px solid black;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(150,150,150);
-    } */
-
     .userReportHeaderValue{
         border: 2px solid black;
         border-radius: 5px;
@@ -420,22 +433,11 @@
     @media(min-width: 820px){
         #usersViewContainer{
             min-height: 580px;
-            max-height: 580px;
-            min-width: 575px;
-            max-width: 575px;
-            h4{
-                min-height: 23px;
-                max-height: 23px;
-                min-width: 100px;
-                max-width: 100px;
-            }
         }
 
         #searchUsersContainer{
             min-height: 45px;
             max-height: 45px;
-            min-width: 560px;
-            max-width: 560px;
             margin-top: 1%;
         }
 
@@ -453,44 +455,33 @@
         .searchUserFormContent{
             min-height: 35px;
             max-height: 35px;
-            min-width: 200px;
-            max-width: 200px;
             margin-right: 2%;
             span{
                 min-height: 25px;
                 max-height: 25px;
                 min-width: 60px;
-                max-width: 60px;
+                /* max-width: 60px; */
                 margin-right: 2%;
             }
             input{
                 min-height: 20px;
                 max-height: 20px;
-                min-width: 100px;
-                max-width: 100px;
             }
         }
 
 
         #usersContainer{
-            min-height: 400px;
-            max-height: 400px;
-            min-width: 560px;
-            max-width: 560px;
-            margin-top: 1%;
+            min-height: 450px;
+            max-height: 450px;
         }
 
         .userContent{
             min-height: 30px;
             max-height: 30px;
-            min-width: 440px;
-            max-width: 440px;
-            margin-top: 1%;
+            margin-bottom: 0.5%;
             span{
                 min-height: 21.5px;
                 max-height: 21.5px;
-                min-width: 100px;
-                max-width: 100px;
                 margin-right: 2%;
             }
         }
@@ -513,8 +504,6 @@
         #userOptionsContainer{
             min-height: 50px;
             max-height: 50px;
-            min-width: 570px;
-            max-width: 570px;
             margin-top: 1%;
             button{
                 min-height: 25px;
@@ -639,6 +628,23 @@
             max-width: 250px;
         }
     }
+
+    @media(min-width: 1000px){
+        #searchUsersContainer{
+            width: 80%;
+        }
+
+        #userOptionsContainer{
+            width: 80%;
+        }
+
+        #usersContainer{
+            min-height: 500px;
+            max-height: 500px;
+        }
+    }
+
+
 </style>
 
 <script setup>
