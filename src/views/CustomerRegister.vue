@@ -20,7 +20,8 @@
                         </option>
                     </select>
                     <input id="dateInput" v-if="index === 2" v-model="customerValues[index]" type="date">
-                    <input v-if="index !== 4 && index !==5 && index !==2" v-model="customerValues[index]" type="text">
+                    <input v-if="index !== 4 && index !==5 && index !==2" v-model="customerValues[index]" type="text"
+                    :placeholder="placeholderInfo[index]">
                 </div>
                 <!-- #1 -->
                 <div class="userRegisterFormInputContainer"
@@ -29,7 +30,8 @@
                         CBU
                     </span>
                     <input type="text"
-                    v-model="auxPayCBU">
+                    v-model="auxPayCBU"
+                    :placeholder="placeholderCBU">
                 </div>
                 <!-- #2 -->
                 <div 
@@ -41,7 +43,8 @@
                         {{ x }}
                     </span>
                     <input type="text"
-                    v-model="auxPayCC[index]">
+                    v-model="auxPayCC[index]"
+                    :placeholder="placeholderCC[index]">
                 </div>
         </form>
         <button @click="handleConfirmAddCustomerModal()" class=""><b>Registrar</b></button>
@@ -98,7 +101,7 @@
             justify-content: center;
         }
         input, select{
-            width: 50%;
+            width: 52%;
             padding: 0.1%;
             border: 1.5px solid black;
             border-radius: 5px;
@@ -153,7 +156,7 @@
     .userRegisterFormInputContainer{
         border: 2px solid black;
         border-radius: 10px;
-        width: 70%;
+        width: 80%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -188,8 +191,8 @@
             input, select{
                 min-height: 20px;
                 max-height: 20px;
-                min-width: 160px;
-                max-width: 160px;
+                /* min-width: 160px;
+                max-width: 160px; */
             }
         }
 
@@ -233,8 +236,8 @@
         .userRegisterFormInputContainer{
             min-height: 26px;
             max-height: 26px;
-            min-width: 340px;
-            max-width: 340px;
+            min-width: 380px;
+            max-width: 380px;
             margin-top: 1.5%;
         }
     }
@@ -265,6 +268,11 @@
     const auxPayCC = ref(['','','']);
 
     const creditCardDataList = ref(['Numero de Tarjeta', 'Fecha Vencimiento', 'Codigo de seguridad']);
+
+    //Listas placeholders
+    const placeholderInfo = ['NOMBRE','APELLIDO','','XXXXXXXX'];
+    const placeholderCC = ['XXXXXXXXXXXXXXXX','dd/mm','XXX']
+    const placeholderCBU = ['XXXXXXXXXXXXXXXXXXXXXX']
 
     //Constantes modal confirmación agregar cliente
     const isConfirmationAddModalVisible = ref(false);
@@ -389,7 +397,6 @@
 
 
     const handleModalAddConfirm = async(output) => {
-        console.log('handleModalAddConfirm ejecutada.', output);
         handleConfirmAddCustomerModal();
         
         if(output){
@@ -427,9 +434,7 @@
             };
 
             await addCustomer(auxCustomer);
-            console.log('Probando function paa: ' + customerValues.value[3])
             router.push(`/search/${customerValues.value[3]}`);
-            console.log('Cliente añadido con éxito.');
         }catch (err) {
             console.error(err);
             handleIsErrorModalVisible('Error al registrar al cliente, pulse F5 y presione nuevamente.');

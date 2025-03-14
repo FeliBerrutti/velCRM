@@ -1141,14 +1141,10 @@
             const auxCustomerId = ref(customerId.value.trim());
             if(customerId.value.trim() !== ''){
                 const response = await getCustomerByDNI(auxCustomerId.value);
-            console.log('verificando response: ' + response);
             if (response && response.length > 0) {
                 customer.value = response;
-                console.log('Cliente:', customer.value[0].dni);
-                console.log('DNI:', customerId.value);
                 if (customer.value[0].id) {
                     customerOb.value = await getObservationByCI(customer.value[0].id);
-                    console.log('Observaciones obtenidas con éxito.');
                 } else {
                     isUserNotFoundVisible.value = true;
                     console.error('El cliente no tiene un id válido.');
@@ -1170,8 +1166,6 @@
     const getPMbI = async()=>{
         try{
             customerPMV.value = await getPMbyID(customer.value[0].id);
-            console.log('Metodos de pago traídos con exito.');
-            console.log(customerPMV.value);
         }catch(err){
             console.error('Error al traer metodos de pago.', err);
         };
@@ -1182,7 +1176,6 @@
         if(!isPMVisible.value){
             getPMbI();
             isPlansModalVisible.value = false;
-            console.log(customerPMV.value);
             isPMVisible.value = true;
         }else{
             isPMVisible.value = false;
@@ -1237,7 +1230,6 @@
 
     const handleAllPlansContentClick = (index)=>{
         refAllPlansContentClick.value = refAllPlans.value[index];
-        console.log(refAllPlansContentClick.value);
     };
 
     
@@ -1246,8 +1238,6 @@
     const getPlansById = async()=>{
         try{
             refPlans.value = await getCustomerPlansById(customer.value[0].id);
-            console.log(refPlans.value[0].sellID);
-            console.log('Ventas traidas con exito.');
         }catch(err){
             console.error('Error al traer ventas.', err);
         };
@@ -1257,7 +1247,6 @@
     const searchPlans = async()=>{
         try{
             refAllPlans.value = await getAllPlans();
-            console.log('Planes traídos exitosamente.');
         }catch(err){
             console.error('Error al traer planes.', err);
         };
@@ -1325,7 +1314,6 @@
 
     //BOTONES
     const handleModalSellsConfirm = async(output) => {
-        console.log('handleModalSellsConfirm ejecutada.', output);
         if(output){
             try{
             const auxSell = {
@@ -1334,9 +1322,7 @@
                 planId: refAllPlansContentClick.value.id,
                 state: true
             };
-            console.log(auxSell);
             await addSell(auxSell);
-            console.log('Plan dado de alta con éxito.');
             getPlansById();
             handleConfirmSellsModal();
             handleIsAddPlanModalVisible();
@@ -1350,7 +1336,6 @@
 
     //### MODAL MENSAJE DE ERROR
     const handleIsErrorModalVisible = ()=>{
-        console.log('Entrando a handleIsErrorModalVisible.');
         if(!auxIsErrorModalVisible.value){
             auxIsErrorModalVisible.value = true;
         }else{
@@ -1362,7 +1347,6 @@
     onMounted(()=>{
     if(route.params.searchValue){
         customerId.value = route.params.searchValue;
-        console.log(' probando onmounted' + customerId.value);
         searchCustomer();
     }
     });
