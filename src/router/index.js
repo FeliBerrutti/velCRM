@@ -8,15 +8,14 @@ import Reports from '@/views/Reports.vue';
 
 const routes = [
   {path: '/users', name: 'usersView', component: Users},
-  {path: '/products', name: 'productsView', component: Products},
   {path: '/customerRegister', name: 'customerRegister', component: CustomerRegister},
   {path: '/search/:searchValue', name: 'search', component: Search, props: true},
-  {path: '/', name: 'login', component: Login},
+  {path: '/', name: 'productsView', component: Products},
   {path: '/reports', name: 'reports', component: Reports}
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory('#'),
   routes
 })
 
