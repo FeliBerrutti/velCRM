@@ -7,8 +7,16 @@
             <input v-model="customerId" id="searchContainerInput" type="text"/>
             <button @click="searchCustomer"><b>BUSCAR</b></button>
         </div>
+        <!-- todo!! -->
+         <!-- DIV CLIENTE NO ENCONTRADO -->
+        <div class="resultsContainer" style="align-items: end;">
+            <div id="userNotFind">
+                <span><b>Usuario no encontrado.</b></span>
+                <button @click="router.push('/customerRegister')" ><b>Registrar</b></button>
+            </div>
+        </div>
         <!-- ##############--DIV USUARIOS--############## -->
-        <div id="resultsContainer"
+        <div class="resultsContainer"
             v-if="customer">
             <!-- ##############--DIV MODAL IZQUIERDA--############## -->
             <div id="leftContent">
@@ -196,7 +204,36 @@
         border-radius: 5px;
     }
 
-    #resultsContainer{
+    #userNotFind{
+        width: 50%;
+        height: auto;
+        padding: 1%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        span{
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            font-size: large;
+        }
+        button{
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 255, 0.477);
+            color: white;
+            width: 32%;
+            :hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .resultsContainer{
         border: 2px solid black;
         border-radius: 10px;
         width: 98%;
@@ -363,7 +400,6 @@
         overflow: scroll;
     }
 
-    /* todo!! */
     .modalValue{
         border: 2px solid black;
         border-radius: 5px;
@@ -623,7 +659,21 @@
             }
         }
 
-        #resultsContainer{
+        #userNotFind{
+            min-height: 40px;
+            max-height: 40px;
+            span{
+                min-height: 35px;
+                max-height: 35px;
+                max-width: 230px;
+            }
+            button{
+                min-height: 30px;
+                max-height: 30px;
+            }
+        }
+
+        .resultsContainer{
             margin-top: 1%;
             min-height: 240px;
             max-height: 240px;
@@ -821,6 +871,8 @@
     }
 
     @media(min-width: 1329px){
+        
+
         #addSellContainer{
             min-height: 320px;
             max-height: 320px;
@@ -834,7 +886,7 @@
             margin-top: 0%;
         }
 
-        #resultsContainer{
+        .resultsContainer{
             margin-top: 0%;
         }
 
@@ -872,6 +924,7 @@
     import ConfirmationModal from '@/components/ConfirmationModal.vue';
     import ErrorModal from '@/components/ErrorModal.vue';
     import { useRoute } from 'vue-router';
+    import router from '@/router';
 
     const route = useRoute();
 
@@ -1172,7 +1225,6 @@
         };
     };
 
-    // todo!!
     onMounted(()=>{
     if(route.params.searchValue){
         customerId.value = route.params.searchValue;
