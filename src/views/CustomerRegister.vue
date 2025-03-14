@@ -19,7 +19,8 @@
                             {{ x }}
                         </option>
                     </select>
-                    <input v-if="index !== 4 && index !==5" v-model="customerValues[index]" type="text">
+                    <input v-if="index === 2" v-model="customerValues[index]" type="date">
+                    <input v-if="index !== 4 && index !==5 && index !==2" v-model="customerValues[index]" type="text">
                 </div>
                 <!-- #1 -->
                 <div class="userRegisterFormInputContainer"
@@ -155,7 +156,7 @@
         background-color: rgba(240,240,240,0.7);
     }
 
-    @media(min-width: 821px){
+    @media(min-width: 820px){
         #userRegisterViewContainer{
             min-height: 595px;
             max-height: 595px;
@@ -233,6 +234,12 @@
             margin-top: 1.5%;
         }
     }
+
+    @media(min-width: 1328px){
+        #userRegisterForm{
+            padding-top: 0%;
+        }
+    }
 </style>
 
 <script setup>
@@ -241,6 +248,7 @@
     import { addCustomer } from '@/services/CustomerService';
     import ConfirmationModal from '@/components/ConfirmationModal.vue';
     import ErrorModal from '@/components/ErrorModal.vue';
+    import router from '@/router';
 
     //Usuario generico
     const userID = 1;
@@ -273,7 +281,6 @@
     const auxIsErrorModalVisible = ref(false);
     const refErrorMSG = ref('');
 
-    //todo!!
     //Funciones modal confirmación registrar cliente
     const handleConfirmAddCustomerModal = ()=>{
         const name = customerValues.value[0];
@@ -294,51 +301,41 @@
                     codigo de seguridad: ${creditCardCode},
                     fecha de vencimiento: ${creditCardExp}`);    
 
-        var aprob = true;
-
         //VALIDAR NOMBRE Y APELLIDOS
         if(name.trim() === '' || 
         lastname.trim() === '') {
             handleIsErrorModalVisible('Nombre y apellido son obligatorios.');
-            aprob = false;
         }
 
         else if(/\d/.test(name) || /\d/.test(lastname)) {
             handleIsErrorModalVisible('Nombre y apellido no pueden contener números.');
-            aprob = false;
         }
         
         //VALIDAR FECHA DE NACIMIENTO
         else if(birthday.trim() === ''){
             handleIsErrorModalVisible('Fecha de nacimiento es obligatoria.');
-            aprob = false;
         }
         
         //VALIDAR DNI
         else if(dni.trim().length !== 8) {
             handleIsErrorModalVisible('DNI debe tener 8 dígitos.');
-            aprob = false;
         }
 
         else if(!/^\d+$/.test(dni.trim())) {
             handleIsErrorModalVisible('DNI debe contener solo números.');
-            aprob = false;
         } 
 
         //VALIDAR METODO DE PAGO
         else if(infoPay === ''){
             handleIsErrorModalVisible('Información de pago obligatoria.');
-            aprob = false;
         }
 
         //VALIDAR METODO DE PAGO CBU
         else if(infoPay === 'CBU' && cbu.trim().length !== 22) {
             handleIsErrorModalVisible('CBU debe tener 22 dígitos.');
-            aprob = false;
         }
         else if(infoPay === 'CBU' && !/^\d+$/.test(cbu.trim())) {
             handleIsErrorModalVisible('CBU debe contener solo números.');
-            aprob = false;
         } 
 
 
@@ -348,22 +345,18 @@
                 (creditCardNumber.trim().length < 15 || 
                 creditCardNumber.trim().length > 16)) {
             handleIsErrorModalVisible('El número de tarjeta de crédito debe tener entre 15 y 16 dígitos.');
-            aprob = false;
         }
         else if(infoPay === 'Tarjeta de crédito' && !/^\d+$/.test(creditCardNumber.trim())) {
             handleIsErrorModalVisible('El número de tarjeta de crédito debe contener solo números.');
-            aprob = false;
         } 
 
             //FECHA DE VENCIMIENTO
         else if(infoPay === 'Tarjeta de crédito' && creditCardExp.trim().length < 5) {
             handleIsErrorModalVisible('Fecha de vencimiento es obligatoria.');
-            aprob = false;
         }
 
         else if(infoPay === 'Tarjeta de crédito' && !/^\d{2}\/\d{2}$/.test(creditCardExp.trim())) {
             handleIsErrorModalVisible('Fecha de vencimiento debe tener el formato MM/AA.');
-            aprob = false;
         } 
 
             //CODIGO DE SEGURIDAD
@@ -371,17 +364,10 @@
                 (creditCardCode.trim().length < 3 || 
                 creditCardCode.trim().length > 4)) {
             handleIsErrorModalVisible('El código de seguridad debe tener entre 3 y 4 dígitos.');
-            aprob = false;
         }
         else if(infoPay === 'Tarjeta de crédito' && !/^\d+$/.test(creditCardCode.trim())) {
             handleIsErrorModalVisible('El código de seguridad debe contener solo números.');
-            aprob = false;
-        } 
-
-
-
-
-        if(aprob === true){
+        }else{
             if(!isConfirmationAddModalVisible.value){
                 isConfirmationAddModalVisible.value = true;
             }else{
@@ -391,8 +377,6 @@
     };
 
     //BOTONES
-
-    //todo!!
     const handleAddCustomerConfirmations = ()=>{
         if(!customerValues){
             console.log('Todos los campos son obligatorios.');
@@ -439,9 +423,12 @@
             };
 
             await addCustomer(auxCustomer);
+            console.log('Probando function paa: ' + customerValues.value[3])
+            router.push(`/search/${customerValues.value[3]}`);
             console.log('Cliente añadido con éxito.');
         }catch (err) {
             console.error(err);
+            handleIsErrorModalVisible('Error al registrar al cliente, pulse F5 y presione nuevamente.');
         }
     };
     };

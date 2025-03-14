@@ -1,6 +1,5 @@
 <template>
     <div id="usersViewContainer">
-        <h4>Usuarios</h4>
         <div id="searchUsersContainer">
             <form id="searchUsersForm" action="">
                 <div class="searchUserFormContent"
@@ -418,7 +417,7 @@
         background-color: white;
     }
 
-    @media(max-width: 820px){
+    @media(min-width: 820px){
         #usersViewContainer{
             min-height: 580px;
             max-height: 580px;
