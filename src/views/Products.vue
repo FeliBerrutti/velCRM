@@ -59,11 +59,17 @@
             <p>{{ refProductDetails }}</p>
         </div>
         <div id="productsOptionsContainer">
-            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
-            <button @click="deleteProduct"><b>Eliminar</b></button>
-            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
+            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para ejecutar esta acción.')"><b>Editar</b></button>
+            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para ejecutar esta acción.')"><b>Eliminar</b></button>
+            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para ejecutar esta acción.')"><b>Registrar</b></button>
         </div>
     </div>
+    <!-- MODAL MENSAJE DE ERROR -->
+    <ErrorModal
+        :refErrorModalMSG="refErrorMSG"
+        :isErrorModalVisible="auxIsErrorModalVisible"
+        @confirmErrorMSG="handleIsErrorModalVisible"
+     ></ErrorModal>
 </template>
 
 <style scoped>
@@ -455,6 +461,22 @@
     import { getAllPlans, getPlanByID, addPlan, deletePlan } from '@/services/PlanService';
     import { Plan } from '@/models/Plan';
     import Spinner from '@/components/Spinner.vue';
+    import ErrorModal from '@/components/ErrorModal.vue';
+
+    //Constantes modal mensaje de error
+    const auxIsErrorModalVisible = ref(false);
+    const refErrorMSG = ref('');
+
+    //### FUNCIONES MODAL MENSAJE DE ERROR
+    const handleIsErrorModalVisible = (aux)=>{
+        if(!auxIsErrorModalVisible.value){
+            refErrorMSG.value = aux;
+            auxIsErrorModalVisible.value = true;
+        }else{
+            auxIsErrorModalVisible.value = false;
+            refErrorMSG.value = '';
+        };
+    };
 
     const refPlan = ref(null);
     const errorMsg = ref('');

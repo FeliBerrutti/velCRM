@@ -9,7 +9,7 @@
             <h3>Iniciar Sesión</h3>
                 <form action="">
                     <div class="loginFormInputContainer">
-                        <span>Usuario</span>
+                        <span>Usuario</span> 
                         <input type="text" v-model="auxN">
                     </div>
                     <div class="loginFormInputContainer">
@@ -57,6 +57,9 @@
             padding: 1%;
             background-color: rgba(0, 0, 255, 0.477);
             color: white;
+            :hover{
+                cursor: pointer;
+            }
         }
         form{
             width: 90%;

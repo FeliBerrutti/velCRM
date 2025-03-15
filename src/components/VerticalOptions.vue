@@ -2,10 +2,17 @@
     <div id="verticalOptionsContainer">
         <div class="verticalOption"
         v-for="(x, index) in optionsList" 
-        :key="index" @click="handleOptionClick(index)">
+        :key="index" @click="handleOptionClick(index)"
+        v-if="!isLoginView">
             <span><b>{{ x }}</b></span>
         </div>
     </div>
+    <!-- MODAL MENSAJE DE ERROR -->
+    <ErrorModal
+        :refErrorModalMSG="refErrorMSG"
+        :isErrorModalVisible="auxIsErrorModalVisible"
+        @confirmErrorMSG="handleIsErrorModalVisible"
+     ></ErrorModal>
 </template>
 
 <style scoped>
@@ -53,6 +60,28 @@
 
 <script setup>
     import router from '@/router';
+    import ErrorModal from './ErrorModal.vue';
+    import { ref, onMounted } from 'vue';
+    import { useRoute } from 'vue-router';
+    import { watch } from 'vue';
+
+    const route = useRoute();
+    const isLoginView = ref(false);
+
+    //Constantes modal mensaje de error
+    const auxIsErrorModalVisible = ref(false);
+    const refErrorMSG = ref('');
+
+    //### FUNCIONES MODAL MENSAJE DE ERROR
+    const handleIsErrorModalVisible = (aux)=>{
+        if(!auxIsErrorModalVisible.value){
+            refErrorMSG.value = aux;
+            auxIsErrorModalVisible.value = true;
+        }else{
+            auxIsErrorModalVisible.value = false;
+            refErrorMSG.value = '';
+        };
+    };
 
     const handleOptionClick = (index)=>{
         index === 0 ?
@@ -62,11 +91,21 @@
         index === 2 ? 
         router.push('/products') :
         index === 3 ?
-        router.push('/reports') :
+        handleIsErrorModalVisible('Usted no posee los permisos necesarios para ingresar a esta sección.') :
         index === 4 ?
-        router.push('/users') :
+        handleIsErrorModalVisible('Usted no posee los permisos necesarios para ingresar a esta sección.') :
         console.log('Cerrar sesión.')
     }
 
-    const optionsList = ['Buscar','Registrar','Planes','Reportes','Usuarios','Cerrar Sesión']
+    const optionsList = ['Buscar','Registrar','Planes','Reportes','Usuarios','Cerrar Sesión'];
+
+    onMounted(() => {
+  isLoginView.value = route.name === 'login';
+});
+
+// Actualiza la condición cuando cambias de ruta
+watch(route, (newRoute) => {
+  isLoginView.value = newRoute.name === 'login';
+});
+    
 </script>
