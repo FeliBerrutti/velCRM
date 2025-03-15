@@ -174,6 +174,36 @@
             }
         }
     }
+
+    @media(min-width: 961px) and (max-width: 1024px){
+        #loginContainer{
+            min-height: 180px;
+            max-height: 180px;
+            button{
+                margin-top: 5%;
+            }
+        }
+    }
+
+    @media(min-width: 1025px) and (max-width: 1328px){
+        #loginContainer{
+            min-height: 180px;
+            max-height: 200px;
+            button{
+                margin-top: 2.5%;
+            }
+        }
+    }
+
+    @media(min-width: 1329px){
+        #loginContainer{
+            min-height: 210px;
+            max-height: 210px;
+            button{
+                margin-top: 2%;
+            }
+        }
+    }
 </style>
 
 <script setup>
