@@ -5,19 +5,17 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/velCRM/',
   server: {
     proxy: {
       '/api': {
-        target: 'http://crmapi.somee.com/',
+        target: 'https://localhost:7266',
         changeOrigin: true,
         secure: false,
       },
     },
   },
   plugins: [
-    vue(),
-    ghPages()
+    vue()
   ],
   resolve: {
     alias: {
