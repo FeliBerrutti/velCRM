@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAllDowns = async()=>{
     try{
-        const response = await axios.get(`/api/Downs/gAD`);
+        const response = await axios.get(`https://crmapi.somee.com/api/Downs/gAD`);
         return response.data;
     }catch(err){
         console.error('Error al obtener bajas.');
@@ -12,7 +12,7 @@ export const getAllDowns = async()=>{
 
 export const getDownsByCI = async(id)=>{
     try{
-        const response = await axios.get(`/api/Downs/gDbCI/${id}`);
+        const response = await axios.get(`https://crmapi.somee.com/api/Downs/gDbCI/${id}`);
         return response.data;
     }catch(err){
         console.error('Error al traer las bajas del Cliente.');
@@ -22,7 +22,7 @@ export const getDownsByCI = async(id)=>{
 
 export const addDown = async(down)=>{
     try{
-        const response = await axios.post(`/api/Downs/aD`, down);
+        const response = await axios.post(`https://crmapi.somee.com/api/Downs/aD`, down);
         return response.data;
     }catch(err){
         console.error('Error al registrar baja de servicio.');
