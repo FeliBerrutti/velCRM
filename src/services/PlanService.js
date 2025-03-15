@@ -13,7 +13,7 @@ export const getPlanByID = async(id)=>{
 
 export const getAllPlans = async()=>{
     try{
-        const response = await axios.get(`/api/Plans/gAP`);
+        const response = await axios.get(`https://crmapi.somee.com/api/Plans/gAP`);
         return response.data;
     }catch(err){
         console.log('Error al obtener información de planes. PlanService.js');
