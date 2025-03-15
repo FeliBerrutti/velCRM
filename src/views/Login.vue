@@ -1,5 +1,10 @@
 <template>
-    <div id="loginViewContainer">
+    <!-- DIV SPINNER -->
+    <div class="loginViewContainer" style="justify-content: center;"
+    v-if="isSpinnerVisible">
+        <Spinner></Spinner>
+    </div>
+    <div class="loginViewContainer" v-if="!isSpinnerVisible">
         <div id="loginContainer">
             <h3>Iniciar Sesión</h3>
                 <form action="">
@@ -12,14 +17,19 @@
                         <input type="password" v-model="auxP">
                     </div>
                 </form>
-                <button @click="login"><b>Ingresar</b></button>
+                <button @click="loginU()"><b>Ingresar</b></button>
         </div>
     </div>
+    <!-- MODAL MENSAJE DE ERROR -->
+    <ErrorModal
+        :refErrorModalMSG="refErrorMSG"
+        :isErrorModalVisible="auxIsErrorModalVisible"
+        @confirmErrorMSG="handleIsErrorModalVisible"
+     ></ErrorModal>
 </template>
 
 <style scoped>
-
-    #loginViewContainer{
+    .loginViewContainer{
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -178,12 +188,64 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { Login } from '@/models/Login';
+    import { loginUser } from '@/services/LoginService';
+    import router from '@/router';
+    import ErrorModal from '@/components/ErrorModal.vue';
+    import Spinner from '@/components/Spinner.vue';
 
-    const errMsg = ref('');
-    const userRef = ref(null);
-    // const auxU = ref(null);
+    //CONSTANTE SPINNER
+    const isSpinnerVisible = ref(null);
+
+    //FUNCIONES SPINNER
+    const showSpinner = ()=>{
+        if(!isSpinnerVisible.value){
+            isSpinnerVisible.value = true;
+        }
+    };
+
+    const closeSpinner = ()=>{
+        if(isSpinnerVisible.value){
+            isSpinnerVisible.value = false;
+        }
+    };
+
+    //Constantes Nombre y Password
     const auxN = ref('');
     const auxP = ref('');
-    const auxU = ref([auxN.value,auxP.value]);
+
+    //Constantes modal mensaje de error
+    const auxIsErrorModalVisible = ref(false);
+    const refErrorMSG = ref('');
+
+    //### FUNCIONES MODAL MENSAJE DE ERROR
+    const handleIsErrorModalVisible = (aux)=>{
+        if(!auxIsErrorModalVisible.value){
+            refErrorMSG.value = aux;
+            auxIsErrorModalVisible.value = true;
+        }else{
+            auxIsErrorModalVisible.value = false;
+            refErrorMSG.value = '';
+        };
+    };
+
+    //INICIAR SESION
+    const loginU = async()=>{
+        try{
+            showSpinner();
+            var auxLogin = new Login;
+            auxLogin.Nombre = auxN.value;
+            auxLogin.Contraseña = auxP.value;
+            console.log(auxLogin);
+            const response = await loginUser(auxLogin);
+            if(response){
+                closeSpinner();
+                router.push('/search/ ');
+            }
+        }catch(err){
+            closeSpinner();
+            handleIsErrorModalVisible('Credenciales incorrectas.')
+        }
+    }
 
 </script>
