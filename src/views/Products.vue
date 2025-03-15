@@ -342,11 +342,11 @@
         }
 
         #productDetailsContainer{
-            min-height: 200px;
-            max-height: 200px;
+            min-height: 160px;
+            max-height: 160px;
             margin-top: 2%;
             p{
-                min-height: 170px;
+                min-height: 125px;
             }
         }
     }
@@ -369,8 +369,8 @@
         }
 
         #productsContainer{
-            min-height: 355px;
-            max-height: 355px;
+            min-height: 280px;
+            max-height: 280px;
             width: 86%;
             div{
                 min-height: 35px;
@@ -442,14 +442,6 @@
                 max-height: 195px;
             }
         }
-    }
-
-    @media(min-width: 1328px){
-        #productsContainer{
-            min-height: 375px;
-            max-height: 375px;
-        }
-
     }
 </style>
 
