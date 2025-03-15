@@ -58,11 +58,6 @@
         <div id="productDetailsContainer">
             <p>{{ refProductDetails }}</p>
         </div>
-        <div id="productsOptionsContainer">
-            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
-            <button @click="deleteProduct"><b>Eliminar</b></button>
-            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
-        </div>
     </div>
 </template>
 
@@ -347,11 +342,11 @@
         }
 
         #productDetailsContainer{
-            min-height: 160px;
-            max-height: 160px;
+            min-height: 200px;
+            max-height: 200px;
             margin-top: 2%;
             p{
-                min-height: 125px;
+                min-height: 170px;
             }
         }
     }
@@ -374,8 +369,8 @@
         }
 
         #productsContainer{
-            min-height: 280px;
-            max-height: 280px;
+            min-height: 355px;
+            max-height: 355px;
             width: 86%;
             div{
                 min-height: 35px;
@@ -447,6 +442,14 @@
                 max-height: 195px;
             }
         }
+    }
+
+    @media(min-width: 1328px){
+        #productsContainer{
+            min-height: 375px;
+            max-height: 375px;
+        }
+
     }
 </style>
 
