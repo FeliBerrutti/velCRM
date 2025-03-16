@@ -97,7 +97,7 @@
         console.log('Cerrar sesión.')
     }
 
-    const optionsList = ['Buscar','Registrar','Planes','Reportes','Usuarios','Cerrar Sesión'];
+    const optionsList = ['Buscar','Registrar','Planes','Reportes','Usuarios'];
 
     onMounted(() => {
   isLoginView.value = route.name === 'login';

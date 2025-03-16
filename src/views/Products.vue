@@ -58,13 +58,14 @@
         <div id="productDetailsContainer">
             <p>{{ refProductDetails }}</p>
         </div>
+        <!-- todo!! -->
         <div id="productsOptionsContainer">
-            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
-            <button @click="deleteProduct"><b>Eliminar</b></button>
-            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
+            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para realizar esta acción.');"><b>Editar</b></button>
+            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para realizar esta acción.');"><b>Eliminar</b></button>
+            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para realizar esta acción.');"><b>Registrar</b></button>
         </div>
     </div>
-    <!-- MODAL MENSAJE DE ERROR -->
+    <!-- MODAL MENSAJE DE ERROR  -->
     <ErrorModal
         :refErrorModalMSG="refErrorMSG"
         :isErrorModalVisible="auxIsErrorModalVisible"
