@@ -20,6 +20,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 15%;
+        height: 94vh;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -47,7 +48,6 @@
     @media(min-width: 821px){
         #verticalOptionsContainer{
             min-height: 605px;
-            max-height: 700px;
         }
 
         .verticalOption{

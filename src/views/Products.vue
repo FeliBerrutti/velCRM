@@ -75,7 +75,8 @@
 <style scoped>
     .productsViewContainer{
         width: 100%;
-        padding: 0.1%;
+        height: 93vh;
+        padding: 1%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -94,6 +95,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 95%;
+        height: 2vh;
         padding: 0.5%;
         display: flex;
         flex-direction: row;
@@ -117,6 +119,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 95%;
+        height: 50vh;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -253,6 +256,7 @@
         border: 2px solid black;
         border-radius: 5px;
         width: 95%;
+        height: 30vh;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -268,7 +272,7 @@
             border: 2px solid black;
             border-radius: 5px;
             width: 90%;
-            height: auto;
+            height: 25vh;
             padding: 1%;
             background-color: rgba(240,240,240,0.9);
             margin: 0;
@@ -281,12 +285,10 @@
     @media(min-width: 820px) and (max-width: 1024px){
         .productsViewContainer{
             min-height: 600px;
-            max-height: 650px;
         }
 
         #productsContainerTitle{
             min-height: 35px;
-            max-height: 35px;
             span{
                 min-height: 21px;
                 max-height: 21px;
@@ -296,7 +298,6 @@
 
         #productsContainer{
             min-height: 310px;
-            max-height: 310px;
             div{
                 min-height: 35px;
                 max-height: 35px;
@@ -355,7 +356,6 @@
 
         #productDetailsContainer{
             min-height: 160px;
-            max-height: 160px;
             margin-top: 2%;
             p{
                 min-height: 125px;
@@ -366,12 +366,10 @@
     @media(min-width: 1025px){
         .productsViewContainer{
             min-height: 670px;
-            max-height: 670px;
         }
 
         #productsContainerTitle{
             min-height: 35px;
-            max-height: 35px;
             width: 85%;
             span{
                 min-height: 21px;
@@ -382,7 +380,6 @@
 
         #productsContainer{
             min-height: 280px;
-            max-height: 280px;
             width: 86%;
             div{
                 min-height: 35px;
@@ -447,7 +444,6 @@
 
         #productDetailsContainer{
             min-height: 220px;
-            max-height: 220px;
             width: 86%;
             p{
                 min-height: 195px;

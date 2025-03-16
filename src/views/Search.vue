@@ -178,6 +178,8 @@
 
 <style scoped>
     #searchViewContainer{
+        display: flex;
+        flex-direction: column;
         width: 100%;
         height: auto;
         button:hover{
@@ -257,6 +259,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 98%;
+        height: 25vh;
         padding: 1%;
         display: flex;
         flex-direction: row;
@@ -293,7 +296,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 98%;
-        height: auto;
+        height: 48vh;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -483,6 +486,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 97%;
+        height: 50vh;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -572,6 +576,7 @@
         position: fixed;
         padding: 1%;
         width: 70%;
+        height: 20vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -588,6 +593,7 @@
 
     #addObservationTextArea{
         width: 75%;
+        height: 15vh;
         padding: 1%;
         border: 2px solid black;
         border-radius: 10px;
@@ -619,7 +625,7 @@
         flex-direction: column;
         align-items: center;
         width: 50%;
-        height: auto;
+        height: 30vh;
     }
 
     .addSellContent{
@@ -661,6 +667,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 95%;
+        height: 20vh;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -676,6 +683,7 @@
 
     #addSellButtonsContainer{
         width: 90%;
+        height: 3vh;
         padding: 1%;
         display: flex;
         flex-direction: row;
@@ -748,7 +756,6 @@
         .resultsContainer{
             margin-top: 1%;
             min-height: 240px;
-            max-height: 240px;
         }
 
         #leftContent{
@@ -875,7 +882,6 @@
 
         #observationValueContentContainer{
             min-height: 200px;
-            max-height: 200px;
         }
 
         .observationValue{
@@ -897,7 +903,6 @@
 
         #AddObservationContainer{
             min-height: 250px;
-            max-height: 300px;
             max-width: 550px;
             top: 20%;
             left: 23%;
@@ -909,7 +914,6 @@
 
         #addObservationTextArea{
             min-height: 150px;
-            max-height: 150px;
             margin-top: 1%;
         }
 
@@ -944,12 +948,10 @@
 
         #addSellContentContainer{
             min-height: 210px;
-            max-height: 210px;
         }
 
         #addSellButtonsContainer{
             min-height: 25px;
-            max-height: 25px;
             button{
                 min-height: 25px;
                 max-height: 25px;
@@ -970,7 +972,6 @@
 
         #observationValueContentContainer{
             padding-top: 0%;
-            max-height: 165px;
         }
 
         #showObservationModal{
@@ -1020,12 +1021,10 @@
 
         #resultContentValueObservations{
             min-height: 350px;
-            max-height: 350px;
         }
 
         #observationValueContentContainer{
             min-height: 250px;
-            max-height: 250px;
         }
 
         #showObservationModal{
