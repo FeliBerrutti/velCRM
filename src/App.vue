@@ -44,7 +44,6 @@
 
         #rVC{
             min-height: 660px;
-            max-height: 660px;
             margin-left: 1%;
         }
     }
@@ -57,7 +56,6 @@
 
         #rVC{
             min-height: 690px;
-            max-height: 690px;
             margin-left: 1%;
             padding-top: 0.5%;
         }

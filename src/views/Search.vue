@@ -293,6 +293,7 @@
         border: 2px solid black;
         border-radius: 10px;
         width: 98%;
+        height: auto;
         padding: 1%;
         display: flex;
         flex-direction: column;
@@ -618,6 +619,7 @@
         flex-direction: column;
         align-items: center;
         width: 50%;
+        height: auto;
     }
 
     .addSellContent{
@@ -861,7 +863,6 @@
         #resultContentValueObservations{
             margin-top: 2.5%;
             min-height: 285px;
-            max-height: 300px;
             h4{
                 min-height: 22px;
                 max-height: 22px;
@@ -926,7 +927,6 @@
 
         #addSellContainer{
             min-height: 320px;
-            max-height: 320px;
             top: 10%;
             left: 25%;
         }
@@ -961,7 +961,7 @@
 
     @media(min-width: 1000px) and (max-width: 1328px){
         #resultContentValueObservations{
-            max-height: 290px;
+            min-height: 290px;
             margin-top: 0.5%;
             button{
                 margin-top: 0.8%;
@@ -981,6 +981,10 @@
                 margin-bottom: 4%;
             }
         }
+
+        #addSellContainer{
+            min-height: 320px;
+        }
     }
 
     @media(min-width: 1329px){
@@ -988,7 +992,6 @@
 
         #addSellContainer{
             min-height: 320px;
-            max-height: 320px;
         }
 
         #resultContentValueObservations{
