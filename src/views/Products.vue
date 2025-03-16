@@ -59,9 +59,9 @@
             <p>{{ refProductDetails }}</p>
         </div>
         <div id="productsOptionsContainer">
-            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para ejecutar esta acción.')"><b>Editar</b></button>
-            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para ejecutar esta acción.')"><b>Eliminar</b></button>
-            <button @click="handleIsErrorModalVisible('Usted no posee los permisos necesarios para ejecutar esta acción.')"><b>Registrar</b></button>
+            <button @click="handleUpdatePlanButtonClick"><b>Editar</b></button>
+            <button @click="deleteProduct"><b>Eliminar</b></button>
+            <button @click="handleAddPlanButtonClick"><b>Registrar</b></button>
         </div>
     </div>
     <!-- MODAL MENSAJE DE ERROR -->
@@ -268,6 +268,7 @@
             border: 2px solid black;
             border-radius: 5px;
             width: 90%;
+            height: auto;
             padding: 1%;
             background-color: rgba(240,240,240,0.9);
             margin: 0;
@@ -450,7 +451,6 @@
             width: 86%;
             p{
                 min-height: 195px;
-                max-height: 195px;
             }
         }
     }
@@ -461,7 +461,6 @@
     import { getAllPlans, getPlanByID, addPlan, deletePlan } from '@/services/PlanService';
     import { Plan } from '@/models/Plan';
     import Spinner from '@/components/Spinner.vue';
-    import ErrorModal from '@/components/ErrorModal.vue';
 
     //Constantes modal mensaje de error
     const auxIsErrorModalVisible = ref(false);
