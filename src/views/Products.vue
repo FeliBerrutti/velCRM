@@ -504,11 +504,11 @@
     };
 
     function handleAddPlanButtonClick(){
-        isAddPlanVisible.value = !isAddPlanVisible.value;
+        handleIsErrorModalVisible('Usted no posee los permisos necesarios para realizar esta acción.');
     };
 
     function handleUpdatePlanButtonClick(){
-        isUpdatePlanVisible.value = !isUpdatePlanVisible.value;
+        handleIsErrorModalVisible('Usted no posee los permisos necesarios para realizar esta acción.');
     };
 
     const searchPlans = async()=>{
@@ -549,15 +549,7 @@
     };
 
     const deleteProduct = async()=>{
-        try{
-            await deletePlan(refPlanClick.value.id);
-            console.log('Plan eliminado con exito.');
-            refPlanClick.value = null;
-            refProductDetails.value = null;
-            searchPlans();
-        }catch(err){
-            console.error(err);
-        };
+        handleIsErrorModalVisible('Usted no posee los permisos necesarios para realizar esta acción.');
     };
 
     searchPlans();
