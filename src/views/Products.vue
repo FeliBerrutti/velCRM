@@ -268,6 +268,7 @@
             border: 2px solid black;
             border-radius: 5px;
             width: 90%;
+            height: auto;
             padding: 1%;
             background-color: rgba(240,240,240,0.9);
             margin: 0;
@@ -450,7 +451,6 @@
             width: 86%;
             p{
                 min-height: 195px;
-                max-height: 195px;
             }
         }
     }
